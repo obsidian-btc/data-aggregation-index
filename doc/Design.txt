@@ -1,0 +1,122 @@
+Data Aggregation
+================
+
+Streams
+-------
+
+
+account:events
+accountWalletCustomerIndex
+accountWalletCustomerIndex:updateReferences
+accountTransactionWalletCustomerIndex
+accountTransactionWalletCustomerIndex:updateReferences
+accounts
+accountTransactions
+
+
+
+Terms
+-----
+
+Event
+        Any event with any logical relationship to a particular
+        entity can considered a Fact and be written to a FactStream
+        of the entity.
+
+        Example:
+
+            profile_assigned = WalletCustomer::Controls::Events::ProfileAssigned.example
+
+            event = DataAggregation::Index::Messages::Event.build profile_assigned
+
+
+Index
+        Consumer of an IndexStream.
+
+        Example:
+
+            class Account::Transaction::WalletCustomerIndex
+              include DataAggregation::Index
+            end
+
+            # Publish a fact
+            profile_assigned = WalletCustomer::Controls::Events::ProfileAssigned.example
+
+            publish = Account::Transaction::WalletCustomerIndex::Publish
+            publish.(profile_assigned) # Returns a Fact message that has been written
+
+            # Starting the machinery
+            index_consumer = Account::Transaction::WalletCustomerIndex::Consumer.build
+            update_references_consumer = Account::Transaction::WalletCustomerIndex::UpdateReferences::Consumer.build
+            process_host.register index_consumer, update_references_consumer
+
+
+IndexStream
+        Stream that contains two event types - Facts and References.
+        When a Fact is written, it is backfilled to all existing
+        References. When a Reference is written, all Facts are copied
+        to the desired stream.
+
+
+Reference
+        Message schema that defines a target stream to receive
+        facts about a particular entity.
+
+        Example:
+
+             reference = DataAggregation::Index::Reference.new
+             reference.stream_name = 'accountTransaction-1234'
+             reference
+
+
+
+
+Constant                                                                  Description
+---                                                                       ---                              
+DataAggregation::Index                                                    Top level module
+DataAggregation::Index::Consumer                                          Consumer that handles additional references and facts on an IndexStream
+DataAggregation::Index::WriteEvent                                        Builds an Event message around an event and writes it to IndexStream
+
+DataAggregation::Index::UpdateReferences::Initiate                        Command that initiates the backfill of a fact to all existing references
+DataAggregation::Index::UpdateReferences::Initiate::Substitute
+DataAggregation::Index::UpdateReferences::GetBatch                        Gathers a single batch of reference streams
+DataAggregation::Index::UpdateReferences::Handler                         Handler
+DataAggregation::Index::UpdateReferences::Messages::Initiated             Initiates a backfill process
+DataAggregation::Index::UpdateReferences::Messages::GetBatchDone          Records a particular set of streams that are referenced by the entity
+DataAggregation::Index::UpdateReferences::Messages::Copied                Records that a given fact was copied to a batch of references
+DataAggregation::Index::UpdateReferences::Messages::Completed             Records that a given fact was copied to a batch of references
+DataAggregation::Index::UpdateReferences::Projection                      Projects Initiated/ReferencesGathered/Copied
+DataAggregation::Index::UpdateReferences::Entity                          Tracks the references that have yet to be updated
+DataAggregation::Index::UpdateReferences::Store                           Entity query interface
+DataAggregation::Index::UpdateReferences::Consumer                        Consumer for the reference update processes
+
+DataAggregation::Index::InitiateReference                                 Copies existing facts to a given reference. A policy can control if
+                                                                          *all* facts are to be copied, or just the single most recent.
+DataAggregation::Index::InitiateReference::Substitute
+
+DataAggregation::Index::Messages::Event                                   Records an event that is related to an entity
+DataAggregation::Index::Messages::Reference                               Records a stream that is related to an entity
+
+
+
+Libraries
+=========
+data-aggregation-index
+
+
+
+module DataAggregation
+  module Index
+    module Messages
+      class Fact
+        attribute :source_event_uri, String
+        attribute :index_stream_version, Integer
+      end
+
+      class Reference
+        attribute :stream_name, String
+        attribute :index_stream_version, Integer
+      end
+    end
+  end
+end
