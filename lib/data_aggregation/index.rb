@@ -8,3 +8,5 @@ require 'data_aggregation/index/event_data/serializer'
 require 'data_aggregation/index/index'
 require 'data_aggregation/index/messages'
 require 'data_aggregation/index/stream_name'
+
+require 'data_aggregation/index/get_positions'

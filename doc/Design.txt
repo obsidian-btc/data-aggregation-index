@@ -101,8 +101,8 @@ Components
 + DataAggregation::Index::StreamName
 DataAggregation::Index::GetLatestEntry - retrieves the most recent entry of the master stream
 
-DataAggregation::Index::Messages::EventPublished
-DataAggregation::Index::Messages::ReferencePublished
++ DataAggregation::Index::Messages::EventAdded
++ DataAggregation::Index::Messages::ReferenceAdded
 
 DataAggregation::Index::Event::Record
 DataAggregation::Index::Reference::Record

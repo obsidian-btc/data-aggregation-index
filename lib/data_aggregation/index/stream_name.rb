@@ -1,5 +1,7 @@
 module DataAggregation::Index
   module StreamName
+    extend self
+
     def event_list_stream_name(entity_id, category)
       category = "#{category}:events"
 
