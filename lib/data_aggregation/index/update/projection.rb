@@ -1,32 +1,25 @@
 module DataAggregation::Index
   module Update
-    module Projection
-      class PublishEvent
-        include EventStore::EntityProjection
-        include Messages
+    class Projection
+      include EventStore::EntityProjection
+      include Messages
 
-        apply Initiated do |update_initiated|
-          entity.event_id = update_initiated.update_id
-          entity.event_data_text = update_initiated.update_data
-        end
+      apply PublishEventInitiated do |initiated|
+        entity.extend Entity::PublishEvent
 
-        apply Started do |started|
-          entity.reference_stream_position = started.data_stream_position
-        end
+        entity.event_id = initiated.event_id
+        entity.event_data_text = initiated.event_data_text
       end
 
-      class StartReference
-        include EventStore::EntityProjection
-        include Messages
+      apply StartReferenceInitiated do |initiated|
+        entity.extend Entity::StartReference
 
-        apply Initiated do |update_initiated|
-          entity.related_entity_id = update_initiated.update_id
-          entity.destination_stream_name = update_initiated.update_data
-        end
+        entity.related_entity_id = initiated.related_entity_id
+        entity.destination_stream_name = initiated.destination_stream_name
+      end
 
-        apply Started do |started|
-          entity.event_stream_position = started.data_stream_position
-        end
+      apply Started do |started|
+        entity.record_started started
       end
     end
   end

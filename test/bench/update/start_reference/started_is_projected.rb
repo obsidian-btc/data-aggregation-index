@@ -1,11 +1,11 @@
 require_relative '../../bench_init'
 
 context "Start reference update, started event is projected onto entity" do
-  entity = Update::Entity::StartReference.new
+  entity = Controls::Update::Entity::StartReference::Initiated.example
 
-  projection = Update::Projection::StartReference.new entity
+  projection = Update::Projection.new entity
 
-  started = Controls::Update::Messages::Started::StartReference.example
+  started = Controls::Update::Messages::Started.example
   projection.apply started
 
   test "Event stream position is set" do

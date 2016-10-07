@@ -1,11 +1,19 @@
 module DataAggregation::Index
   module Update
     module Messages
-      class Initiated
+      class PublishEventInitiated
         include EventStore::Messaging::Message
 
-        attribute :update_id, String
-        attribute :update_data, String
+        attribute :event_id, String
+        attribute :event_data_text, String
+        attribute :time, String
+      end
+
+      class StartReferenceInitiated
+        include EventStore::Messaging::Message
+
+        attribute :related_entity_id, String
+        attribute :destination_stream_name, String
         attribute :time, String
       end
 
@@ -13,7 +21,8 @@ module DataAggregation::Index
         include EventStore::Messaging::Message
 
         attribute :update_id, String
-        attribute :data_stream_position, Integer
+        attribute :event_stream_position, Integer
+        attribute :reference_stream_position, Integer
         attribute :time, String
       end
     end
