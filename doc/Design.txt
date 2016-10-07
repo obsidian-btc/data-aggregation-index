@@ -28,8 +28,11 @@ Events Stream
   someIndex:events (entityID) - All events published to the index are written here
 References Stream
   someIndex:references (referenceID) - All references published to the index are written here
-Update Process Stream
-  someIndex:update (updateID) - Batch update progress is tracked as a process here
+Publish Events Stream
+  someIndex:publishEvent (updateID) - Batch update progress is tracked as a process here
+Start Reference Stream
+  someIndex:startReference (updateID) - Batch update progress is tracked as a process here
+
 
 
 A New event is published
@@ -99,13 +102,10 @@ Components
 ----------
 
 + DataAggregation::Index::StreamName
-DataAggregation::Index::GetLatestEntry - retrieves the most recent entry of the master stream
++ DataAggregation::Index::GetLatestEntry - retrieves the most recent entry of the master stream
 
 + DataAggregation::Index::Messages::EventAdded
 + DataAggregation::Index::Messages::ReferenceAdded
-
-DataAggregation::Index::Event::Record
-DataAggregation::Index::Reference::Record
 
 DataAggregation::Index::Update::Events::Initiated
 DataAggregation::Index::Update::Events::Started

@@ -7,19 +7,19 @@ module DataAggregation::Index::Controls
 
       module Event
         def self.example(i=nil)
-          stream_id = ID::Event.example i
+          event_id = ID::Event.example i
           category = Category.example
 
-          StreamName.get stream_id, category
+          StreamName.get event_id, category
         end
       end
 
       module Reference
         def self.example(i=nil)
-          stream_id = ID::RelatedEntity.example i
+          related_entity_id = ID::RelatedEntity.example i
           category = Category.example
 
-          StreamName.get stream_id, category
+          StreamName.get related_entity_id, category
         end
       end
 
