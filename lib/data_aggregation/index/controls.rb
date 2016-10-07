@@ -6,6 +6,7 @@ module DataAggregation::Index
   Controls = ::Module.new
 end
 
+require 'data_aggregation/index/controls/event'
 require 'data_aggregation/index/controls/event_data'
 require 'data_aggregation/index/controls/id'
 require 'data_aggregation/index/controls/messages'
