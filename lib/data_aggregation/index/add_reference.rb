@@ -3,7 +3,7 @@ module DataAggregation::Index
     include Telemetry::Logger::Dependency
     include StreamName
 
-    configure :publish_event
+    configure :add_reference
 
     attr_reader :category
 
