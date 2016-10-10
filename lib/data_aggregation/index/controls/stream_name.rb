@@ -7,19 +7,5 @@ module DataAggregation::Index::Controls
     class Example
       include DataAggregation::Index::StreamName
     end
-
-    module Category
-      def self.example(random: nil)
-        category = 'someIndex'
-
-        if random
-          uuid = Identifier::UUID::Random.get
-
-          category = "#{category}#{uuid.gsub '-', ''}"
-        end
-
-        category
-      end
-    end
   end
 end

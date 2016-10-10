@@ -13,10 +13,10 @@ module DataAggregation::Index::Controls
         message
       end
 
-      module Event
+      module PublishEvent
         def self.example(i=nil, reference_list_position: nil)
           i ||= 0
-          update_id ||= ID::Event.example
+          update_id ||= ID::SourceEvent.example i
 
           message = UpdateInitiated.example(
             update_id: update_id,
@@ -27,7 +27,7 @@ module DataAggregation::Index::Controls
         end
       end
 
-      module Reference
+      module StartReference
         def self.example(i=nil, event_list_position: nil)
           i ||= 0
           update_id = ID::RelatedEntity.example i
@@ -45,7 +45,7 @@ module DataAggregation::Index::Controls
     module EventAdded
       def self.example(i=nil)
         message = DataAggregation::Index::Messages::EventAdded.build
-        message.event_id = ID::Event.example i
+        message.event_id = ID::SourceEvent.example i
         message.event_data_text = EventData::Text.example
         message.time = Time.example
         message

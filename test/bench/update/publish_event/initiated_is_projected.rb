@@ -13,11 +13,11 @@ context "Publish event update, initiated event is projected onto entity" do
   end
 
   test "Event ID is set" do
-    assert entity.event_id == Controls::ID::Event.example
+    assert entity.event_id == Controls::ID::SourceEvent.example
   end
 
   test "Event data text is set" do
-    assert entity.event_data_text == Controls::EventData::Text.example
+    assert entity.event_data_text == Controls::SourceEvent::EventData::Text.example
   end
 
   test "Control" do

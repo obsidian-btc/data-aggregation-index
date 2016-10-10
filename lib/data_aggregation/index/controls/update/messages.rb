@@ -3,11 +3,11 @@ module DataAggregation::Index::Controls
     module Messages
       module PublishEventInitiated
         def self.example(i=nil, event_id: nil)
-          event_id ||= ID::Event.example i
+          event_id ||= ID::SourceEvent.example i
 
-          event_data_text = EventData::Text.example event_id: event_id
+          event_data_text = SourceEvent::EventData::Text.example event_id: event_id
 
-          event = Event.example
+          event = SourceEvent.example
 
           message = DataAggregation::Index::Update::Messages::PublishEventInitiated.proceed event, copy: false
           message.event_id = event_id
@@ -33,10 +33,10 @@ module DataAggregation::Index::Controls
           event_stream_position ||= Position::EventList.example
           reference_stream_position ||= Position::ReferenceList.example
 
-          event_data_text = EventData::Text.example
+          event_data_text = SourceEvent::EventData::Text.example
 
           message = DataAggregation::Index::Update::Messages::Started.new
-          message.update_id = ID::Event.example i
+          message.update_id = ID::SourceEvent.example i
           message.event_stream_position = event_stream_position
           message.reference_stream_position = reference_stream_position
           message

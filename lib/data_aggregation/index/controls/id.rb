@@ -19,7 +19,7 @@ module DataAggregation::Index::Controls
       end
     end
 
-    module Event
+    module SourceEvent
       def self.example(i=nil)
         i ||= 0
         i += 200
@@ -30,7 +30,7 @@ module DataAggregation::Index::Controls
 
     module Update
       def self.example
-        Event.example
+        SourceEvent.example
       end
     end
   end

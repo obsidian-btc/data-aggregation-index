@@ -6,8 +6,8 @@ module DataAggregation::Index::Controls
           def self.example(i=nil)
             entity = DataAggregation::Index::Update::Entity.new
             entity.extend DataAggregation::Index::Update::Entity::PublishEvent
-            entity.event_id = ID::Event.example i
-            entity.event_data_text = EventData::Text.example
+            entity.event_id = ID::SourceEvent.example i
+            entity.event_data_text = SourceEvent::EventData::Text.example
             entity
           end
         end

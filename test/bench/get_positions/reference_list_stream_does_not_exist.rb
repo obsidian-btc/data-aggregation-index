@@ -5,7 +5,7 @@ context "Get positions from last index stream message, reference list stream doe
   category = Controls::StreamName::Category.example random: true
   index_stream_name = DataAggregation::Index::StreamName.index_stream_name entity_id, category
 
-  update_initiated = Controls::Messages::UpdateInitiated::Event.example
+  update_initiated = Controls::Messages::UpdateInitiated::PublishEvent.example
   writer = EventStore::Messaging::Writer.build
   writer.write_initial update_initiated, index_stream_name
 

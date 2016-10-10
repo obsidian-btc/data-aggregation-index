@@ -1,13 +1,5 @@
 module DataAggregation::Index::Controls
-  module Event
-    def self.example
-      event = SomeEvent.build
-      event.some_attribute = 'some value'
-      event.some_time = Time.example
-      event.metadata = Metadata.example
-      event
-    end
-
+  module SourceEvent
     module Metadata
       def self.example
         metadata = EventStore::Messaging::Message::Metadata.build
@@ -17,11 +9,6 @@ module DataAggregation::Index::Controls
         metadata.reply_stream_name = StreamName::Reply.example
         metadata.schema_version = SchemaVersion.example
         metadata
-      end
-
-      def self.data
-        metadata = self.example
-        metadata.to_h
       end
 
       module CausationEventURI
@@ -45,13 +32,6 @@ module DataAggregation::Index::Controls
           11
         end
       end
-    end
-
-    class SomeEvent
-      include EventStore::Messaging::Message
-
-      attribute :some_attribute, String
-      attribute :some_time, String
     end
   end
 end
