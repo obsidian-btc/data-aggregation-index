@@ -17,7 +17,7 @@ context "Updating index upon an event being added" do
   update_index.()
 
   test "Update started is written to index stream" do
-    update_started = Controls::Messages::UpdateStarted::PublishEvent.example 11
+    update_started = Controls::Messages::UpdateStarted::PublishEvent.example event_list_version
     index_stream_name = Controls::StreamName::Index.example
 
     assert update_index.writer do

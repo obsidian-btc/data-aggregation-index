@@ -20,7 +20,7 @@ module DataAggregation::Index
         update_stream_name = event_data.stream_name
         category = StreamName.get_category update_stream_name
 
-        instance = new publish_event_initiated, category
+        instance = new event_added, category
         Clock::UTC.configure instance
         GetPositions.configure instance
         EventStore::Messaging::Writer.configure instance
