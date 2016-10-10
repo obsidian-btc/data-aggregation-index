@@ -8,6 +8,7 @@ module DataAggregation::Index
     attr_reader :category
 
     dependency :clock, Clock::UTC
+    dependency :get_positions, GetPositions
     dependency :update_store, Update::Store
     dependency :writer, EventStore::Messaging::Writer
 
@@ -18,13 +19,14 @@ module DataAggregation::Index
     def self.build(category)
       instance = new category
       Clock::UTC.configure instance
+      GetPositions.configure instance
       Update::Store.configure instance
       EventStore::Messaging::Writer.configure instance
       instance
     end
 
-    def call(event, event_id=nil)
-      log_attributes = "MessageType: #{event.message_type}"
+    def call(entity_id, event, event_id=nil)
+      log_attributes = "EntityID: #{entity_id}, MessageType: #{event.message_type}"
       logger.trace "Publishing event (#{log_attributes})"
 
       event_data = EventStore::Messaging::Message::Export::EventData.(event)
@@ -39,12 +41,15 @@ module DataAggregation::Index
         return
       end
 
+      _, _, reference_list_pos = get_positions.(entity_id, category)
+
       event_data_text = Serialize::Write.(event_data, :json)
 
       publish_event_initiated = Update::Messages::PublishEventInitiated.proceed event, copy: false
       publish_event_initiated.event_id = event_id
       publish_event_initiated.event_data_text = event_data_text
       publish_event_initiated.time = clock.iso8601
+      publish_event_initiated.reference_stream_position = reference_list_pos unless reference_list_pos == :no_stream
 
       stream_name = update_stream_name event_id, category
 

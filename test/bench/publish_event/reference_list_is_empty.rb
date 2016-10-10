@@ -6,18 +6,16 @@ context "Event is published to index" do
   source_event = Controls::SourceEvent.example
   category = Controls::StreamName::Category.example
   event_id = Controls::ID::SourceEvent.example
-  index_stream_name = Controls::StreamName::Index.example
 
   reference_list_position = Controls::Position::ReferenceList::Initial.example
 
   publish_event = PublishEvent.new category
-  publish_event.get_positions.set index_stream_name, 0, 0, reference_list_position
   publish_event.clock.now = Controls::Time::Raw.example
 
   event_written = publish_event.(entity_id, source_event, event_id)
 
   test "PublishEvent initiated message is written to update stream" do
-    publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example
+    publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example reference_list_position: false
     update_stream_name = Controls::StreamName::Update::PublishEvent.example
 
     assert publish_event.writer do

@@ -1,6 +1,7 @@
 require_relative '../bench_init'
 
 context "Publish event substitute" do
+  entity_id = Controls::ID::Entity.example
   event = Controls::SourceEvent.example
 
   context "Published predicate" do
@@ -14,7 +15,7 @@ context "Publish event substitute" do
 
     context "Substitute has been actuated" do
       substitute = SubstAttr::Substitute.build PublishEvent
-      substitute.(event)
+      substitute.(entity_id, event)
 
       test "Predicate returns true when no block is specified" do
         assert substitute, &:published_event?
@@ -27,7 +28,7 @@ context "Publish event substitute" do
 
       test "Predicate returns true if block evaluates to true" do
         assert substitute do
-          published_event? { |e| e == event}
+          published_event? { |id, msg| id == entity_id && msg == event}
         end
 
         refute substitute do

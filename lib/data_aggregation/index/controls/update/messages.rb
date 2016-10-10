@@ -2,7 +2,11 @@ module DataAggregation::Index::Controls
   module Update
     module Messages
       module PublishEventInitiated
-        def self.example(i=nil)
+        def self.example(i=nil, reference_list_position: nil)
+          unless reference_list_position == false
+            reference_list_position ||= Position::ReferenceList::Initial.example
+          end
+
           event_data_text = SourceEvent::EventData::Text.example i
 
           event = SourceEvent.example
@@ -10,7 +14,7 @@ module DataAggregation::Index::Controls
           message = DataAggregation::Index::Update::Messages::PublishEventInitiated.proceed event, copy: false
           message.event_id = ID::SourceEvent.example i
           message.event_data_text = event_data_text
-          #message.reference_stream_position = Position::ReferenceList::Initial.example
+          message.reference_stream_position = reference_list_position if reference_list_position
           message.time = Time.example
           message
         end

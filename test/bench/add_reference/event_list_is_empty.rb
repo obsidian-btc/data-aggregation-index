@@ -1,11 +1,10 @@
 require_relative '../bench_init'
 
-context "Reference is added to index, no events have yet been published" do
+context "Reference is added to index, event list is empty" do
   entity_id = Controls::ID::Entity.example
 
   category = Controls::StreamName::Category.example
   destination_stream_name = Controls::StreamName::RelatedEntity.example
-  index_stream_name = Controls::StreamName::Index.example
 
   event_list_position = Controls::Position::EventList::Initial.example
 

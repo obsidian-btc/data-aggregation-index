@@ -12,23 +12,25 @@ module DataAggregation::Index
           record
         end
 
-        def reference_added?(destination_stream_name=nil, &block)
-          if destination_stream_name.nil?
-            block ||= proc { true }
-          else
-            block ||= proc { |_, stream| stream == destination_stream_name }
-          end
-
-          records.any? do |record|
-            block.(record.entity_id, record.destination_stream_id)
-          end
-        end
-
         def records
           @records ||= []
         end
 
         Record = Struct.new :entity_id, :destination_stream_id
+
+        module Assertions
+          def reference_added?(destination_stream_name=nil, &block)
+            if destination_stream_name.nil?
+              block ||= proc { true }
+            else
+              block ||= proc { |_, stream| stream == destination_stream_name }
+            end
+
+            records.any? do |record|
+              block.(record.entity_id, record.destination_stream_id)
+            end
+          end
+        end
       end
     end
   end

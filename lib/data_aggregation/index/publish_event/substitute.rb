@@ -6,23 +6,29 @@ module DataAggregation::Index
       end
 
       class PublishEvent
-        def call(event)
-          published_events << event
+        def call(entity_id, event)
+          record = Record.new entity_id, event
+          records << record
+          record
         end
 
-        def published_events
-          @published_events ||= []
+        def records
+          @records ||= []
         end
+
+        Record = Struct.new :entity_id, :event
 
         module Assertions
           def published_event?(event=nil, &block)
             if event.nil?
               block ||= proc { true }
             else
-              block ||= proc { |e| e == event }
+              block ||= proc { |_, msg| msg == event }
             end
 
-            published_events.any? &block
+            records.any? do |record|
+              block.(record.entity_id, record.event)
+            end
           end
         end
       end
