@@ -18,7 +18,7 @@ module DataAggregation::Index
           object.singleton_class.class_exec do
             attribute :event_id, String
             attribute :event_data_text, String
-            attribute :reference_stream_position, Integer
+            attribute :reference_list_position, Integer
           end
         end
 
@@ -27,7 +27,7 @@ module DataAggregation::Index
         end
 
         def record_started(started)
-          self.reference_stream_position = started.reference_stream_position
+          self.reference_list_position = started.reference_list_position
         end
       end
 

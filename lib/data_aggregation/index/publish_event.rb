@@ -49,7 +49,7 @@ module DataAggregation::Index
       publish_event_initiated.event_id = event_id
       publish_event_initiated.event_data_text = event_data_text
       publish_event_initiated.time = clock.iso8601
-      publish_event_initiated.reference_stream_position = reference_list_pos unless reference_list_pos == :no_stream
+      publish_event_initiated.reference_list_position = reference_list_pos unless reference_list_pos == :no_stream
 
       stream_name = update_stream_name event_id, category
 

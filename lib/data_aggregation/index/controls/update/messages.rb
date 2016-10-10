@@ -14,7 +14,7 @@ module DataAggregation::Index::Controls
           message = DataAggregation::Index::Update::Messages::PublishEventInitiated.proceed event, copy: false
           message.event_id = ID::SourceEvent.example i
           message.event_data_text = event_data_text
-          message.reference_stream_position = reference_list_position if reference_list_position
+          message.reference_list_position = reference_list_position if reference_list_position
           message.time = Time.example
           message
         end
@@ -37,16 +37,16 @@ module DataAggregation::Index::Controls
       end
 
       module Started
-        def self.example(i=nil, event_list_position: nil, reference_stream_position: nil)
+        def self.example(i=nil, event_list_position: nil, reference_list_position: nil)
           event_list_position ||= Position::EventList::Update.example
-          reference_stream_position ||= Position::ReferenceList::Update.example
+          reference_list_position ||= Position::ReferenceList::Update.example
 
           event_data_text = SourceEvent::EventData::Text.example
 
           message = DataAggregation::Index::Update::Messages::Started.new
           message.update_id = ID::SourceEvent.example i
           message.event_list_position = event_list_position
-          message.reference_stream_position = reference_stream_position
+          message.reference_list_position = reference_list_position
           message
         end
       end

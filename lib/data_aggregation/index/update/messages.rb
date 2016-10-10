@@ -6,7 +6,7 @@ module DataAggregation::Index
 
         attribute :event_id, String
         attribute :event_data_text, String
-        attribute :reference_stream_position, Integer
+        attribute :reference_list_position, Integer
         attribute :time, String
       end
 
@@ -24,7 +24,7 @@ module DataAggregation::Index
 
         attribute :update_id, String
         attribute :event_list_position, Integer
-        attribute :reference_stream_position, Integer
+        attribute :reference_list_position, Integer
         attribute :time, String
       end
     end
