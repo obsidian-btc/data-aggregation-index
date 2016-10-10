@@ -6,7 +6,7 @@ context "Reference is added to index, reference list is empty" do
   category = Controls::StreamName::Category.example
   destination_stream_name = Controls::StreamName::RelatedEntity.example
 
-  event_list_position = Controls::Position::EventList::Initial.example
+  event_list_position = Controls::Position::EventList.example
 
   add_reference = AddReference.new category
   add_reference.(entity_id, destination_stream_name)

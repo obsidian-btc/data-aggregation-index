@@ -42,7 +42,7 @@ module DataAggregation::Index
     def build_message(event_data)
       EventStore::Messaging::Message::Import::EventData.(
         event_data,
-        Messages::UpdateInitiated
+        Messages::UpdateStarted
       )
     end
 

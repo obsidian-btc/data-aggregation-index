@@ -4,7 +4,7 @@ module DataAggregation::Index::Controls
       module PublishEventInitiated
         def self.example(i=nil, event_list_position: nil)
           unless event_list_position == false
-            event_list_position ||= Position::EventList::Initial.example
+            event_list_position ||= Position::EventList.example
           end
 
           event_data_text = SourceEvent::EventData::Text.example i
@@ -24,7 +24,7 @@ module DataAggregation::Index::Controls
       module AddReferenceInitiated
         def self.example(i=nil, reference_list_position: nil)
           unless reference_list_position == false
-            reference_list_position ||= Position::ReferenceList::Initial.example
+            reference_list_position ||= Position::ReferenceList.example
           end
 
           destination_stream_name = StreamName::RelatedEntity.example
@@ -40,8 +40,8 @@ module DataAggregation::Index::Controls
 
       module Started
         def self.example(i=nil, event_list_position: nil, reference_list_position: nil)
-          event_list_position ||= Position::EventList::Update.example
-          reference_list_position ||= Position::ReferenceList::Update.example
+          event_list_position ||= Position::EventList.example
+          reference_list_position ||= Position::ReferenceList.example
 
           event_data_text = SourceEvent::EventData::Text.example
 

@@ -5,7 +5,7 @@ context "Adding event to an event list, event is already added" do
   event_id = Controls::ID::SourceEvent.example
   publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example
   event_list_stream_name = Controls::StreamName::EventList.example
-  event_list_version = Controls::Position::EventList::Initial.example
+  event_list_version = Controls::Position::EventList.example
 
   add = EventList::Add.new publish_event_initiated, category
   add.recent_event_added_query.set(

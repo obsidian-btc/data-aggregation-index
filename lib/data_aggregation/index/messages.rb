@@ -1,6 +1,6 @@
 module DataAggregation::Index
   module Messages
-    class UpdateInitiated
+    class UpdateStarted
       include EventStore::Messaging::Message
 
       attribute :entity_id, String

@@ -1,10 +1,10 @@
 module DataAggregation::Index::Controls
   module Messages
-    module UpdateInitiated
+    module UpdateStarted
       def self.example(update_id: nil, event_list_position: nil, reference_list_position: nil)
         update_id ||= ID::Update.example
 
-        message = DataAggregation::Index::Messages::UpdateInitiated.build
+        message = DataAggregation::Index::Messages::UpdateStarted.build
         message.entity_id = ID::Entity.example
         message.update_id = update_id
         message.event_list_position = event_list_position if event_list_position
@@ -18,7 +18,7 @@ module DataAggregation::Index::Controls
           i ||= 0
           update_id ||= ID::SourceEvent.example i
 
-          message = UpdateInitiated.example(
+          message = UpdateStarted.example(
             update_id: update_id,
             reference_list_position: reference_list_position
           )
@@ -32,7 +32,7 @@ module DataAggregation::Index::Controls
           i ||= 0
           update_id = ID::RelatedEntity.example i
 
-          message = UpdateInitiated.example(
+          message = UpdateStarted.example(
             update_id: update_id,
             event_list_position: event_list_position
           )

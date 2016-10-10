@@ -8,7 +8,7 @@ context "Event is published to index" do
   event_id = Controls::ID::SourceEvent.example
   index_stream_name = Controls::StreamName::Index.example
 
-  event_list_position = Controls::Position::EventList::Initial.example
+  event_list_position = Controls::Position::EventList.example
 
   publish_event = PublishEvent.new category
   publish_event.get_positions.set index_stream_name, 0, event_list_position, 0

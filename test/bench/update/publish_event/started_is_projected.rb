@@ -9,6 +9,6 @@ context "Publish event update, started event is projected onto entity" do
   projection.apply started
 
   test "Reference stream position is set" do
-    assert entity.reference_list_position == Controls::Position::ReferenceList::Update.example
+    assert entity.reference_list_position == Controls::Position::ReferenceList.example
   end
 end
