@@ -38,7 +38,10 @@ module DataAggregation::Index
           return
         end
 
-        reference_added = Messages::ReferenceAdded.proceed add_reference_initiated_event, include: [:related_entity_id, :destination_stream_name] 
+        reference_added = Messages::ReferenceAdded.proceed(
+          add_reference_initiated_event,
+          include: %i(entity_id related_entity_id destination_stream_name)
+        )
         reference_added.time = clock.iso8601
 
         writer.write reference_added, stream_name, expected_version: version

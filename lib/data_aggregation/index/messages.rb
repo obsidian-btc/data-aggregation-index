@@ -15,7 +15,9 @@ module DataAggregation::Index
     class EventAdded
       include EventStore::Messaging::Message
 
+      attribute :entity_id, String
       attribute :event_id, String
+
       attribute :event_data_text, String
       attribute :time, String
     end
@@ -23,7 +25,9 @@ module DataAggregation::Index
     class ReferenceAdded
       include EventStore::Messaging::Message
 
+      attribute :entity_id, String
       attribute :related_entity_id, String
+
       attribute :destination_stream_name, String
       attribute :time, String
     end
