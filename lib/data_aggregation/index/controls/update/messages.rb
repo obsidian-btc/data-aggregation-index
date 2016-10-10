@@ -28,8 +28,8 @@ module DataAggregation::Index::Controls
 
       module Started
         def self.example(i=nil, event_stream_position: nil, reference_stream_position: nil)
-          event_stream_position ||= Position::EventList.example
-          reference_stream_position ||= Position::ReferenceList.example
+          event_stream_position ||= Position::EventList::Update.example
+          reference_stream_position ||= Position::ReferenceList::Update.example
 
           event_data_text = SourceEvent::EventData::Text.example
 
