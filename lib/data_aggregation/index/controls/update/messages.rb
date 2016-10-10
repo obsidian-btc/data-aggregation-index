@@ -2,12 +2,17 @@ module DataAggregation::Index::Controls
   module Update
     module Messages
       module PublishEventInitiated
-        def self.example(i=nil)
-          event_data_text = EventData::Text.example
+        def self.example(i=nil, event_id: nil)
+          event_id ||= ID::Event.example i
 
-          message = DataAggregation::Index::Update::Messages::PublishEventInitiated.new
-          message.event_id = ID::Event.example i
+          event_data_text = EventData::Text.example event_id: event_id
+
+          event = Event.example
+
+          message = DataAggregation::Index::Update::Messages::PublishEventInitiated.proceed event, copy: false
+          message.event_id = event_id
           message.event_data_text = event_data_text
+          message.time = Time.example
           message
         end
       end

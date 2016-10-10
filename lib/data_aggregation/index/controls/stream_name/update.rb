@@ -6,8 +6,8 @@ module DataAggregation::Index::Controls
       end
 
       module Event
-        def self.example(i=nil)
-          event_id = ID::Event.example i
+        def self.example(i=nil, event_id: nil)
+          event_id ||= ID::Event.example i
           category = Category.example
 
           StreamName.get event_id, category
