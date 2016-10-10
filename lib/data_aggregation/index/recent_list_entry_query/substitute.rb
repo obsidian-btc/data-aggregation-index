@@ -14,7 +14,7 @@ module DataAggregation::Index
           return :no_stream if stream.nil?
 
           if stream.version >= starting_position && stream.update_id == update_id
-            block.()
+            block.() if block
           end
 
           stream.version

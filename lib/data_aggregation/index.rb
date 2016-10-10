@@ -20,6 +20,7 @@ require 'data_aggregation/index/recent_list_entry_query'
 require 'data_aggregation/index/recent_list_entry_query/substitute'
 
 require 'data_aggregation/index/event_list/add'
+require 'data_aggregation/index/reference_list/add'
 
 require 'data_aggregation/index/add_reference'
 require 'data_aggregation/index/add_reference/substitute'
