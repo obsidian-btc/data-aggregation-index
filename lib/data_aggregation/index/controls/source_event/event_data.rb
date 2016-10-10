@@ -2,8 +2,8 @@ module DataAggregation::Index::Controls
   module SourceEvent
     module EventData
       module Read
-        def self.example(i=nil, event_id: nil)
-          event_id ||= ID::Event.example i
+        def self.example(i=nil)
+          event_id = ID::Event.example i
 
           metadata = Metadata.example
 
@@ -16,8 +16,8 @@ module DataAggregation::Index::Controls
       end
 
       module Write
-        def self.example(i=nil, event_id: nil)
-          event_id ||= ID::SourceEvent.example i
+        def self.example(i=nil)
+          event_id = ID::SourceEvent.example i
 
           metadata = Metadata.example
 
@@ -30,8 +30,8 @@ module DataAggregation::Index::Controls
       end
 
       module Text
-        def self.example(event_id: nil)
-          event_data = Write.example event_id: event_id
+        def self.example(i=nil)
+          event_data = Write.example i
 
           Serialize::Write.(event_data, :json)
         end
