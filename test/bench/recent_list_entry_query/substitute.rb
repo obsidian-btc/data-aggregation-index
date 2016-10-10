@@ -21,7 +21,7 @@ context "Recent list entry query substitute" do
 
   context "Starting position precedes specified position" do
     substitute = SubstAttr::Substitute.build RecentListEntryQuery
-    substitute.set stream_name, update_id, 1
+    substitute.set stream_name, update_id, version: 1
 
     block_executed = false
     result = substitute.(stream_name, update_id, 0) { block_executed = true }
@@ -37,7 +37,7 @@ context "Recent list entry query substitute" do
 
   context "Starting position equals specified position" do
     substitute = SubstAttr::Substitute.build RecentListEntryQuery
-    substitute.set stream_name, update_id, 0
+    substitute.set stream_name, update_id, version: 0
 
     block_executed = false
     result = substitute.(stream_name, update_id, 0) { block_executed = true }
@@ -49,7 +49,7 @@ context "Recent list entry query substitute" do
 
   context "Specifiec position precedes starting position" do
     substitute = SubstAttr::Substitute.build RecentListEntryQuery
-    substitute.set stream_name, update_id, 0
+    substitute.set stream_name, update_id, version: 0
 
     block_executed = false
     result = substitute.(stream_name, update_id, 1) { block_executed = true }

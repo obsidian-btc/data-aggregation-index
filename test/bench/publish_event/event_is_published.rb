@@ -8,10 +8,10 @@ context "Event is published to index" do
   event_id = Controls::ID::SourceEvent.example
   index_stream_name = Controls::StreamName::Index.example
 
-  reference_list_position = Controls::Position::ReferenceList::Initial.example
+  event_list_position = Controls::Position::EventList::Initial.example
 
   publish_event = PublishEvent.new category
-  publish_event.get_positions.set index_stream_name, 0, 0, reference_list_position
+  publish_event.get_positions.set index_stream_name, 0, event_list_position, 0
   publish_event.clock.now = Controls::Time::Raw.example
 
   event_written = publish_event.(entity_id, source_event, event_id)

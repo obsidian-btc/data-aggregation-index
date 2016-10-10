@@ -1,6 +1,6 @@
 require_relative '../bench_init'
 
-context "Reference is added to index, event list is empty" do
+context "Reference is added to index, reference list is empty" do
   entity_id = Controls::ID::Entity.example
 
   category = Controls::StreamName::Category.example
@@ -12,7 +12,7 @@ context "Reference is added to index, event list is empty" do
   add_reference.(entity_id, destination_stream_name)
 
   test "AddReference initiated message is written to update stream" do
-    add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example event_list_position: false
+    add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example reference_list_position: false
     update_stream_name = Controls::StreamName::Update::AddReference.example
 
     assert add_reference.writer do

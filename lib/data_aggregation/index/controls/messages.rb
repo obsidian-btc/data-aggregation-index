@@ -46,7 +46,7 @@ module DataAggregation::Index::Controls
       def self.example(i=nil)
         message = DataAggregation::Index::Messages::EventAdded.build
         message.event_id = ID::SourceEvent.example i
-        message.event_data_text = EventData::Text.example
+        message.event_data_text = SourceEvent::EventData::Text.example
         message.time = Time.example
         message
       end

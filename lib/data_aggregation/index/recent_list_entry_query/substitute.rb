@@ -9,26 +9,30 @@ module DataAggregation::Index
         def call(stream_name, update_id, starting_position=nil, &block)
           starting_position ||= 0
 
-          position = streams[stream_name]
+          stream = streams[stream_name]
 
-          return :no_stream if position.nil?
+          return :no_stream if stream.nil?
 
-          if position >= starting_position
+          if stream.version >= starting_position && stream.update_id == update_id
             block.()
           end
 
-          position
+          stream.version
         end
 
-        def set(stream_name, update_id, position=nil)
-          position ||= 0
+        def set(stream_name, update_id=nil, version: nil)
+          version ||= 0
 
-          streams[stream_name] = position
+          stream = Stream.new version, update_id
+          streams[stream_name] = stream
+          stream
         end
 
         def streams
           @streams ||= {}
         end
+
+        Stream = Struct.new :version, :update_id
       end
     end
   end

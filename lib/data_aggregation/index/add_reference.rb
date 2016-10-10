@@ -38,13 +38,13 @@ module DataAggregation::Index
         return
       end
 
-      _, event_list_pos, _ = get_positions.(entity_id, category)
+      _, _, reference_list_pos = get_positions.(entity_id, category)
 
       add_reference_initiated = Update::Messages::AddReferenceInitiated.new
       add_reference_initiated.entity_id = entity_id
       add_reference_initiated.related_entity_id = related_entity_id
       add_reference_initiated.destination_stream_name = destination_stream_name
-      add_reference_initiated.event_list_position = event_list_pos unless event_list_pos == :no_stream
+      add_reference_initiated.reference_list_position = reference_list_pos unless reference_list_pos == :no_stream
       add_reference_initiated.time = clock.iso8601
 
       stream_name = update_stream_name related_entity_id, category
