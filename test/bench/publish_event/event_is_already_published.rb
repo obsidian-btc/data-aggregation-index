@@ -5,11 +5,10 @@ context "Event is already being published to index" do
   category = Controls::StreamName::Category.example
 
   entity = Controls::Update::Entity::PublishEvent::Initiated.example
-  event_id = entity.event_id
 
   publish_event = PublishEvent.new category
   publish_event.clock.now = Controls::Time::Raw.example
-  publish_event.update_store.add event_id, entity
+  publish_event.update_store.add entity.update_id, entity
 
   event_written = publish_event.(source_event, entity.event_id)
 

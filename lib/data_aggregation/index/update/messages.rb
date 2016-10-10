@@ -9,7 +9,7 @@ module DataAggregation::Index
         attribute :time, String
       end
 
-      class StartReferenceInitiated
+      class AddReferenceInitiated
         include EventStore::Messaging::Message
 
         attribute :related_entity_id, String

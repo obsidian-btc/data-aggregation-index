@@ -1,15 +1,15 @@
 require_relative '../../bench_init'
 
-context "Start reference update, initiated event is projected onto entity" do
+context "Add reference update, initiated event is projected onto entity" do
   entity = Update::Entity.new
 
   projection = Update::Projection.new entity
 
-  initiated = Controls::Update::Messages::StartReferenceInitiated.example
+  initiated = Controls::Update::Messages::AddReferenceInitiated.example
   projection.apply initiated
 
   test "Entity is specialized for starting the reference" do
-    assert entity.is_a?(Update::Entity::StartReference)
+    assert entity.is_a?(Update::Entity::AddReference)
   end
 
   test "Related entity ID is set" do
@@ -21,6 +21,6 @@ context "Start reference update, initiated event is projected onto entity" do
   end
 
   test "Control" do
-    assert entity == Controls::Update::Entity::StartReference::Initiated.example
+    assert entity == Controls::Update::Entity::AddReference::Initiated.example
   end
 end

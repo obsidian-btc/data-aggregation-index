@@ -11,6 +11,7 @@ module DataAggregation::Index
       end
 
       abstract :record_started
+      abstract :update_id
 
       module PublishEvent
         def self.extended(object)
@@ -21,8 +22,8 @@ module DataAggregation::Index
           end
         end
 
-        def event_id
-          update_id
+        def update_id
+          event_id
         end
 
         def record_started(started)
@@ -30,7 +31,7 @@ module DataAggregation::Index
         end
       end
 
-      module StartReference
+      module AddReference
         def self.extended(object)
           object.singleton_class.class_exec do
             attribute :related_entity_id, String
@@ -39,8 +40,8 @@ module DataAggregation::Index
           end
         end
 
-        def related_entity_id
-          update_id
+        def update_id
+          related_entity_id
         end
 
         def record_started(started)

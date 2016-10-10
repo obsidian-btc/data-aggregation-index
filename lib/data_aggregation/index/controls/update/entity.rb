@@ -13,11 +13,11 @@ module DataAggregation::Index::Controls
         end
       end
 
-      module StartReference
+      module AddReference
         module Initiated
           def self.example(i=nil)
             entity = DataAggregation::Index::Update::Entity.new
-            entity.extend DataAggregation::Index::Update::Entity::StartReference
+            entity.extend DataAggregation::Index::Update::Entity::AddReference
             entity.related_entity_id = ID::RelatedEntity.example i
             entity.destination_stream_name = StreamName::RelatedEntity.example i
             entity

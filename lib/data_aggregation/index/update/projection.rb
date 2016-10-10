@@ -11,8 +11,8 @@ module DataAggregation::Index
         entity.event_data_text = initiated.event_data_text
       end
 
-      apply StartReferenceInitiated do |initiated|
-        entity.extend Entity::StartReference
+      apply AddReferenceInitiated do |initiated|
+        entity.extend Entity::AddReference
 
         entity.related_entity_id = initiated.related_entity_id
         entity.destination_stream_name = initiated.destination_stream_name

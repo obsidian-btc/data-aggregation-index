@@ -14,7 +14,7 @@ module DataAggregation::Index::Controls
         end
       end
 
-      module StartReference
+      module AddReference
         def self.example(i=nil)
           related_entity_id = ID::RelatedEntity.example i
           category = Category.example
