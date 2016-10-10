@@ -46,6 +46,7 @@ module DataAggregation::Index
       event_data_text = Serialize::Write.(event_data, :json)
 
       publish_event_initiated = Update::Messages::PublishEventInitiated.proceed event, copy: false
+      publish_event_initiated.entity_id = entity_id
       publish_event_initiated.event_id = event_id
       publish_event_initiated.event_data_text = event_data_text
       publish_event_initiated.time = clock.iso8601

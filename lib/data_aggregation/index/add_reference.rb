@@ -41,6 +41,7 @@ module DataAggregation::Index
       _, event_list_pos, _ = get_positions.(entity_id, category)
 
       add_reference_initiated = Update::Messages::AddReferenceInitiated.new
+      add_reference_initiated.entity_id = entity_id
       add_reference_initiated.related_entity_id = related_entity_id
       add_reference_initiated.destination_stream_name = destination_stream_name
       add_reference_initiated.event_list_position = event_list_pos unless event_list_pos == :no_stream

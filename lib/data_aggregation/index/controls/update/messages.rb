@@ -12,6 +12,7 @@ module DataAggregation::Index::Controls
           event = SourceEvent.example
 
           message = DataAggregation::Index::Update::Messages::PublishEventInitiated.proceed event, copy: false
+          message.entity_id = ID::Entity.example
           message.event_id = ID::SourceEvent.example i
           message.event_data_text = event_data_text
           message.reference_list_position = reference_list_position if reference_list_position
@@ -29,6 +30,7 @@ module DataAggregation::Index::Controls
           destination_stream_name = StreamName::RelatedEntity.example
 
           message = DataAggregation::Index::Update::Messages::AddReferenceInitiated.new
+          message.entity_id = ID::Entity.example
           message.related_entity_id = ID::RelatedEntity.example i
           message.destination_stream_name = destination_stream_name
           message.event_list_position = event_list_position if event_list_position
