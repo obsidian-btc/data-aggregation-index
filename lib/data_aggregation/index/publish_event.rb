@@ -3,6 +3,8 @@ module DataAggregation::Index
     include Telemetry::Logger::Dependency
     include StreamName
 
+    configure :publish_event
+
     attr_reader :category
 
     dependency :clock, Clock::UTC
