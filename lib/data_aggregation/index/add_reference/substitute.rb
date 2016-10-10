@@ -6,23 +6,29 @@ module DataAggregation::Index
       end
 
       class AddReference
-        def call(destination_stream_name)
-          streams << destination_stream_name
+        def call(entity_id, destination_stream_name)
+          record = Record.new entity_id, destination_stream_name
+          records << record
+          record
         end
 
-        def reference_added?(destination_stream_name=nil)
+        def reference_added?(destination_stream_name=nil, &block)
           if destination_stream_name.nil?
-            block = proc { true }
+            block ||= proc { true }
           else
-            block = proc { |stream| stream == destination_stream_name }
+            block ||= proc { |_, stream| stream == destination_stream_name }
           end
 
-          streams.any? &block
+          records.any? do |record|
+            block.(record.entity_id, record.destination_stream_id)
+          end
         end
 
-        def streams
-          @streams ||= []
+        def records
+          @records ||= []
         end
+
+        Record = Struct.new :entity_id, :destination_stream_id
       end
     end
   end

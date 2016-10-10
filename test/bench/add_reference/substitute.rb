@@ -1,22 +1,23 @@
 require_relative '../bench_init'
 
 context "Add reference substitute" do
+  entity_id = Controls::ID::Entity.example
   destination_stream_name = Controls::StreamName::RelatedEntity.example
 
   context "Reference added predicate" do
     context "Substitute has not been actuated" do
       substitute = SubstAttr::Substitute.build AddReference
 
-      test "Predicate returns false when no argument is specified" do
+      test "Predicate returns false when no block is specified" do
         refute substitute, &:reference_added?
       end
     end
 
     context "Substitute has been actuated" do
       substitute = SubstAttr::Substitute.build AddReference
-      substitute.(destination_stream_name)
+      substitute.(entity_id, destination_stream_name)
 
-      test "Predicate returns true when no argument is specified" do
+      test "Predicate returns true when no block is specified" do
         assert substitute, &:reference_added?
       end
 
@@ -27,6 +28,18 @@ context "Add reference substitute" do
 
         refute substitute do
           reference_added? Object.new
+        end
+      end
+
+      test "Predicate returns true if block evaluates truthfully" do
+        assert substitute do
+          reference_added? do |id, stream|
+            id == entity_id && stream == destination_stream_name
+          end
+        end
+
+        refute substitute do
+          reference_added? do false end
         end
       end
     end
