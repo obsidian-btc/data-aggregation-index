@@ -22,6 +22,12 @@ module DataAggregation::Index::Controls
       def self.example
         22
       end
+
+      module Previous
+        def self.example
+          ReferenceList.example - 1
+        end
+      end
     end
   end
 end

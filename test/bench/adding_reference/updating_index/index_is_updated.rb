@@ -1,23 +1,23 @@
 require_relative '../../bench_init'
 
-context "Updating index upon an event being added" do
-  event_list_version = Controls::Position::EventList.example
-  event_added = Controls::Messages::EventAdded.example event_list_version
+context "Updating index upon a reference being added" do
+  reference_list_version = Controls::Position::ReferenceList.example
+  reference_added = Controls::Messages::ReferenceAdded.example reference_list_version
   category = Controls::StreamName::Category.example
   index_stream_name = Controls::StreamName::Index.example
 
-  update_index = EventList::UpdateIndex.new event_added, category
+  update_index = ReferenceList::UpdateIndex.new reference_added, category
   update_index.clock.now = Controls::Time::Raw.example
   update_index.get_positions.set(
     index_stream_name, 
     Controls::Position::Index.example,
-    Controls::Position::EventList::Previous.example,
-    nil
+    nil,
+    Controls::Position::ReferenceList::Previous.example
   )
   update_index.()
 
   test "Update started is written to index stream" do
-    update_started = Controls::Messages::UpdateStarted::PublishEvent.example event_list_version
+    update_started = Controls::Messages::UpdateStarted::AddReference.example reference_list_version
     index_stream_name = Controls::StreamName::Index.example
 
     assert update_index.writer do

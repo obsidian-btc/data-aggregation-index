@@ -29,7 +29,7 @@ module DataAggregation::Index
 
       def call
         log_attributes = "EntityID: #{entity_id}, Category: #{category}, EventID: #{event_id}, EventAddedPosition: #{event_added.position}"
-        logger.trace "Starting update for event added (#{log_attributes})"
+        logger.trace "Starting update for event (#{log_attributes})"
 
         stream_name = index_stream_name entity_id, category
 
@@ -42,7 +42,7 @@ module DataAggregation::Index
         end
 
         if next_event_list_pos > event_added.position
-          logger.debug "Update already started for event added; skipped (#{log_attributes}, NextEventListPosition: #{next_event_list_pos})"
+          logger.debug "Update already started for event; skipped (#{log_attributes}, NextEventListPosition: #{next_event_list_pos})"
           return
         end
 
@@ -52,9 +52,9 @@ module DataAggregation::Index
         update_started.reference_list_position = reference_list_pos unless reference_list_pos == :no_stream
         update_started.time = clock.iso8601
 
-        writer.write update_started, stream_name
+        writer.write update_started, stream_name, expected_version: index_pos
 
-        logger.debug "Update started for event added (#{log_attributes}, NextEventListPosition: #{next_event_list_pos})"
+        logger.debug "Update started for event (#{log_attributes}, NextEventListPosition: #{next_event_list_pos})"
 
         update_started
       end

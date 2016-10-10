@@ -23,6 +23,8 @@ require 'data_aggregation/index/event_list/add'
 require 'data_aggregation/index/event_list/update_index'
 require 'data_aggregation/index/event_list/handler'
 require 'data_aggregation/index/reference_list/add'
+require 'data_aggregation/index/reference_list/update_index'
+require 'data_aggregation/index/reference_list/handler'
 
 require 'data_aggregation/index/add_reference'
 require 'data_aggregation/index/add_reference/substitute'
