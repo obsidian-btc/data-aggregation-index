@@ -43,10 +43,13 @@ module DataAggregation::Index::Controls
     end
 
     module EventAdded
-      def self.example(i=nil)
+      def self.example(position=nil)
+        position ||= Position::EventList.example
+
         message = DataAggregation::Index::Messages::EventAdded.build
         message.entity_id = ID::Entity.example
-        message.event_id = ID::SourceEvent.example i
+        message.event_id = ID::SourceEvent.example position
+        message.position = position
         message.event_data_text = SourceEvent::EventData::Text.example
         message.time = Time.example
         message
@@ -54,11 +57,14 @@ module DataAggregation::Index::Controls
     end
 
     module ReferenceAdded
-      def self.example(i=nil)
+      def self.example(position=nil)
+        position ||= Position::ReferenceList.example
+
         message = DataAggregation::Index::Messages::ReferenceAdded.build
         message.entity_id = ID::Entity.example
-        message.related_entity_id = ID::RelatedEntity.example i
-        message.destination_stream_name = StreamName::RelatedEntity.example i
+        message.related_entity_id = ID::RelatedEntity.example position
+        message.destination_stream_name = StreamName::RelatedEntity.example position
+        message.position = position
         message.time = Time.example
         message
       end

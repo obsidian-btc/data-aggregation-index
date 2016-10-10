@@ -12,7 +12,7 @@ module DataAggregation::Index::Controls
 
     module RelatedEntity
       def self.example(i=nil)
-        i ||= 0
+        i ||= Position::ReferenceList.example
         i += 100
 
         ID.example i
@@ -21,7 +21,7 @@ module DataAggregation::Index::Controls
 
     module SourceEvent
       def self.example(i=nil)
-        i ||= 0
+        i ||= Position::EventList.example
         i += 200
 
         ID.example i

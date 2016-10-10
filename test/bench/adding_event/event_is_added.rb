@@ -5,10 +5,14 @@ context "Adding event to an event list" do
   event_id = Controls::ID::SourceEvent.example
   publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example
   event_list_stream_name = Controls::StreamName::EventList.example
+  event_list_version = Controls::Position::EventList.example
 
   add = EventList::Add.new publish_event_initiated, category
   add.clock.now = Controls::Time::Raw.example
-  add.recent_event_added_query.set event_list_stream_name, version: 1
+  add.recent_event_added_query.set(
+    event_list_stream_name,
+    version: event_list_version
+  )
 
   add.()
 
@@ -25,7 +29,7 @@ context "Adding event to an event list" do
   test "Expected version is set" do
     assert add.writer do
       written? do |_, _, expected_version|
-        expected_version == 1
+        expected_version == event_list_version
       end
     end
   end

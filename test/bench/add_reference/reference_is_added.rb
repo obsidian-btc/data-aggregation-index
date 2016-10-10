@@ -20,8 +20,6 @@ context "Reference is added to index" do
 
     assert add_reference.writer do
       written? do |msg, stream_name|
-        pp msg.to_h
-        pp add_reference_initiated.to_h
         msg == add_reference_initiated && stream_name == update_stream_name
       end
     end

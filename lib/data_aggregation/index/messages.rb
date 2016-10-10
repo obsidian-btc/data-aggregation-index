@@ -19,6 +19,7 @@ module DataAggregation::Index
       attribute :event_id, String
 
       attribute :event_data_text, String
+      attribute :position, Integer
       attribute :time, String
     end
 
@@ -29,6 +30,7 @@ module DataAggregation::Index
       attribute :related_entity_id, String
 
       attribute :destination_stream_name, String
+      attribute :position, Integer
       attribute :time, String
     end
   end

@@ -10,6 +10,12 @@ module DataAggregation::Index::Controls
       def self.example
         11
       end
+
+      module Previous
+        def self.example
+          EventList.example - 1
+        end
+      end
     end
 
     module ReferenceList

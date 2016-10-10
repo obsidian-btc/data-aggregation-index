@@ -42,6 +42,7 @@ module DataAggregation::Index
           add_reference_initiated_event,
           include: %i(entity_id related_entity_id destination_stream_name)
         )
+        reference_added.position = version
         reference_added.time = clock.iso8601
 
         writer.write reference_added, stream_name, expected_version: version

@@ -47,6 +47,7 @@ module DataAggregation::Index
           publish_event_initiated,
           include: %i(entity_id event_id event_data_text)
         )
+        event_added.position = version
         event_added.time = clock.iso8601
 
         writer.write event_added, stream_name, expected_version: version

@@ -5,10 +5,14 @@ context "Adding reference to an event list" do
   related_entity_id = Controls::ID::RelatedEntity.example
   add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example
   reference_list_stream_name = Controls::StreamName::ReferenceList.example
+  reference_list_version = Controls::Position::ReferenceList.example
 
   add = ReferenceList::Add.new add_reference_initiated, category
   add.clock.now = Controls::Time::Raw.example
-  add.recent_reference_added_query.set reference_list_stream_name, version: 1
+  add.recent_reference_added_query.set(
+    reference_list_stream_name,
+    version: reference_list_version
+  )
 
   add.()
 
@@ -25,7 +29,7 @@ context "Adding reference to an event list" do
   test "Expected version is set" do
     assert add.writer do
       written? do |_, _, expected_version|
-        expected_version == 1
+        expected_version == reference_list_version
       end
     end
   end
