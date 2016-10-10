@@ -43,7 +43,7 @@ module DataAggregation::Index
       add_reference_initiated = Update::Messages::AddReferenceInitiated.new
       add_reference_initiated.related_entity_id = related_entity_id
       add_reference_initiated.destination_stream_name = destination_stream_name
-      add_reference_initiated.event_stream_position = event_list_pos unless event_list_pos == :no_stream
+      add_reference_initiated.event_list_position = event_list_pos unless event_list_pos == :no_stream
       add_reference_initiated.time = clock.iso8601
 
       stream_name = update_stream_name related_entity_id, category

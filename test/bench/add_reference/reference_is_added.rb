@@ -7,10 +7,10 @@ context "Reference is added to index" do
   destination_stream_name = Controls::StreamName::RelatedEntity.example
   index_stream_name = Controls::StreamName::Index.example
 
-  event_stream_position = Controls::Position::EventList::Initial.example
+  event_list_position = Controls::Position::EventList::Initial.example
 
   add_reference = AddReference.new category
-  add_reference.get_positions.set index_stream_name, 0, event_stream_position, 0
+  add_reference.get_positions.set index_stream_name, 0, event_list_position, 0
 
   add_reference.(entity_id, destination_stream_name)
 

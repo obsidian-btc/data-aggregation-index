@@ -7,13 +7,13 @@ context "Reference is added to index, no events have yet been published" do
   destination_stream_name = Controls::StreamName::RelatedEntity.example
   index_stream_name = Controls::StreamName::Index.example
 
-  event_stream_position = Controls::Position::EventList::Initial.example
+  event_list_position = Controls::Position::EventList::Initial.example
 
   add_reference = AddReference.new category
   add_reference.(entity_id, destination_stream_name)
 
   test "AddReference initiated message is written to update stream" do
-    add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example event_stream_position: false
+    add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example event_list_position: false
     update_stream_name = Controls::StreamName::Update::AddReference.example
 
     assert add_reference.writer do

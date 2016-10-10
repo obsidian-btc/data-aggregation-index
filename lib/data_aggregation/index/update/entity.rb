@@ -36,7 +36,7 @@ module DataAggregation::Index
           object.singleton_class.class_exec do
             attribute :related_entity_id, String
             attribute :destination_stream_name, String
-            attribute :event_stream_position, Integer
+            attribute :event_list_position, Integer
           end
         end
 
@@ -45,7 +45,7 @@ module DataAggregation::Index
         end
 
         def record_started(started)
-          self.event_stream_position = started.event_stream_position
+          self.event_list_position = started.event_list_position
         end
       end
     end

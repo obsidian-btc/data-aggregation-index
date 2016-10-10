@@ -15,7 +15,7 @@ module DataAggregation::Index
 
         attribute :related_entity_id, String
         attribute :destination_stream_name, String
-        attribute :event_stream_position, Integer
+        attribute :event_list_position, Integer
         attribute :time, String
       end
 
@@ -23,7 +23,7 @@ module DataAggregation::Index
         include EventStore::Messaging::Message
 
         attribute :update_id, String
-        attribute :event_stream_position, Integer
+        attribute :event_list_position, Integer
         attribute :reference_stream_position, Integer
         attribute :time, String
       end
