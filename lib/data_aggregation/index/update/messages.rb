@@ -28,6 +28,34 @@ module DataAggregation::Index
         attribute :event_list_position, Integer
         attribute :reference_list_position, Integer
         attribute :time, String
+
+        def copy_position
+          nil
+        end
+      end
+
+      class BatchAssembled
+        include EventStore::Messaging::Message
+
+        attribute :update_id, String
+        attribute :batch_position, Integer
+        attribute :batch_data, Array, default: ->{ Array.new }
+        attribute :time, String
+      end
+
+      class BatchCopied
+        include EventStore::Messaging::Message
+
+        attribute :update_id, String
+        attribute :copy_position, Integer
+        attribute :time, String
+      end
+
+      class Completed
+        include EventStore::Messaging::Message
+
+        attribute :update_id, String
+        attribute :time, String
       end
     end
   end

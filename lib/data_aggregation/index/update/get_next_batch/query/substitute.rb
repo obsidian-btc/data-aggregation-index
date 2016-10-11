@@ -16,7 +16,9 @@ module DataAggregation::Index
               record[starting_position..ending_position]
             end
 
-            def add(entity_id, results, position)
+            def add(entity_id, results, position=nil)
+              position ||= 0
+
               queries[entity_id] = Record.new results, position
             end
 

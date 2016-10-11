@@ -12,6 +12,10 @@ context "Add reference update, initiated event is projected onto entity" do
     assert entity.is_a?(Update::Entity::AddReference)
   end
 
+  test "Entity ID is set" do
+    assert entity.entity_id == Controls::ID::Entity.example
+  end
+
   test "Related entity ID is set" do
     assert entity.related_entity_id == Controls::ID::RelatedEntity.example
   end

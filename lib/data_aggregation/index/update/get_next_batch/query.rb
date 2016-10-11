@@ -10,6 +10,18 @@ module DataAggregation::Index
         attr_accessor :category
 
         abstract :call
+
+        def self.build(entity)
+          if entity.instance_of? Entity::PublishEvent
+            subclass = References
+          elsif entity.instance_of? Entity::AddReference
+            subclass = PublishedEvents
+          else
+            raise TypeError
+          end
+
+          subclass.new
+        end
       end
     end
   end

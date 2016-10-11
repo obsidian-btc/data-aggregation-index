@@ -12,6 +12,10 @@ context "Publish event update, initiated event is projected onto entity" do
     assert entity.is_a?(Update::Entity::PublishEvent)
   end
 
+  test "Entity ID is set" do
+    assert entity.entity_id == Controls::ID::Entity.example
+  end
+
   test "Event ID is set" do
     assert entity.event_id == Controls::ID::SourceEvent.example
   end

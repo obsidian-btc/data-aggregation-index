@@ -3,11 +3,33 @@ module DataAggregation::Index
     class Entity
       include Schema::DataStructure
 
-      attribute :batch_position, Integer, default: 0
-      attribute :copy_position, Integer, default: 0
+      attribute :entity_id
+      attribute :batch_position, Integer
+      attribute :copy_position, Integer
+
+      attr_accessor :completed
+      attr_accessor :started
+
+      def completed?
+        completed ? true : false
+      end
 
       def started?
-        data_stream_position ? true : false
+        started ? true : false
+      end
+
+      def record_completed
+        self.completed = true
+      end
+
+      def finished?
+        if not started?
+          false
+        elsif data_stream_position.nil?
+          true
+        else
+          data_stream_position == copy_position
+        end
       end
 
       abstract :record_started
@@ -33,6 +55,7 @@ module DataAggregation::Index
 
         def record_started(started)
           self.reference_list_position = started.reference_list_position
+          self.started = true
         end
       end
 
@@ -55,6 +78,7 @@ module DataAggregation::Index
 
         def record_started(started)
           self.event_list_position = started.event_list_position
+          self.started = true
         end
       end
     end

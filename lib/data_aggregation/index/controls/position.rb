@@ -29,5 +29,29 @@ module DataAggregation::Index::Controls
         end
       end
     end
+
+    module Batch
+      module Start
+        def self.example(batch_index=nil)
+          batch_index ||= 0
+
+          batch_index * Size.example
+        end
+      end
+
+      module Stop
+        def self.example(batch_index=nil)
+          start = Start.example batch_index
+
+          start + Size.example - 1
+        end
+      end
+
+      module Size
+        def self.example
+          3
+        end
+      end
+    end
   end
 end
