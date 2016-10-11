@@ -30,3 +30,5 @@ require 'data_aggregation/index/add_reference'
 require 'data_aggregation/index/add_reference/substitute'
 require 'data_aggregation/index/publish_event'
 require 'data_aggregation/index/publish_event/substitute'
+
+require 'data_aggregation/index/handler'

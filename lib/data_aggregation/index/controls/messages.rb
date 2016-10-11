@@ -3,6 +3,8 @@ module DataAggregation::Index::Controls
     module UpdateStarted
       def self.example(update_id: nil, event_list_position: nil, reference_list_position: nil)
         update_id ||= ID::Update.example
+        event_list_position = Position::EventList.example if event_list_position == true
+        reference_list_position = Position::ReferenceList.example if reference_list_position == true
 
         message = DataAggregation::Index::Messages::UpdateStarted.build
         message.entity_id = ID::Entity.example

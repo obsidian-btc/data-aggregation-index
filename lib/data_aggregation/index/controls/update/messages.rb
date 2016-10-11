@@ -40,15 +40,16 @@ module DataAggregation::Index::Controls
 
       module Started
         def self.example(i=nil, event_list_position: nil, reference_list_position: nil)
-          event_list_position ||= Position::EventList.example
-          reference_list_position ||= Position::ReferenceList.example
+          event_list_position = Position::EventList.example if event_list_position == true
+          reference_list_position = Position::ReferenceList.example if reference_list_position == true
 
           event_data_text = SourceEvent::EventData::Text.example
 
           message = DataAggregation::Index::Update::Messages::Started.new
           message.update_id = ID::SourceEvent.example i
-          message.event_list_position = event_list_position
-          message.reference_list_position = reference_list_position
+          message.event_list_position = event_list_position if event_list_position
+          message.reference_list_position = reference_list_position if reference_list_position
+          message.time = Time.example
           message
         end
       end
