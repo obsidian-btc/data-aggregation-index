@@ -31,4 +31,10 @@ require 'data_aggregation/index/add_reference/substitute'
 require 'data_aggregation/index/publish_event'
 require 'data_aggregation/index/publish_event/substitute'
 
+require 'data_aggregation/index/update/get_next_batch/query'
+require 'data_aggregation/index/update/get_next_batch/query/substitute'
+#require 'data_aggregation/index/update/get_next_batch/query/references'
+#require 'data_aggregation/index/update/get_next_batch/query/published_events'
+require 'data_aggregation/index/update/get_next_batch'
+
 require 'data_aggregation/index/handler'

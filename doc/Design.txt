@@ -1,118 +1,35 @@
 Data Aggregation Index
 ======================
 
-Terms
------
+Update Messages:
+  Initiated
+  Started
+  BatchAssembled
+  BatchCopied
+  Completed
 
-Entity - any entity that has a stream
-Event - a message that is related to the Entity that is to be published to all referenced streams
-Reference - a stream related to an Entity that is to receive any events published for that entity
-RelatedEntity - a reference ties an Entity to some RelatedEntity
-UpdateData - the subject of an update. It is either a new Event or a new Reference
-UpdateProcess - the process of either writing a new Event to all References (UpdateReferences) or else writing all Events to a new Reference (InitiateReference)
+GetNextBatch
+  Project update entity
+  If entity batch position exceeds event batch position, skip
+  Perform query:
+    GetNextBatch::References - queries the reference list and returns a set of destinationStreamName strings
+    GetNextBatch::PublishedEvents - queries the event list and returns a set of eventDataText strings
+  If result is empty, write Completed
+  If result is not empty, write BatchAssembled
 
+CopyBatch
+  Project update entity
+  If entity copy position exceeds event copy position, skip
+  Perform copy:
+    CopyBatch::References - for each destination stream, copy the event data text
+    CopyBtach::PublishedEvents - for each event data text, copy to related entity stream
+  Write BatchCopied
 
-IDs
----
+Update stream: Started is handled
+  GetNextBatch
 
-entityID - The ID of the entity being indexed
-updateID - Either the ID of a RelatedEntity in the case of an InitiateReference Update, or the ID of an event in the case of an UpdateReferences Update
+Update stream: BatchAssembled is handled
+  CopyBatch
 
-
-Streams
--------
-
-Index Stream
-  someIndex (entityID) - Current state of index is tracked here
-Events Stream
-  someIndex:events (entityID) - All events published to the index are written here
-References Stream
-  someIndex:references (referenceID) - All references published to the index are written here
-Publish Events Stream
-  someIndex:publishEvent (updateID) - Batch update progress is tracked as a process here
-Start Reference Stream
-  someIndex:startReference (updateID) - Batch update progress is tracked as a process here
-
-
-
-A New event is published
------------------------
-Depends on: eventID (will be the subjectID), eventDataText
-  eventID: '111'
-  eventDataText: '{ ... }'
-
-  1. Determine if someIndex:update-111 stream exists. If it does, skip (already processed)
-
-  2. Write initial event, UpdateInitiated, to someIndex:update-111. ExpectedVersion error might be raised
-       subjectID: '111'
-       subjectData: '{ ... }'
-
-  3. Update handler handles UpdateInitiated on someIndex:update-111
-     Queries the index stream for its latest entry
-       version: 55
-       eventSequenceNumber: 22
-       referenceSequenceNumber: 33
-
-     New event is written to someIndex:events stream with an expected version of 21 (22 - 1)
-
-  4. Events handler handles EventAdded on someIndex:events
-     Update stream is queried to see if it has already been started. If it has, skip (already processed)
-     Queries the index stream for its latest entry
-       version: 57
-       eventSequenceNumber: 22
-       referenceSequenceNumber: 35
-
-     NextUpdate is written to someIndex:index with an expected version of 57
-
-  5. Index handler handles NextUpdate on someIndex:index
-     Update stream is queried to see if it has already been started. If it has, skip (already processed)
-     Writes Started to update stream someIndex:update
-       eventSequenceNumber: 22
-       referenceSequenceNumber: 35
-
-
-Events
-------
-
-  IndexStream::EventPublished
-    + eventID
-    + eventSequenceNumber - number of entries written to the events stream, someIndex:events-111
-    + referenceSequenceNumber - number of entries written to the references stream, someIndex:references-111
-
-  IndexStream::ReferencePublished
-    + relatedEntityID
-    + eventSequenceNumber - number of entries written to the events stream, someIndex:events-111
-    + referenceSequenceNumber - number of entries written to the references stream, someIndex:references-111
-
-  UpdateStream::Initiated
-    + updateID - ID of the update subject (either eventID or relatedEntityID)
-    + updateData - Either new event or new reference
-
-  UpdateStream::Started
-    + eventSequenceNumber - Number of events to copy if initiating a reference
-    + referenceSequenceNumber - Number of references to update if updating references
-
-  UpdateStream::BatchAssembled, UpdateStream::BatchCopied, UpdateStream::BatchCompleted
-
-  ReferencesStream::ReferenceAdded
-    + streamID
-
-
-Components
-----------
-
-+ DataAggregation::Index::StreamName
-+ DataAggregation::Index::GetLatestEntry - retrieves the most recent entry of the master stream
-
-+ DataAggregation::Index::Messages::EventAdded
-+ DataAggregation::Index::Messages::ReferenceAdded
-
-DataAggregation::Index::Update::Events::Initiated
-DataAggregation::Index::Update::Events::Started
-DataAggregation::Index::Update::Initiate
-DataAggregation::Index::Update::Entity
-DataAggregation::Index::Update::Projection
-DataAggregation::Index::Update::Store
-
-
-
+Update stream: BatchCopied is handled
+  GetNextBatch
