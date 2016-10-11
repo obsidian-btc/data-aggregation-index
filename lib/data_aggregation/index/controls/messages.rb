@@ -52,7 +52,7 @@ module DataAggregation::Index::Controls
         message.entity_id = ID::Entity.example
         message.event_id = ID::SourceEvent.example position
         message.position = position
-        message.event_data_text = SourceEvent::EventData::Text.example
+        message.event_data_text = SourceEvent::EventData::Text.example position
         message.time = Time.example
         message
       end
