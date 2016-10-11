@@ -11,6 +11,7 @@ module DataAggregation::Index
       end
 
       abstract :record_started
+      abstract :data_stream_position
       abstract :update_id
 
       module PublishEvent
@@ -20,6 +21,10 @@ module DataAggregation::Index
             attribute :event_data_text, String
             attribute :reference_list_position, Integer
           end
+        end
+
+        def data_stream_position
+          reference_list_position
         end
 
         def update_id
@@ -38,6 +43,10 @@ module DataAggregation::Index
             attribute :destination_stream_name, String
             attribute :event_list_position, Integer
           end
+        end
+
+        def data_stream_position
+          event_list_position
         end
 
         def update_id

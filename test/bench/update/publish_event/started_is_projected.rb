@@ -11,4 +11,8 @@ context "Publish event update, started event is projected onto entity" do
   test "Reference stream position is set" do
     assert entity.reference_list_position == Controls::Position::ReferenceList.example
   end
+
+  test "Entity has started" do
+    assert entity.started?
+  end
 end
