@@ -9,7 +9,7 @@ context "Adding reference to an event list" do
 
   add = ReferenceList::Add.new add_reference_initiated, category
   add.clock.now = Controls::Time::Raw.example
-  add.recent_reference_added_query.set(
+  add.get_recent_reference.set(
     reference_list_stream_name,
     version: reference_list_version
   )

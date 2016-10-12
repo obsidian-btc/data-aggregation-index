@@ -1,11 +1,11 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
-context "Recent list entry query substitute" do
+context "Recent fact query substitute" do
   update_id = Controls::ID::Update.example 1
   stream_name = Controls::FactList::Write.(0)
 
   context "Stream is not configured" do
-    substitute = SubstAttr::Substitute.build RecentListEntryQuery
+    substitute = SubstAttr::Substitute.build Queries::GetRecentFact
 
     block_executed = false
     result = substitute.(stream_name, update_id) { block_executed = true }
@@ -20,7 +20,7 @@ context "Recent list entry query substitute" do
   end
 
   context "Starting position precedes specified position" do
-    substitute = SubstAttr::Substitute.build RecentListEntryQuery
+    substitute = SubstAttr::Substitute.build Queries::GetRecentFact
     substitute.set stream_name, update_id, version: 1
 
     block_executed = false
@@ -36,7 +36,7 @@ context "Recent list entry query substitute" do
   end
 
   context "Starting position equals specified position" do
-    substitute = SubstAttr::Substitute.build RecentListEntryQuery
+    substitute = SubstAttr::Substitute.build Queries::GetRecentFact
     substitute.set stream_name, update_id, version: 0
 
     block_executed = false
@@ -48,7 +48,7 @@ context "Recent list entry query substitute" do
   end
 
   context "Specifiec position precedes starting position" do
-    substitute = SubstAttr::Substitute.build RecentListEntryQuery
+    substitute = SubstAttr::Substitute.build Queries::GetRecentFact
     substitute.set stream_name, update_id, version: 0
 
     block_executed = false

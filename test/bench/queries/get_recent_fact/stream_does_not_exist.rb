@@ -1,12 +1,12 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
-context "Recent list entry query, stream does not exist" do
+context "Recent fact query, fact list stream does not exist" do
   update_id = Controls::ID::Update.example
   projection_class = Controls::FactList::Projection::Example
   stream_name = Controls::StreamName::FactList.example
 
   context do
-    query = RecentListEntryQuery.new projection_class
+    query = Queries::GetRecentFact.new projection_class
 
     block_executed = false
     result = query.(stream_name, update_id) do
@@ -24,7 +24,7 @@ context "Recent list entry query, stream does not exist" do
 
   context "Starting position is specified" do
     starting_position = 11
-    query = RecentListEntryQuery.new projection_class
+    query = Queries::GetRecentFact.new projection_class
 
     result = query.(stream_name, update_id, starting_position)
 

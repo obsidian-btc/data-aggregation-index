@@ -8,7 +8,7 @@ module DataAggregation::Index
       attr_reader :publish_event_initiated
 
       dependency :clock, Clock::UTC
-      dependency :recent_event_added_query, RecentListEntryQuery
+      dependency :get_recent_event, Queries::GetRecentFact
       dependency :writer, EventStore::Messaging::Writer
 
       def initialize(publish_event_initiated, category)
@@ -22,7 +22,7 @@ module DataAggregation::Index
 
         instance = new publish_event_initiated, category
         Clock::UTC.configure instance
-        RecentListEntryQuery.configure instance, QueryProjection, attr_name: :recent_event_added_query
+        Queries::GetRecentFact.configure instance, QueryProjection, attr_name: :get_recent_event
         EventStore::Messaging::Writer.configure instance
         instance
       end
@@ -38,7 +38,7 @@ module DataAggregation::Index
 
         stream_name = event_list_stream_name entity_id, category
 
-        version = recent_event_added_query.(stream_name, event_id, starting_position) do
+        version = get_recent_event.(stream_name, event_id, starting_position) do
           logger.debug "Event already added to event list; skipped (#{log_attributes})"
           return
         end

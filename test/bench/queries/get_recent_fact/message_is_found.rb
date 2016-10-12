@@ -1,11 +1,11 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
-context "Recent list entry query, entry is found" do
+context "Recent fact query, message is found" do
   update_id = Controls::ID::Update.example
   projection_class = Controls::FactList::Projection::Example
   stream_name = Controls::FactList::Write.()
 
-  query = RecentListEntryQuery.new projection_class
+  query = Queries::GetRecentFact.new projection_class
 
   block_executed = false
   result = query.(stream_name, update_id) do

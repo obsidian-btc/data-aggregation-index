@@ -21,12 +21,12 @@ require 'data_aggregation/index/update/projection'
 require 'data_aggregation/index/update/store'
 
 require 'data_aggregation/index/queries/get_positions'
+require 'data_aggregation/index/queries/get_recent_fact'
+require 'data_aggregation/index/queries/get_recent_fact/substitute'
 
 
 
 require 'data_aggregation/index/index'
-require 'data_aggregation/index/recent_list_entry_query'
-require 'data_aggregation/index/recent_list_entry_query/substitute'
 
 require 'data_aggregation/index/event_list/add'
 require 'data_aggregation/index/event_list/update_index'

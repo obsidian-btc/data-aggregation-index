@@ -9,7 +9,7 @@ context "Adding event to an event list" do
 
   add = EventList::Add.new publish_event_initiated, category
   add.clock.now = Controls::Time::Raw.example
-  add.recent_event_added_query.set(
+  add.get_recent_event.set(
     event_list_stream_name,
     version: event_list_version
   )

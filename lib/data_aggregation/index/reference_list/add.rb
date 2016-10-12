@@ -8,7 +8,7 @@ module DataAggregation::Index
       attr_reader :category
 
       dependency :clock, Clock::UTC
-      dependency :recent_reference_added_query, RecentListEntryQuery
+      dependency :get_recent_reference, Queries::GetRecentFact
       dependency :writer, EventStore::Messaging::Writer
 
       def initialize(add_reference_initiated_event, category)
@@ -22,7 +22,7 @@ module DataAggregation::Index
 
         instance = new add_reference_initiated_event, category
         Clock::UTC.configure instance
-        RecentListEntryQuery.configure instance, QueryProjection, attr_name: :recent_reference_added_query
+        Queries::GetRecentFact.configure instance, QueryProjection, attr_name: :get_recent_reference
         EventStore::Messaging::Writer.configure instance
         instance
       end
@@ -33,7 +33,7 @@ module DataAggregation::Index
 
         stream_name = reference_list_stream_name entity_id, category
 
-        version = recent_reference_added_query.(stream_name, related_entity_id, starting_position) do
+        version = get_recent_reference.(stream_name, related_entity_id, starting_position) do
           logger.debug "Reference already added to reference list; skipped (#{log_attributes})"
           return
         end

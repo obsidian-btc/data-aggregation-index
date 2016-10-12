@@ -8,7 +8,7 @@ context "Adding event to an event list, event is already added" do
   event_list_version = Controls::Position::EventList.example
 
   add = EventList::Add.new publish_event_initiated, category
-  add.recent_event_added_query.set(
+  add.get_recent_event.set(
     event_list_stream_name,
     event_id,
     version: event_list_version
