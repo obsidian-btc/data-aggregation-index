@@ -51,7 +51,7 @@ module DataAggregation::Index
 
           writer.write completed, stream_name, expected_version: version
 
-          logger.debug "Batch completed (#{log_attributes})"
+          logger.info "Batch completed (#{log_attributes})"
           return
         end
 
