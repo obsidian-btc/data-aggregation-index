@@ -13,7 +13,7 @@ context "Copy batch operation" do
   copy_batch.()
 
   context "All events in batch are copied" do
-    batch_data = Controls::Update::Messages::BatchAssembled::BatchData.example
+    batch_data = Controls::Update::BatchData.example
 
     batch_data.each_with_index do |data, index|
       test "Batch entry ##{index} is copied" do

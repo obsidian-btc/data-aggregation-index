@@ -6,11 +6,16 @@ module DataAggregation::Index
   Controls = ::Module.new
 end
 
+# Primitives
+require 'data_aggregation/index/controls/update/batch_data'
+
+# Messages
 require 'data_aggregation/index/controls/messages'
 require 'data_aggregation/index/controls/event_list/messages'
 require 'data_aggregation/index/controls/reference_list/messages'
 require 'data_aggregation/index/controls/update/messages'
 
+# Entities
 require 'data_aggregation/index/controls/update/entity'
 require 'data_aggregation/index/controls/update/entity/add_reference'
 require 'data_aggregation/index/controls/update/entity/publish_event'
@@ -18,8 +23,10 @@ require 'data_aggregation/index/controls/update/entity/publish_event'
 
 
 
+# XXX
 require 'data_aggregation/index/controls/id'
 require 'data_aggregation/index/controls/position'
+# XXX
 
 
 require 'data_aggregation/index/controls/event_data'

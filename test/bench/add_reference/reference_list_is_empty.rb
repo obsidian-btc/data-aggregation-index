@@ -12,7 +12,7 @@ context "Reference is added to index, reference list is empty" do
   add_reference.(entity_id, related_entity_stream_name)
 
   test "AddReference initiated message is written to update stream" do
-    add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example reference_list_position: false
+    add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example list_position: false
     update_stream_name = Controls::StreamName::Update::AddReference.example
 
     assert add_reference.writer do

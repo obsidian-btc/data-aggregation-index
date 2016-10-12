@@ -5,7 +5,7 @@ context "Get next batch assembles a batch, query returns no results" do
   event = Controls::Update::Messages::Started.example
   category = Controls::StreamName::Category.example
 
-  batch_data = Controls::Update::Messages::BatchAssembled::BatchData.example
+  batch_data = Controls::Update::BatchData.example
 
   get_next_batch = Update::GetNextBatch.new event, category
   get_next_batch.store.add update.update_id, update
