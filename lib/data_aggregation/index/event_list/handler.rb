@@ -3,8 +3,8 @@ module DataAggregation::Index
     class Handler
       include EventStore::Messaging::Handler
 
-      handle Messages::EventAdded do |event_added, event_data|
-        UpdateIndex.(event_added, event_data)
+      handle Messages::Added do |added, event_data|
+        UpdateIndex.(added, event_data)
       end
     end
   end

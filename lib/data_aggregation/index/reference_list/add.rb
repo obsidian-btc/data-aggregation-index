@@ -38,10 +38,13 @@ module DataAggregation::Index
           return
         end
 
-        reference_added = Messages::ReferenceAdded.proceed(
+        reference_added = Messages::Added.proceed(
           add_reference_initiated_event,
-          include: %i(entity_id related_entity_id destination_stream_name)
+          include: %i(entity_id related_entity_id)
         )
+        # XXX
+        reference_added.related_entity_category = EventStore::Messaging::StreamName.get_category(add_reference_initiated_event.destination_stream_name)
+        # /XXX
         reference_added.position = version
         reference_added.time = clock.iso8601
 
@@ -62,6 +65,14 @@ module DataAggregation::Index
 
       def starting_position
         add_reference_initiated_event.reference_list_position
+      end
+
+      class QueryProjection
+        include EventStore::EntityProjection
+
+        apply Messages::Added do |added|
+          entity << added.related_entity_id
+        end
       end
     end
   end

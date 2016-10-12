@@ -17,7 +17,7 @@ context "Adding event to an event list" do
   add.()
 
   test "Event added message is written to event list stream" do
-    event_added = Controls::Messages::EventAdded.example
+    event_added = Controls::EventList::Messages::Added.example
 
     assert add.writer do
       written? do |msg, stream_name|

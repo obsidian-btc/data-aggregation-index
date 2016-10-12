@@ -17,7 +17,7 @@ context "Adding reference to an event list" do
   add.()
 
   test "Reference added message is written to reference list stream" do
-    reference_added = Controls::Messages::ReferenceAdded.example
+    reference_added = Controls::ReferenceList::Messages::Added.example
 
     assert add.writer do
       written? do |msg, stream_name|

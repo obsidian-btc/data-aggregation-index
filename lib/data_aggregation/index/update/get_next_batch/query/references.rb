@@ -25,10 +25,10 @@ module DataAggregation::Index
 
           class Projection
             include EventStore::EntityProjection
-            include DataAggregation::Index::Messages
+            include DataAggregation::Index::ReferenceList::Messages
 
-            apply ReferenceAdded do |reference_added|
-              entity << reference_added.destination_stream_name
+            apply Added do |added|
+              entity << added.related_entity_stream_name
             end
           end
         end

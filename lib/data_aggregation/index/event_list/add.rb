@@ -43,7 +43,7 @@ module DataAggregation::Index
           return
         end
 
-        event_added = Messages::EventAdded.proceed(
+        event_added = Messages::Added.proceed(
           publish_event_initiated,
           include: %i(entity_id event_id event_data_text)
         )
@@ -76,8 +76,8 @@ module DataAggregation::Index
       class QueryProjection
         include EventStore::EntityProjection
 
-        apply Messages::EventAdded do |event_added|
-          entity << event_added.event_id
+        apply Messages::Added do |added|
+          entity << added.event_id
         end
       end
     end

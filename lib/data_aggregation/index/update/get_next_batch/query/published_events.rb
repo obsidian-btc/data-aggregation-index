@@ -25,10 +25,10 @@ module DataAggregation::Index
 
           class Projection
             include EventStore::EntityProjection
-            include DataAggregation::Index::Messages
+            include DataAggregation::Index::EventList::Messages
 
-            apply EventAdded do |event_added|
-              entity << event_added.event_data_text
+            apply Added do |added|
+              entity << added.event_data_text
             end
           end
         end

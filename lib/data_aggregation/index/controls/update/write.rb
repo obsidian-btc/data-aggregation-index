@@ -8,7 +8,7 @@ module DataAggregation::Index::Controls
           entity_id = ID::Entity.example
           stream_name = DataAggregation::Index::StreamName.event_list_stream_name entity_id, category
 
-          message_control = DataAggregation::Index::Controls::Messages::EventAdded
+          message_control = DataAggregation::Index::Controls::EventList::Messages::Added
 
           DataAggregation::Index::Controls::Write.(message_control, ending_position, stream_name: stream_name)
 
@@ -23,7 +23,7 @@ module DataAggregation::Index::Controls
           entity_id = ID::Entity.example
           stream_name = DataAggregation::Index::StreamName.reference_list_stream_name entity_id, category
 
-          message_control = DataAggregation::Index::Controls::Messages::ReferenceAdded
+          message_control = DataAggregation::Index::Controls::ReferenceList::Messages::Added
 
           DataAggregation::Index::Controls::Write.(message_control, ending_position, stream_name: stream_name)
 
