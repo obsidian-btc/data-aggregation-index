@@ -2,8 +2,13 @@ module DataAggregation::Index
   module Queries
     class GetPositions
       include Telemetry::Logger::Dependency
-
       include StreamName
+
+      configure :get_positions
+
+      def self.build
+        new
+      end
 
       def call(entity_id, category)
         log_attributes = "EntityID: #{entity_id}, Category: #{category}"

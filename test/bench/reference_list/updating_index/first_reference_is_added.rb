@@ -1,10 +1,8 @@
 require_relative '../../bench_init'
 
 context "Updating index upon a reference being added, first reference is added" do
-  reference_list_version = Controls::Position::ReferenceList.example
-  reference_added = Controls::ReferenceList::Messages::Added.example reference_list_version
+  reference_added = Controls::ReferenceList::Messages::Added.example
   category = Controls::StreamName::Category.example
-  index_stream_name = Controls::StreamName::Index.example
 
   update_index = ReferenceList::UpdateIndex.new reference_added, category
 
