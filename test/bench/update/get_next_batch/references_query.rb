@@ -2,7 +2,7 @@ require_relative '../../bench_init'
 
 context "Get next batch of references query" do
   entity_id = Controls::ID::Entity.example
-  stream_name = Controls::Update::Write::References.(2)
+  stream_name = Controls::ReferenceList::Write.(2)
   category = StreamName.get_category stream_name
 
   context "List is empty" do

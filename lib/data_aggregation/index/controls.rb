@@ -7,6 +7,9 @@ module DataAggregation::Index
 end
 
 # Primitives
+require 'data_aggregation/index/controls/id'
+require 'data_aggregation/index/controls/event_data'
+require 'data_aggregation/index/controls/position'
 require 'data_aggregation/index/controls/update/batch'
 require 'data_aggregation/index/controls/update/list'
 
@@ -21,16 +24,13 @@ require 'data_aggregation/index/controls/update/entity'
 require 'data_aggregation/index/controls/update/entity/add_reference'
 require 'data_aggregation/index/controls/update/entity/publish_event'
 
+# Writers
+require 'data_aggregation/index/controls/write'
+require 'data_aggregation/index/controls/event_list/write'
+require 'data_aggregation/index/controls/reference_list/write'
 
 
 
-# XXX
-require 'data_aggregation/index/controls/id'
-require 'data_aggregation/index/controls/position'
-# XXX
-
-
-require 'data_aggregation/index/controls/event_data'
 require 'data_aggregation/index/controls/recent_list_entry_query/list_entry'
 require 'data_aggregation/index/controls/recent_list_entry_query/projection'
 require 'data_aggregation/index/controls/recent_list_entry_query/update_id'
@@ -51,5 +51,3 @@ require 'data_aggregation/index/controls/stream_name/related_entity'
 require 'data_aggregation/index/controls/stream_name/reply'
 require 'data_aggregation/index/controls/stream_name/update'
 require 'data_aggregation/index/controls/time'
-require 'data_aggregation/index/controls/update/write'
-require 'data_aggregation/index/controls/write'

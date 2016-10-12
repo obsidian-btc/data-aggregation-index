@@ -2,7 +2,10 @@ module DataAggregation::Index::Controls
   module StreamName
     module Update
       def self.example
-        PublishEvent.example
+        event_id = ID::Update.example
+        category = Category.example
+
+        StreamName.get event_id, category
       end
 
       module PublishEvent

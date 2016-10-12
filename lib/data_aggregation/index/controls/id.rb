@@ -30,7 +30,7 @@ module DataAggregation::Index::Controls
 
     module Update
       def self.example
-        SourceEvent.example
+        ID.example 2
       end
     end
   end
