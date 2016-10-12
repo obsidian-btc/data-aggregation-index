@@ -1,4 +1,4 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
 context "Get positions from last index stream message, substitute" do
   entity_id = Controls::ID::Entity.example
@@ -7,7 +7,7 @@ context "Get positions from last index stream message, substitute" do
   context "Substitute has been programmed" do
     stream_name = Controls::StreamName::Index.example
 
-    substitute = SubstAttr::Substitute.build GetPositions
+    substitute = SubstAttr::Substitute.build Queries::GetPositions
     substitute.set stream_name, 1, 2, 3
 
     index_pos, event_pos, reference_pos = substitute.(entity_id, category)
@@ -26,7 +26,7 @@ context "Get positions from last index stream message, substitute" do
   end
 
   context "Substitute has not been programmed" do
-    substitute = SubstAttr::Substitute.build GetPositions
+    substitute = SubstAttr::Substitute.build Queries::GetPositions
 
     index_pos, event_pos, reference_pos = substitute.(entity_id, category)
 

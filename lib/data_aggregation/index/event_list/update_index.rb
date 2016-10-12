@@ -8,7 +8,7 @@ module DataAggregation::Index
       attr_reader :category
 
       dependency :clock, Clock::UTC
-      dependency :get_positions, GetPositions
+      dependency :get_positions, Queries::GetPositions
       dependency :writer, EventStore::Messaging::Writer
 
       def initialize(event_added, category)

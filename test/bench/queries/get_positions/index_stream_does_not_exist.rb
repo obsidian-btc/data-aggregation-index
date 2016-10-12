@@ -1,10 +1,10 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
 context "Get positions from last index stream message, stream does not exist" do
   entity_id = Controls::ID::Entity.example
   category = Controls::StreamName::Category.example
 
-  get_positions = GetPositions.new
+  get_positions = Queries::GetPositions.new
 
   index_pos, event_pos, reference_pos = get_positions.(entity_id, category)
 

@@ -44,6 +44,7 @@ require 'data_aggregation/index/controls/source_event/metadata'
 require 'data_aggregation/index/controls/source_event/event_data'
 
 require 'data_aggregation/index/controls/write'
+require 'data_aggregation/index/controls/index/write'
 require 'data_aggregation/index/controls/event_list/write'
 require 'data_aggregation/index/controls/fact_list/write'
 require 'data_aggregation/index/controls/reference_list/write'
