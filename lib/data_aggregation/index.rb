@@ -6,12 +6,17 @@ module DataAggregation
   Index = Module.new
 end
 
+require 'data_aggregation/index/stream_name'
+
 require 'data_aggregation/index/messages'
 require 'data_aggregation/index/event_list/messages'
 require 'data_aggregation/index/reference_list/messages'
 require 'data_aggregation/index/update/messages'
 
-require 'data_aggregation/index/stream_name'
+
+
+
+
 
 require 'data_aggregation/index/update/entity'
 require 'data_aggregation/index/update/projection'

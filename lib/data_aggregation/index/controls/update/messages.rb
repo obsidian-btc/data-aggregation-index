@@ -27,8 +27,6 @@ module DataAggregation::Index::Controls
             reference_list_position ||= Position::ReferenceList.example
           end
 
-          destination_stream_name = StreamName::RelatedEntity.example
-
           message = DataAggregation::Index::Update::Messages::AddReferenceInitiated.new
           message.entity_id = ID::Entity.example
           message.related_entity_id = ID::RelatedEntity.example i

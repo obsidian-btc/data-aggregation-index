@@ -7,12 +7,12 @@ module DataAggregation::Index
             log_attributes = "EntityID: #{entity_id}, StartingPosition: #{starting_position}, EndingPosition: #{ending_position})"
             logger.trace "Querying references batch (#{log_attributes})"
 
-            destination_stream_names = []
+            related_entity_stream_names = []
 
             stream_name = reference_list_stream_name entity_id, category
 
             Projection.(
-              destination_stream_names,
+              related_entity_stream_names,
               stream_name,
               starting_position: starting_position,
               ending_position: ending_position
@@ -20,7 +20,7 @@ module DataAggregation::Index
 
             logger.debug "References batch has been queried (#{log_attributes})"
 
-            destination_stream_names
+            related_entity_stream_names
           end
 
           class Projection

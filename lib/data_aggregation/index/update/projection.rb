@@ -17,9 +17,7 @@ module DataAggregation::Index
 
         entity.entity_id = initiated.entity_id
         entity.related_entity_id = initiated.related_entity_id
-        # XXX
-        entity.destination_stream_name = StreamName.stream_name initiated.related_entity_id, initiated.related_entity_category
-        # /XXX
+        entity.related_entity_category = initiated.related_entity_category
       end
 
       apply Started do |started|

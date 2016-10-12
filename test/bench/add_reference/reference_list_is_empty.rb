@@ -4,12 +4,12 @@ context "Reference is added to index, reference list is empty" do
   entity_id = Controls::ID::Entity.example
 
   category = Controls::StreamName::Category.example
-  destination_stream_name = Controls::StreamName::RelatedEntity.example
+  related_entity_stream_name = Controls::StreamName::RelatedEntity.example
 
   event_list_position = Controls::Position::EventList.example
 
   add_reference = AddReference.new category
-  add_reference.(entity_id, destination_stream_name)
+  add_reference.(entity_id, related_entity_stream_name)
 
   test "AddReference initiated message is written to update stream" do
     add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example reference_list_position: false

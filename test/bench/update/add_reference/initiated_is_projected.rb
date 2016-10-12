@@ -20,8 +20,8 @@ context "Add reference update, initiated event is projected onto entity" do
     assert entity.related_entity_id == Controls::ID::RelatedEntity.example
   end
 
-  test "Destination stream name is set" do
-    assert entity.destination_stream_name == Controls::StreamName::RelatedEntity.example
+  test "Related entity stream name is set" do
+    assert entity.related_entity_stream_name == Controls::StreamName::RelatedEntity.example
   end
 
   test "Control" do

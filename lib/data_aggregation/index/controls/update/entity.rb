@@ -86,7 +86,7 @@ module DataAggregation::Index::Controls
             entity.extend DataAggregation::Index::Update::Entity::AddReference
             entity.entity_id = ID::Entity.example
             entity.related_entity_id = ID::RelatedEntity.example i
-            entity.destination_stream_name = StreamName::RelatedEntity.example i
+            entity.related_entity_category = StreamName::RelatedEntity::Category.example
             entity
           end
         end
