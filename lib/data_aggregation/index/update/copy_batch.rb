@@ -19,7 +19,7 @@ module DataAggregation::Index
 
       def configure
         Clock::UTC.configure self
-        Copy.configure self, entity
+        Copy.configure self, entity, batch_data
         Store.configure self
         EventStore::Messaging::Writer.configure self
       end
@@ -65,6 +65,10 @@ module DataAggregation::Index
 
       def batch_position
         batch_assembled.batch_position
+      end
+
+      def batch_data
+        batch_assembled.batch_data
       end
 
       def store_record

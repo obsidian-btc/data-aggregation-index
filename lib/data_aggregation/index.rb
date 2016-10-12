@@ -1,3 +1,4 @@
+require 'event_store/copy_message'
 require 'event_store/messaging'
 require 'event_store/entity_store'
 
@@ -38,6 +39,7 @@ require 'data_aggregation/index/update/get_next_batch/query/published_events'
 require 'data_aggregation/index/update/get_next_batch'
 
 require 'data_aggregation/index/update/copy_batch/copy'
+require 'data_aggregation/index/update/copy_batch/copy/references'
 require 'data_aggregation/index/update/copy_batch/copy/substitute'
 require 'data_aggregation/index/update/copy_batch'
 

@@ -7,19 +7,30 @@ module DataAggregation::Index
 
         configure :copy
 
-        abstract :call
+        attr_reader :batch_data
+        attr_reader :update
 
-        def self.build(entity)
-          if entity.instance_of? Entity::PublishEvent
+        def initialize(update, batch_data)
+          @update = update
+          @batch_data = batch_data
+        end
+
+        def self.build(update, batch_data)
+          if update.instance_of? Entity::PublishEvent
             subclass = References
-          elsif entity.instance_of? Entity::AddReference
+          elsif update.instance_of? Entity::AddReference
             subclass = PublishedEvents
           else
             raise TypeError
           end
 
-          subclass.new
+          instance = subclass.new update, batch_data
+          instance.configure
+          instance
         end
+
+        abstract :call
+        virtual :configure
       end
     end
   end

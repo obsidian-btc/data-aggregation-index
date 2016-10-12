@@ -7,7 +7,7 @@ module DataAggregation::Index
             Copy.new
           end
 
-          class Copy < Copy
+          class Copy
             def call(data)
               record = Record.new data
               records << record

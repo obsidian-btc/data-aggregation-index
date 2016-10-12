@@ -13,6 +13,16 @@ module DataAggregation::Index::Controls
           "someRelatedEntity"
         end
       end
+
+      module Batch
+        def self.example
+          batch_size = Position::Batch::Size.example
+
+          (0...batch_size).map do |i|
+            RelatedEntity.example i
+          end
+        end
+      end
     end
   end
 end
