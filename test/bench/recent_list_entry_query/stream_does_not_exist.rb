@@ -3,7 +3,7 @@ require_relative '../bench_init'
 context "Recent list entry query, stream does not exist" do
   update_id = Controls::ID::Update.example
   projection_class = Controls::FactList::Projection::Example
-  stream_name = Controls::StreamName.example
+  stream_name = Controls::StreamName::FactList.example
 
   context do
     query = RecentListEntryQuery.new projection_class
