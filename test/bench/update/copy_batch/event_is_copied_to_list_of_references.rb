@@ -2,7 +2,7 @@ require_relative '../../bench_init'
 
 context "Published event is copied to list of references" do
   related_entity_stream_names = Controls::StreamName::RelatedEntity::Batch.example
-  update = Controls::Update::Entity::PublishEvent::Copying.example
+  update = Controls::Update::Entity::PublishEvent.example
 
   copy = Update::CopyBatch::Copy::References.new update, related_entity_stream_names
   copy.()

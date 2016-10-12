@@ -35,7 +35,7 @@ module DataAggregation::Index
       end
 
       def call
-        log_attributes = "EntityID: #{entity.entity_id}, UpdateID: #{update_id}, UpdateProgress: #{entity.copy_position.inspect}/#{entity.batch_position.inspect}/#{entity.data_stream_position} Batch: #{starting_position}-#{ending_position}"
+        log_attributes = "EntityID: #{entity.entity_id}, UpdateID: #{update_id}, UpdateProgress: #{entity.copy_position.inspect}/#{entity.batch_position.inspect}/#{entity.list_position} Batch: #{starting_position}-#{ending_position}"
         logger.trace "Getting next batch (#{log_attributes})"
 
         stream_name = update_stream_name update_id, category
@@ -95,7 +95,7 @@ module DataAggregation::Index
       def ending_position
         [
           starting_position + batch_size - 1,
-          entity.data_stream_position
+          entity.list_position
         ].min
       end
 

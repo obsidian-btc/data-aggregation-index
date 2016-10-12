@@ -6,6 +6,7 @@ module DataAggregation::Index
       entity Entity
       projection Projection
 
+      # XXX - this will need to be set
       def category_name
         category_name = @category_name
 
@@ -17,6 +18,7 @@ module DataAggregation::Index
 
         category_name
       end
+      # /XXX
     end
   end
 end

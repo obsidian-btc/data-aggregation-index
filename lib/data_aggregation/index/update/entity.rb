@@ -6,6 +6,7 @@ module DataAggregation::Index
       attribute :entity_id
       attribute :batch_position, Integer
       attribute :copy_position, Integer
+      attribute :list_position, Integer
 
       attr_accessor :completed
       attr_accessor :started
@@ -14,15 +15,13 @@ module DataAggregation::Index
         completed ? true : false
       end
 
-      abstract :data_stream_position
-
       def finished?
         if not started?
           false
-        elsif data_stream_position.nil?
+        elsif list_position.nil?
           true
         else
-          data_stream_position == copy_position
+          list_position == copy_position
         end
       end
 
@@ -30,12 +29,11 @@ module DataAggregation::Index
         self.completed = true
       end
 
-      abstract :record_started
-
       def started?
         started ? true : false
       end
 
+      abstract :record_started
       abstract :update_id
     end
   end

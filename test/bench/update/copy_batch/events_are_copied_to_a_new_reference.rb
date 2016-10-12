@@ -2,7 +2,7 @@ require_relative '../../bench_init'
 
 context "All existing events are copied to a new reference" do
   event_data_list = Controls::SourceEvent::EventData::Text::Batch.example
-  update = Controls::Update::Entity::AddReference::Copying.example
+  update = Controls::Update::Entity::AddReference.example
 
   copy = Update::CopyBatch::Copy::PublishedEvents.new update, event_data_list
   copy.()

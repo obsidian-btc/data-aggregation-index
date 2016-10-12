@@ -9,7 +9,7 @@ context "Add reference update, started event is projected onto entity" do
   projection.apply started
 
   test "Event stream position is set" do
-    assert entity.event_list_position == Controls::Position::EventList.example
+    assert entity.list_position == Controls::Position::EventList.example
   end
 
   test "Entity has started" do

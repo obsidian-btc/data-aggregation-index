@@ -3,34 +3,29 @@ module DataAggregation::Index::Controls
     module Entity
       module Initiated
         def self.example
-          PublishEvent::Initiated.example
+          entity = ExampleEntity.new
+          entity.entity_id = ID::Entity.example
+          entity.update_id = ID::Update.example
+          entity
         end
       end
 
       module Started
         def self.example
-          PublishEvent::Started.example
+          entity = Initiated.example
+          entity.list_position = Position::Update::List.example
+          entity.record_started
+          entity
         end
       end
 
       module Copying
         def self.example(batch_index=nil)
-          PublishEvent::Copying.example batch_index
-        end
-      end
+          batch_index ||= 0
 
-      module Finished
-        def self.example
           entity = Started.example
-          entity.copy_position = entity.data_stream_position
-          entity
-        end
-      end
-
-      module Completed
-        def self.example
-          entity = Finished.example
-          entity.record_completed
+          entity.batch_position = Position::Batch::Stop.example batch_index
+          entity.copy_position = Position::Batch::Start.example batch_index
           entity
         end
       end
@@ -46,69 +41,28 @@ module DataAggregation::Index::Controls
         end
       end
 
-      module PublishEvent
-        module Initiated
-          def self.example(i=nil)
-            entity = DataAggregation::Index::Update::Entity.new
-            entity.extend DataAggregation::Index::Update::Entity::PublishEvent
-            entity.entity_id = ID::Entity.example
-            entity.event_id = ID::SourceEvent.example i
-            entity.event_data_text = SourceEvent::EventData::Text.example
-            entity
-          end
-        end
-
-        module Started
-          def self.example(i=nil)
-            entity = Initiated.example
-            entity.reference_list_position = Position::ReferenceList.example
-            entity.started = true
-            entity
-          end
-        end
-
-        module Copying
-          def self.example(batch_index=nil)
-            batch_index ||= 0
-
-            entity = Started.example
-            entity.batch_position = Position::Batch::Stop.example batch_index
-            entity.copy_position = Position::Batch::Start.example batch_index
-            entity
-          end
+      module Finished
+        def self.example
+          entity = Started.example
+          entity.batch_position = entity.list_position
+          entity.copy_position = entity.list_position
+          entity
         end
       end
 
-      module AddReference
-        module Initiated
-          def self.example(i=nil)
-            entity = DataAggregation::Index::Update::Entity.new
-            entity.extend DataAggregation::Index::Update::Entity::AddReference
-            entity.entity_id = ID::Entity.example
-            entity.related_entity_id = ID::RelatedEntity.example i
-            entity.related_entity_category = StreamName::RelatedEntity::Category.example
-            entity
-          end
+      module Completed
+        def self.example
+          entity = Finished.example
+          entity.record_completed
+          entity
         end
+      end
 
-        module Started
-          def self.example(i=nil)
-            entity = Initiated.example
-            entity.event_list_position = Position::EventList.example
-            entity.started = true
-            entity
-          end
-        end
+      class ExampleEntity < DataAggregation::Index::Update::Entity
+        attribute :update_id, String
 
-        module Copying
-          def self.example(batch_index=nil)
-            batch_index ||= 0
-
-            entity = Started.example
-            entity.batch_position = Position::Batch::Stop.example batch_index
-            entity.copy_position = Position::Batch::Start.example batch_index
-            entity
-          end
+        def record_started
+          self.started = true
         end
       end
     end
