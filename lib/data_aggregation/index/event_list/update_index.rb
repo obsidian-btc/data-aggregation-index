@@ -22,7 +22,7 @@ module DataAggregation::Index
 
         instance = new event_added, category
         Clock::UTC.configure instance
-        GetPositions.configure instance
+        Queries::GetPositions.configure instance
         EventStore::Messaging::Writer.configure instance
         instance
       end

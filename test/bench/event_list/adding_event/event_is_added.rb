@@ -1,18 +1,13 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
 context "Adding event to an event list" do
   category = Controls::StreamName::Category.example
-  event_id = Controls::ID::SourceEvent.example
   publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example
   event_list_stream_name = Controls::StreamName::EventList.example
-  event_list_version = Controls::Position::EventList.example
 
   add = EventList::Add.new publish_event_initiated, category
   add.clock.now = Controls::Time::Raw.example
-  add.get_recent_event.set(
-    event_list_stream_name,
-    version: event_list_version
-  )
+  add.get_recent_event.set event_list_stream_name, version: 11
 
   add.()
 
@@ -29,7 +24,7 @@ context "Adding event to an event list" do
   test "Expected version is set" do
     assert add.writer do
       written? do |_, _, expected_version|
-        expected_version == event_list_version
+        expected_version == 11
       end
     end
   end

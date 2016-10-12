@@ -1,4 +1,4 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
 context "Adding event to an event list, event is already added" do
   category = Controls::StreamName::Category.example
