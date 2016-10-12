@@ -29,11 +29,30 @@ module DataAggregation::Index::Controls
         end
       end
 
+      module Batch
+        def self.example
+          batch_size = Position::Batch::Size.example
+
+          (0..batch_size).map do |i|
+            Write.example i
+          end
+        end
+      end
+
       module Text
         def self.example(i=nil)
           event_data = Write.example i
 
           Serialize::Write.(event_data, :json)
+        end
+
+        module Batch
+          def self.example
+            event_data_list = EventData::Batch.example
+            event_data_list.map do |event_data|
+              Serialize::Write.(event_data, :json)
+            end
+          end
         end
       end
 

@@ -99,6 +99,17 @@ module DataAggregation::Index::Controls
             entity
           end
         end
+
+        module Copying
+          def self.example(batch_index=nil)
+            batch_index ||= 0
+
+            entity = Started.example
+            entity.batch_position = Position::Batch::Stop.example batch_index
+            entity.copy_position = Position::Batch::Start.example batch_index
+            entity
+          end
+        end
       end
     end
   end
