@@ -37,4 +37,7 @@ require 'data_aggregation/index/update/get_next_batch/query/references'
 require 'data_aggregation/index/update/get_next_batch/query/published_events'
 require 'data_aggregation/index/update/get_next_batch'
 
+require 'data_aggregation/index/update/copy_batch'
+
+require 'data_aggregation/index/update/handler'
 require 'data_aggregation/index/handler'
