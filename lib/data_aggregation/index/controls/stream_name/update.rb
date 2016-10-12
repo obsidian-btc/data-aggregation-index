@@ -1,8 +1,8 @@
 module DataAggregation::Index::Controls
   module StreamName
     module Update
-      def self.example
-        event_id = ID::Update.example
+      def self.example(i=nil)
+        event_id = ID::Update.example i
         category = Category.example
 
         StreamName.get event_id, category

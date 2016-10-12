@@ -1,9 +1,9 @@
 require_relative '../bench_init'
 
 context "Recent list entry query, entry is found" do
-  update_id = Controls::RecentListEntryQuery::UpdateID.example
-  projection_class = Controls::RecentListEntryQuery::Projection::Example
-  stream_name = Controls::RecentListEntryQuery::Write.()
+  update_id = Controls::ID::Update.example
+  projection_class = Controls::FactList::Projection::Example
+  stream_name = Controls::FactList::Write.()
 
   query = RecentListEntryQuery.new projection_class
 

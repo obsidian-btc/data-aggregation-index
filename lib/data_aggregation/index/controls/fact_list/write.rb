@@ -1,8 +1,8 @@
 module DataAggregation::Index::Controls
-  module RecentListEntryQuery
+  module FactList
     module Write
       def self.call(ending_position=nil, stream_name: nil)
-        message_control = ListEntry
+        message_control = Entry
 
         DataAggregation::Index::Controls::Write.(
           message_control,

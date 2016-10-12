@@ -30,7 +30,7 @@ module DataAggregation::Index::Controls
       end
     end
 
-    module UpdateList
+    module FactList
       def self.example
         Update::List::Position.example
       end

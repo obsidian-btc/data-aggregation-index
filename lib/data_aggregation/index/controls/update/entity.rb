@@ -13,7 +13,7 @@ module DataAggregation::Index::Controls
       module Started
         def self.example
           entity = Initiated.example
-          entity.list_position = Position::UpdateList.example
+          entity.list_position = Position::FactList.example
           entity.record_started
           entity
         end

@@ -1,11 +1,11 @@
 module DataAggregation::Index::Controls
-  module RecentListEntryQuery
+  module FactList
     module Projection
       class Example
         include EventStore::EntityProjection
 
-        apply ListEntry::ExampleMessage do |msg|
-          entity << msg.list_entry_id
+        apply Entry::ExampleMessage do |msg|
+          entity << msg.update_id
         end
       end
     end

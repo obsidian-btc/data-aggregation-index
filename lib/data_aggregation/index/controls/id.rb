@@ -29,8 +29,11 @@ module DataAggregation::Index::Controls
     end
 
     module Update
-      def self.example
-        ID.example 2
+      def self.example(i=nil)
+        i ||= 0
+        i += 300
+
+        ID.example i
       end
     end
   end

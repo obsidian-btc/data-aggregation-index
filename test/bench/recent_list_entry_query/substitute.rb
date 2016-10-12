@@ -1,8 +1,8 @@
 require_relative '../bench_init'
 
 context "Recent list entry query substitute" do
-  update_id = Controls::RecentListEntryQuery::UpdateID.example 1
-  stream_name = Controls::RecentListEntryQuery::Write.(0)
+  update_id = Controls::ID::Update.example 1
+  stream_name = Controls::FactList::Write.(0)
 
   context "Stream is not configured" do
     substitute = SubstAttr::Substitute.build RecentListEntryQuery
