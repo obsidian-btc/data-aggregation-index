@@ -13,12 +13,14 @@ require 'data_aggregation/index/event_list/messages'
 require 'data_aggregation/index/reference_list/messages'
 require 'data_aggregation/index/update/messages'
 
-
-
-
-
-
 require 'data_aggregation/index/update/entity'
+require 'data_aggregation/index/update/entity/add_reference'
+require 'data_aggregation/index/update/entity/publish_event'
+
+
+
+
+
 require 'data_aggregation/index/update/projection'
 require 'data_aggregation/index/update/store'
 

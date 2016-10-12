@@ -14,13 +14,7 @@ module DataAggregation::Index
         completed ? true : false
       end
 
-      def started?
-        started ? true : false
-      end
-
-      def record_completed
-        self.completed = true
-      end
+      abstract :data_stream_position
 
       def finished?
         if not started?
@@ -32,59 +26,17 @@ module DataAggregation::Index
         end
       end
 
+      def record_completed
+        self.completed = true
+      end
+
       abstract :record_started
-      abstract :data_stream_position
+
+      def started?
+        started ? true : false
+      end
+
       abstract :update_id
-
-      module PublishEvent
-        def self.extended(object)
-          object.singleton_class.class_exec do
-            attribute :event_id, String
-            attribute :event_data_text, String
-            attribute :reference_list_position, Integer
-          end
-        end
-
-        def data_stream_position
-          reference_list_position
-        end
-
-        def update_id
-          event_id
-        end
-
-        def record_started(started)
-          self.reference_list_position = started.reference_list_position
-          self.started = true
-        end
-      end
-
-      module AddReference
-        def self.extended(object)
-          object.singleton_class.class_exec do
-            attribute :related_entity_id, String
-            attribute :related_entity_category, String
-            attribute :event_list_position, Integer
-          end
-        end
-
-        def data_stream_position
-          event_list_position
-        end
-
-        def update_id
-          related_entity_id
-        end
-
-        def record_started(started)
-          self.event_list_position = started.event_list_position
-          self.started = true
-        end
-
-        def related_entity_stream_name
-          StreamName.stream_name related_entity_id, related_entity_category
-        end
-      end
     end
   end
 end
