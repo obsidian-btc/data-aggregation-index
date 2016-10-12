@@ -7,7 +7,8 @@ module DataAggregation::Index
 end
 
 # Primitives
-require 'data_aggregation/index/controls/update/batch_data'
+require 'data_aggregation/index/controls/update/batch'
+require 'data_aggregation/index/controls/update/list'
 
 # Messages
 require 'data_aggregation/index/controls/messages'

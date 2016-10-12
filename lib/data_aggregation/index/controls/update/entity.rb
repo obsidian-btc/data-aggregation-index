@@ -13,7 +13,7 @@ module DataAggregation::Index::Controls
       module Started
         def self.example
           entity = Initiated.example
-          entity.list_position = Position::Update::List.example
+          entity.list_position = Position::UpdateList.example
           entity.record_started
           entity
         end
@@ -24,8 +24,8 @@ module DataAggregation::Index::Controls
           batch_index ||= 0
 
           entity = Started.example
-          entity.batch_position = Position::Batch::Stop.example batch_index
-          entity.copy_position = Position::Batch::Start.example batch_index
+          entity.batch_position = Batch::Position::Stop.example batch_index
+          entity.copy_position = Batch::Position::Start.example batch_index
           entity
         end
       end
@@ -35,8 +35,8 @@ module DataAggregation::Index::Controls
           batch_index ||= 1
 
           entity = Started.example
-          entity.batch_position = Position::Batch::Stop.example batch_index - 1
-          entity.copy_position = Position::Batch::Stop.example batch_index - 1
+          entity.batch_position = Batch::Position::Stop.example batch_index - 1
+          entity.copy_position = Batch::Position::Stop.example batch_index - 1
           entity
         end
       end

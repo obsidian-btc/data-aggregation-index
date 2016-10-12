@@ -56,8 +56,8 @@ module DataAggregation::Index::Controls
         def self.example(batch_index=nil)
           message = DataAggregation::Index::Update::Messages::BatchAssembled.new
           message.update_id = ID::Update.example
-          message.batch_position = Position::Batch::Stop.example batch_index
-          message.batch_data = BatchData.example batch_index
+          message.batch_position = Batch::Position::Stop.example batch_index
+          message.batch_data = Batch::Data.example batch_index
           message.time = Time.example
           message
         end
@@ -67,7 +67,7 @@ module DataAggregation::Index::Controls
         def self.example(batch_index=nil)
           message = DataAggregation::Index::Update::Messages::BatchCopied.new
           message.update_id = ID::Update.example
-          message.copy_position = Position::Batch::Stop.example batch_index
+          message.copy_position = Batch::Position::Stop.example batch_index
           message.time = Time.example
           message
         end

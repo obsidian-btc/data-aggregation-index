@@ -1,7 +1,7 @@
 require_relative '../../bench_init'
 
 context "All existing events are copied to a new reference" do
-  event_data_list = Controls::SourceEvent::EventData::Text::Batch.example
+  event_data_list = Controls::Update::Batch::EventData::Text.example
   update = Controls::Update::Entity::AddReference.example
 
   copy = Update::CopyBatch::Copy::PublishedEvents.new update, event_data_list
@@ -10,7 +10,7 @@ context "All existing events are copied to a new reference" do
   related_entity_stream_name = Controls::StreamName::RelatedEntity.example
   event_data = Controls::SourceEvent::EventData::Write.example
 
-  control_batch = Controls::SourceEvent::EventData::Batch.example
+  control_batch = Controls::Update::Batch::EventData.example
   control_batch.each_with_index do |event_data, index|
     test "Stream #{related_entity_stream_name.inspect} receives event ##{index + 1}" do
       assert copy.copy_message do

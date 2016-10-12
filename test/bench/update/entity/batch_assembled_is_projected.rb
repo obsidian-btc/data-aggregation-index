@@ -8,6 +8,6 @@ context "Batch assembled event is projected onto update entity" do
   projection.apply batch_assembled
 
   test "Batch position is increased" do
-    assert entity.batch_position == Controls::Position::Batch::Stop.example
+    assert entity.batch_position == Controls::Update::Batch::Position::Stop.example
   end
 end

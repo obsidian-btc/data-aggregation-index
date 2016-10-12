@@ -2,13 +2,14 @@ require_relative '../../bench_init'
 
 context "Get next batch, batch is already assembled" do
   category = Controls::StreamName::Category.example
+  batch_size = Controls::Update::Batch::Size.example
 
   context "Initial batch is already assembled" do
     update = Controls::Update::Entity::Copying.example
     event = Controls::Update::Messages::Started.example
 
     get_next_batch = Update::GetNextBatch.new event, category
-    get_next_batch.batch_size = Controls::Position::Batch::Size.example
+    get_next_batch.batch_size = batch_size
     get_next_batch.store.add update.update_id, update
 
     get_next_batch.()
@@ -25,7 +26,7 @@ context "Get next batch, batch is already assembled" do
     event = Controls::Update::Messages::BatchCopied.example
 
     get_next_batch = Update::GetNextBatch.new event, category
-    get_next_batch.batch_size = Controls::Position::Batch::Size.example
+    get_next_batch.batch_size = batch_size
     get_next_batch.store.add update.update_id, update
 
     get_next_batch.()

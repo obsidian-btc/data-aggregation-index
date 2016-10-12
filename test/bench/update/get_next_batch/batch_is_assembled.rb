@@ -3,15 +3,14 @@ require_relative '../../bench_init'
 context "Get next batch assembles a batch" do
   entity_id = Controls::ID::Entity.example
   category = Controls::StreamName::Category.example
+  batch_data = Controls::Update::Batch::Data.example
 
   context "Initial batch is assembled" do
     update = Controls::Update::Entity::Started.example
     event = Controls::Update::Messages::Started.example
 
-    batch_data = Controls::Update::BatchData.example
-
     get_next_batch = Update::GetNextBatch.new event, category
-    get_next_batch.batch_size = Controls::Position::Batch::Size.example
+    get_next_batch.batch_size = Controls::Update::Batch::Size.example
     get_next_batch.store.add update.update_id, update, 11
     get_next_batch.query.add entity_id, batch_data
     get_next_batch.clock.now = Controls::Time::Raw.example
@@ -41,8 +40,6 @@ context "Get next batch assembles a batch" do
   context "Subsequent batch is assembled" do
     update = Controls::Update::Entity::Assembling.example
     event = Controls::Update::Messages::BatchCopied.example
-
-    batch_data = Controls::Update::BatchData.example
 
     get_next_batch = Update::GetNextBatch.new event, category
     get_next_batch.store.add update.update_id, update

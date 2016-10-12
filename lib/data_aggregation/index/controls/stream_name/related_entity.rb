@@ -16,7 +16,7 @@ module DataAggregation::Index::Controls
 
       module Batch
         def self.example
-          batch_size = Position::Batch::Size.example
+          batch_size = DataAggregation::Index::Controls::Update::Batch::Size.example
 
           (0...batch_size).map do |i|
             RelatedEntity.example i
