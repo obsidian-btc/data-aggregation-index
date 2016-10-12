@@ -6,6 +6,7 @@ module DataAggregation::Index
 
         attribute :entity_id, String
         attribute :event_id, String
+
         attribute :event_data_text, String
         attribute :event_list_position, Integer
         attribute :time, String
@@ -16,7 +17,8 @@ module DataAggregation::Index
 
         attribute :entity_id, String
         attribute :related_entity_id, String
-        attribute :destination_stream_name, String
+
+        attribute :related_entity_category, String
         attribute :reference_list_position, Integer
         attribute :time, String
       end
@@ -25,6 +27,7 @@ module DataAggregation::Index
         include EventStore::Messaging::Message
 
         attribute :update_id, String
+
         attribute :event_list_position, Integer
         attribute :reference_list_position, Integer
         attribute :time, String
@@ -38,6 +41,7 @@ module DataAggregation::Index
         include EventStore::Messaging::Message
 
         attribute :update_id, String
+
         attribute :batch_position, Integer
         attribute :batch_data, Array, default: ->{ Array.new }
         attribute :time, String
@@ -47,6 +51,7 @@ module DataAggregation::Index
         include EventStore::Messaging::Message
 
         attribute :update_id, String
+
         attribute :copy_position, Integer
         attribute :time, String
       end
@@ -55,6 +60,7 @@ module DataAggregation::Index
         include EventStore::Messaging::Message
 
         attribute :update_id, String
+
         attribute :time, String
       end
     end

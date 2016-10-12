@@ -4,7 +4,7 @@ context "Reference is added to index" do
   entity_id = Controls::ID::Entity.example
 
   category = Controls::StreamName::Category.example
-  destination_stream_name = Controls::StreamName::RelatedEntity.example
+  related_entity_stream_name = Controls::StreamName::RelatedEntity.example
   index_stream_name = Controls::StreamName::Index.example
 
   reference_list_position = Controls::Position::ReferenceList.example
@@ -12,7 +12,7 @@ context "Reference is added to index" do
   add_reference = AddReference.new category
   add_reference.get_positions.set index_stream_name, 0, 0, reference_list_position
 
-  add_reference.(entity_id, destination_stream_name)
+  add_reference.(entity_id, related_entity_stream_name)
 
   test "AddReference initiated message is written to update stream" do
     add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example

@@ -28,6 +28,10 @@ module DataAggregation::Index
       EventStore::Messaging::StreamName.stream_name stream_id, category
     end
 
+    def self.get_id(stream_name)
+      EventStore::Messaging::StreamName.get_id stream_name
+    end
+
     def self.get_category(stream_name)
       category = EventStore::Messaging::StreamName.get_category stream_name
       category.gsub! /:.*\Z/, ''

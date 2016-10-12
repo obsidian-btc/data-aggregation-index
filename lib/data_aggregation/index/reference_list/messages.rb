@@ -11,10 +11,6 @@ module DataAggregation::Index
 
         attribute :position, Integer
         attribute :time, String
-
-        def related_entity_stream_name
-          StreamName.stream_name related_entity_id, related_entity_category
-        end
       end
     end
   end

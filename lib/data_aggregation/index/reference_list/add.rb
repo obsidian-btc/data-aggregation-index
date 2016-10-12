@@ -40,11 +40,8 @@ module DataAggregation::Index
 
         reference_added = Messages::Added.proceed(
           add_reference_initiated_event,
-          include: %i(entity_id related_entity_id)
+          include: %i(entity_id related_entity_id related_entity_category)
         )
-        # XXX
-        reference_added.related_entity_category = EventStore::Messaging::StreamName.get_category(add_reference_initiated_event.destination_stream_name)
-        # /XXX
         reference_added.position = version
         reference_added.time = clock.iso8601
 

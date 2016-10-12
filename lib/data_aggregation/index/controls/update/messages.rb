@@ -32,7 +32,7 @@ module DataAggregation::Index::Controls
           message = DataAggregation::Index::Update::Messages::AddReferenceInitiated.new
           message.entity_id = ID::Entity.example
           message.related_entity_id = ID::RelatedEntity.example i
-          message.destination_stream_name = destination_stream_name
+          message.related_entity_category = StreamName::RelatedEntity::Category.example
           message.reference_list_position = reference_list_position if reference_list_position
           message
         end

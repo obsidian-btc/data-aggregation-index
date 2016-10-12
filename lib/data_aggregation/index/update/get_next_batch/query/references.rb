@@ -28,7 +28,12 @@ module DataAggregation::Index
             include DataAggregation::Index::ReferenceList::Messages
 
             apply Added do |added|
-              entity << added.related_entity_stream_name
+              related_entity_stream_name = StreamName.stream_name(
+                added.related_entity_id,
+                added.related_entity_category
+              )
+
+              entity << related_entity_stream_name
             end
           end
         end

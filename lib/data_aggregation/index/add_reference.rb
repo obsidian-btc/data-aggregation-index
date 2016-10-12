@@ -25,11 +25,12 @@ module DataAggregation::Index
       instance
     end
 
-    def call(entity_id, destination_stream_name)
-      log_attributes = "EntityID: #{entity_id}, DestinationStreamName: #{destination_stream_name}"
+    def call(entity_id, related_entity_stream_name)
+      log_attributes = "EntityID: #{entity_id}, RelatedEntityStreamName: #{related_entity_stream_name}"
       logger.trace "Adding reference (#{log_attributes})"
 
-      related_entity_id = EventStore::Messaging::StreamName.get_id destination_stream_name
+      related_entity_id = StreamName.get_id related_entity_stream_name
+      related_entity_category = StreamName.get_category related_entity_stream_name
 
       update = update_store.get related_entity_id
 
@@ -43,7 +44,7 @@ module DataAggregation::Index
       add_reference_initiated = Update::Messages::AddReferenceInitiated.new
       add_reference_initiated.entity_id = entity_id
       add_reference_initiated.related_entity_id = related_entity_id
-      add_reference_initiated.destination_stream_name = destination_stream_name
+      add_reference_initiated.related_entity_category = related_entity_category
       add_reference_initiated.reference_list_position = reference_list_pos unless reference_list_pos == :no_stream
       add_reference_initiated.time = clock.iso8601
 
