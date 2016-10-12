@@ -8,7 +8,6 @@ context "All existing events are copied to a new reference" do
   copy.()
 
   related_entity_stream_name = Controls::StreamName::RelatedEntity.example
-  event_data = Controls::SourceEvent::EventData::Write.example
 
   control_batch = Controls::Update::Batch::EventData.example
   control_batch.each_with_index do |event_data, index|

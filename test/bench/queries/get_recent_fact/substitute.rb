@@ -40,7 +40,7 @@ context "Recent fact query substitute" do
     substitute.set stream_name, update_id, version: 0
 
     block_executed = false
-    result = substitute.(stream_name, update_id, 0) { block_executed = true }
+    substitute.(stream_name, update_id, 0) { block_executed = true }
 
     test "Block is executed" do
       assert block_executed

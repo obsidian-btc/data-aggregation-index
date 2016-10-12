@@ -11,7 +11,7 @@ module DataAggregation::Index::Controls
           batch_size.times.map do |offset|
             number = base + offset
 
-            "result-#{offset}"
+            "result-#{number}"
           end
         end
       end

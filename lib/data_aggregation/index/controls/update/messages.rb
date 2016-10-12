@@ -41,8 +41,6 @@ module DataAggregation::Index::Controls
           event_list_position = Position::EventList.example if event_list_position == true
           reference_list_position = Position::ReferenceList.example if reference_list_position == true
 
-          event_data_text = SourceEvent::EventData::Text.example
-
           message = DataAggregation::Index::Update::Messages::Started.new
           message.update_id = ID::Update.example
           message.event_list_position = event_list_position if event_list_position

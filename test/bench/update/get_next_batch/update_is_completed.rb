@@ -1,7 +1,6 @@
 require_relative '../../bench_init'
 
 context "Get next batch assembles a batch, but update is completed" do
-  entity_id = Controls::ID::Entity.example
   event = Controls::Update::Messages::Started.example
   category = Controls::StreamName::Category.example
 
