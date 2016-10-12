@@ -26,20 +26,13 @@ require 'data_aggregation/index/queries/get_recent_fact/substitute'
 
 require 'data_aggregation/index/event_list/add'
 require 'data_aggregation/index/event_list/update_index'
-require 'data_aggregation/index/event_list/handler'
 
 require 'data_aggregation/index/reference_list/add'
 require 'data_aggregation/index/reference_list/update_index'
-require 'data_aggregation/index/reference_list/handler'
-
-
-
-
-
-require 'data_aggregation/index/index'
 
 require 'data_aggregation/index/add_reference'
 require 'data_aggregation/index/add_reference/substitute'
+
 require 'data_aggregation/index/publish_event'
 require 'data_aggregation/index/publish_event/substitute'
 
@@ -55,5 +48,9 @@ require 'data_aggregation/index/update/copy_batch/copy/references'
 require 'data_aggregation/index/update/copy_batch/copy/substitute'
 require 'data_aggregation/index/update/copy_batch'
 
+require 'data_aggregation/index/event_list/handler'
+require 'data_aggregation/index/reference_list/handler'
 require 'data_aggregation/index/update/handler'
 require 'data_aggregation/index/handler'
+
+require 'data_aggregation/index/index'
