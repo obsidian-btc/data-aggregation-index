@@ -8,6 +8,7 @@ module DataAggregation::Index
       attr_reader :category
 
       dependency :clock, Clock::UTC
+      dependency :copy, Copy
       dependency :store, Store
       dependency :writer, EventStore::Messaging::Writer
 
@@ -69,43 +70,6 @@ module DataAggregation::Index
       def store_record
         @store_record ||= store.get batch_assembled.update_id, include: :version
       end
-
-      class Copy
-        module Substitute
-          def self.build
-            Copy.new
-          end
-
-          class Copy
-            def call(data)
-              record = Record.new data
-              records << record
-              record
-            end
-
-            def records
-              @records ||= []
-            end
-
-            Record = Struct.new :data
-
-            module Assertions
-              def copied?(data=nil, &block)
-                if data.nil?
-                  block ||= proc { true }
-                else
-                  block ||= proc { |_data| data == _data }
-                end
-
-                records.any? do |record|
-                  block.(record.data)
-                end
-              end
-            end
-          end
-        end
-      end
-      dependency :copy, Copy
     end
   end
 end
