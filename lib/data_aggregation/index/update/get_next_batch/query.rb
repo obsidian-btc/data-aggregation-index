@@ -12,12 +12,15 @@ module DataAggregation::Index
         abstract :call
 
         def self.build(entity)
-          if entity.instance_of? Entity::PublishEvent
+          if entity.is_a? Entity::PublishEvent
             subclass = References
-          elsif entity.instance_of? Entity::AddReference
+          elsif entity.is_a? Entity::AddReference
             subclass = PublishedEvents
           else
-            raise TypeError
+            error_message = "Unknown entity type #{entity.class.name}; must be either PublishEvent or AddReference"
+            logger = Telemetry::Logger.get self
+            logger.error error_message
+            raise TypeError, error_message
           end
 
           subclass.new

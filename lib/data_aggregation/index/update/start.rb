@@ -20,15 +20,17 @@ module DataAggregation::Index
         stream_name = event_data.stream_name
         category = StreamName.get_category stream_name
 
+        update_category = StreamName.update_category_stream_name category
+
         instance = new update_started, category
         Clock::UTC.configure instance
-        Update::Store.configure instance, category, attr_name: :update_store
+        Update::Store.configure instance, update_category, attr_name: :update_store
         EventStore::Messaging::Writer.configure instance
         instance
       end
 
       def self.call(*arguments)
-        instance = new *arguments
+        instance = build *arguments
         instance.()
       end
 

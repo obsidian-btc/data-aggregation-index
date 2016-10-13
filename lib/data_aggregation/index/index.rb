@@ -68,16 +68,16 @@ module DataAggregation::Index
     module ConfigureProcessHost
       def configure_process_host(process_host)
         index_category_stream = StreamName.index_category_stream_name category 
-        index_consumer = EventStore::Consumer.build index_category_stream, self::Dispatchers::Index
+        index_consumer = EventStore::Consumer.build "$ce-#{index_category_stream}", self::Dispatchers::Index
 
         event_list_category_stream = StreamName.event_list_category_stream_name category
-        event_list_consumer = EventStore::Consumer.build event_list_category_stream, self::Dispatchers::EventList
+        event_list_consumer = EventStore::Consumer.build "$ce-#{event_list_category_stream}", self::Dispatchers::EventList
 
         reference_list_category_stream = StreamName.reference_list_category_stream_name category
-        reference_list_consumer = EventStore::Consumer.build reference_list_category_stream, self::Dispatchers::ReferenceList
+        reference_list_consumer = EventStore::Consumer.build "$ce-#{reference_list_category_stream}", self::Dispatchers::ReferenceList
 
         update_category_stream = StreamName.update_category_stream_name category
-        update_consumer = EventStore::Consumer.build update_category_stream, self::Dispatchers::Update
+        update_consumer = EventStore::Consumer.build "$ce-#{update_category_stream}", self::Dispatchers::Update
 
         process_host.register index_consumer, "#{category}-index-consumer"
         process_host.register event_list_consumer, "#{category}-event-list-consumer"

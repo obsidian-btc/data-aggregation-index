@@ -17,6 +17,20 @@ module DataAggregation::Index
         @category = category
       end
 
+      def self.build(event, event_data)
+        stream_name = event_data.stream_name
+        category = StreamName.get_category stream_name
+
+        instance = new event, category
+        instance.configure
+        instance
+      end
+
+      def self.call(*arguments)
+        instance = build *arguments
+        instance.()
+      end
+
       def configure
         Clock::UTC.configure self
         Copy.configure self, entity, batch_data
