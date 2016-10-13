@@ -23,7 +23,7 @@ module DataAggregation::Index
         Store.configure self, update_category
 
         Clock::UTC.configure self
-        Query.configure self, entity
+        Query.configure self, entity, category
         EventStore::Messaging::Writer.configure self
       end
 

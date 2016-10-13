@@ -32,9 +32,11 @@ module DataAggregation::Index
       end
 
       def configure
+        update_category = self.update_category category
+        Store.configure self, update_category
+
         Clock::UTC.configure self
-        Copy.configure self, entity, batch_data
-        Store.configure self
+        Copy.configure self, entity
         EventStore::Messaging::Writer.configure self
       end
 
@@ -42,7 +44,7 @@ module DataAggregation::Index
         log_attributes = "UpdateID: #{update_id}, Category: #{category}, BatchPosition: #{batch_position}"
         logger.trace "Copying batch (#{log_attributes})"
 
-        if entity.copy_position >= batch_assembled.batch_position
+        if entity.copy_position && entity.copy_position >= batch_assembled.batch_position
           logger.debug "Batch already copied; skipped (#{log_attributes})"
           return
         end

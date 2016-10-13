@@ -7,26 +7,27 @@ module DataAggregation::Index
 
         configure :copy
 
-        attr_reader :batch_data
         attr_reader :update
 
         dependency :copy_message, EventStore::CopyMessage
 
-        def initialize(update, batch_data)
+        def initialize(update)
           @update = update
-          @batch_data = batch_data
         end
 
-        def self.build(update, batch_data)
-          if update.instance_of? Entity::PublishEvent
+        def self.build(update)
+          if update.is_a? Entity::PublishEvent
             subclass = References
-          elsif update.instance_of? Entity::AddReference
+          elsif update.is_a? Entity::AddReference
             subclass = PublishedEvents
           else
-            raise TypeError
+            error_message = "Unknown entity type #{update.class.name}; must be either PublishEvent or AddReference"
+            logger = Telemetry::Logger.get self
+            logger.error error_message
+            raise TypeError, error_message
           end
 
-          instance = subclass.new update, batch_data
+          instance = subclass.new update
           EventStore::CopyMessage.configure instance
           instance
         end

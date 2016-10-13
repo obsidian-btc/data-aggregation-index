@@ -4,12 +4,12 @@ module DataAggregation::Index
       class Query
         class PublishedEvents < Query
           def call(entity_id, starting_position, ending_position)
-            log_attributes = "EntityID: #{entity_id}, StartingPosition: #{starting_position}, EndingPosition: #{ending_position})"
+            stream_name = event_list_stream_name entity_id, category
+
+            log_attributes = "EntityID: #{entity_id}, StartingPosition: #{starting_position}, EndingPosition: #{ending_position}, StreamName: #{stream_name})"
             logger.trace "Querying published events batch (#{log_attributes})"
 
             published_events = []
-
-            stream_name = event_list_stream_name entity_id, category
 
             Projection.(
               published_events,

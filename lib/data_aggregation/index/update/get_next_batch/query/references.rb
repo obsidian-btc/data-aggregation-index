@@ -4,12 +4,12 @@ module DataAggregation::Index
       class Query
         class References < Query
           def call(entity_id, starting_position, ending_position)
-            log_attributes = "EntityID: #{entity_id}, StartingPosition: #{starting_position}, EndingPosition: #{ending_position})"
+            stream_name = reference_list_stream_name entity_id, category
+
+            log_attributes = "EntityID: #{entity_id}, StartingPosition: #{starting_position}, EndingPosition: #{ending_position}, StreamName: #{stream_name})"
             logger.trace "Querying references batch (#{log_attributes})"
 
             related_entity_stream_names = []
-
-            stream_name = reference_list_stream_name entity_id, category
 
             Projection.(
               related_entity_stream_names,

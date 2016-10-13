@@ -25,7 +25,11 @@ module DataAggregation::Index::Controls
 
           entity = Started.example
           entity.batch_position = Batch::Position::Stop.example batch_index
-          entity.copy_position = Batch::Position::Start.example batch_index
+
+          if batch_index > 0
+            entity.copy_position = Batch::Position::Stop.example batch_index - 1
+          end
+
           entity
         end
       end
