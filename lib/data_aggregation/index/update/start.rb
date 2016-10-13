@@ -20,7 +20,7 @@ module DataAggregation::Index
         stream_name = event_data.stream_name
         category = StreamName.get_category stream_name
 
-        update_category = StreamName.update_category_stream_name category
+        update_category = StreamName.update_category category
 
         instance = new update_started, category
         Clock::UTC.configure instance

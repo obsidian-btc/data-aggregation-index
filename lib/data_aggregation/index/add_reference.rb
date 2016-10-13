@@ -20,7 +20,10 @@ module DataAggregation::Index
       instance = new category
       Clock::UTC.configure instance
       Queries::GetPositions.configure instance
-      Update::Store.configure instance, attr_name: :update_store
+
+      update_category = StreamName.update_category category
+      Update::Store.configure instance, update_category, attr_name: :update_store
+
       EventStore::Messaging::Writer.configure instance
       instance
     end

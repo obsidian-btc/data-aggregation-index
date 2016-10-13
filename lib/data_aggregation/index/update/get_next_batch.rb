@@ -19,7 +19,7 @@ module DataAggregation::Index
       end
 
       def configure
-        update_category = update_category_stream_name category
+        update_category = self.update_category category
         Store.configure self, update_category
 
         Clock::UTC.configure self
