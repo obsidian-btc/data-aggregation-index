@@ -1,6 +1,10 @@
 module DataAggregation::Index::Controls
   module Update
     module Messages
+      def self.example
+        Started.example
+      end
+
       module PublishEventInitiated
         def self.example(i=nil, list_position: nil)
           unless list_position == false

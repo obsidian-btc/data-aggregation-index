@@ -8,20 +8,36 @@ module DataAggregation::Index
       stream_name entity_id, category
     end
 
-    def reference_list_stream_name(entity_id, category)
-      category = "#{category}:references"
-
-      stream_name entity_id, category
+    def event_list_category_stream_name(category)
+      EventStore::Messaging::StreamName.category_stream_name "#{category}:events"
     end
 
     def index_stream_name(stream_id, category)
       stream_name stream_id, category
     end
 
+    def index_category_stream_name(category)
+      EventStore::Messaging::StreamName.category_stream_name category
+    end
+
+    def reference_list_stream_name(entity_id, category)
+      category = "#{category}:references"
+
+      stream_name entity_id, category
+    end
+
+    def reference_list_category_stream_name(category)
+      EventStore::Messaging::StreamName.category_stream_name "#{category}:references"
+    end
+
     def update_stream_name(update_id, category)
       category = "#{category}:update"
 
       stream_name update_id, category
+    end
+
+    def update_category_stream_name(category)
+      EventStore::Messaging::StreamName.category_stream_name "#{category}:update"
     end
 
     def stream_name(stream_id, category)

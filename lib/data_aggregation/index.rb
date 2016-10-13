@@ -1,5 +1,5 @@
+require 'event_store/consumer'
 require 'event_store/copy_message'
-require 'event_store/messaging'
 require 'event_store/entity_store'
 
 module DataAggregation
@@ -53,4 +53,5 @@ require 'data_aggregation/index/reference_list/handler'
 require 'data_aggregation/index/update/handler'
 require 'data_aggregation/index/handler'
 
+require 'data_aggregation/index/dispatchers'
 require 'data_aggregation/index/index'

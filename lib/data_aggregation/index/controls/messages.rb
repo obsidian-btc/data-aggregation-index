@@ -1,5 +1,9 @@
 module DataAggregation::Index::Controls
   module Messages
+    def self.example
+      UpdateStarted.example
+    end
+
     module UpdateStarted
       def self.example(i=nil, update_id: nil, event_list_position: nil, reference_list_position: nil)
         update_id ||= ID::Update.example i

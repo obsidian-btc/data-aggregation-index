@@ -12,6 +12,12 @@ module DataAggregation::Index::Controls
         def self.example(random: nil)
           StreamName::Category.example random: random
         end
+
+        module EventStore
+          def self.example
+            ::EventStore::Messaging::StreamName.category_stream_name Category.example
+          end
+        end
       end
     end
   end

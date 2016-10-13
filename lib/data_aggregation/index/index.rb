@@ -10,6 +10,7 @@ module DataAggregation::Index
       mod.class_exec do
         extend StreamName
         extend CategoryMacro
+        extend ConfigureProcessHost
       end
 
       add_reference_mod = ::Module.new do
@@ -49,6 +50,8 @@ module DataAggregation::Index
         const_set :Substitute, PublishEvent::Substitute
       end
       mod.const_set :PublishEvent, publish_event_mod
+
+      mod.const_set :Dispatchers, Dispatchers
     end
 
     module CategoryMacro
@@ -60,6 +63,27 @@ module DataAggregation::Index
         end
       end
       alias_method :category, :category_macro
+    end
+
+    module ConfigureProcessHost
+      def configure_process_host(process_host)
+        index_category_stream = StreamName.index_category_stream_name category 
+        index_consumer = EventStore::Consumer.build index_category_stream, self::Dispatchers::Index
+
+        event_list_category_stream = StreamName.event_list_category_stream_name category
+        event_list_consumer = EventStore::Consumer.build event_list_category_stream, self::Dispatchers::EventList
+
+        reference_list_category_stream = StreamName.reference_list_category_stream_name category
+        reference_list_consumer = EventStore::Consumer.build reference_list_category_stream, self::Dispatchers::ReferenceList
+
+        update_category_stream = StreamName.update_category_stream_name category
+        update_consumer = EventStore::Consumer.build update_category_stream, self::Dispatchers::Update
+
+        process_host.register index_consumer, "#{category}-index-consumer"
+        process_host.register event_list_consumer, "#{category}-event-list-consumer"
+        process_host.register reference_list_consumer, "#{category}-reference-list-consumer"
+        process_host.register update_consumer, "#{category}-update-consumer"
+      end
     end
   end
 end

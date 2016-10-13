@@ -1,6 +1,10 @@
 module DataAggregation::Index::Controls
   module EventList
     module Messages
+      def self.example
+        Added.example
+      end
+
       module Added
         def self.example(position=nil)
           position ||= Position::EventList.example

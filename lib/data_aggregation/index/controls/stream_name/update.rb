@@ -30,6 +30,12 @@ module DataAggregation::Index::Controls
         def self.example
           "#{StreamName::Category.example}:update"
         end
+
+        module EventStore
+          def self.example
+            ::EventStore::Messaging::StreamName.category_stream_name Category.example
+          end
+        end
       end
     end
   end

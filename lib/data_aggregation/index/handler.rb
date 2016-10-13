@@ -9,7 +9,7 @@ module DataAggregation::Index
     dependency :writer, EventStore::Messaging::Writer
 
     def configure
-      Clock::UTC.configure instance
+      Clock::UTC.configure self
       Update::Store.configure self, attr_name: :update_store
       EventStore::Messaging::Writer.configure self
     end
