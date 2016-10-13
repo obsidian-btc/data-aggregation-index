@@ -27,6 +27,11 @@ module DataAggregation::Index
         instance
       end
 
+      def self.call(*arguments)
+        instance = build *arguments
+        instance.()
+      end
+
       def call
         log_attributes = "EntityID: #{entity_id}, RelatedEntityID: #{related_entity_id}, StartingPosition: #{starting_position}, Category: #{category}"
         logger.trace "Adding reference to reference list (#{log_attributes})"
@@ -42,7 +47,13 @@ module DataAggregation::Index
           add_reference_initiated_event,
           include: %i(entity_id related_entity_id related_entity_category)
         )
-        reference_added.position = version
+
+        if version == :no_stream
+          reference_added.position = 0
+        else
+          reference_added.position = version + 1
+        end
+
         reference_added.time = clock.iso8601
 
         writer.write reference_added, stream_name, expected_version: version

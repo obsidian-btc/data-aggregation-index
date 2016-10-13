@@ -27,6 +27,11 @@ module DataAggregation::Index
         instance
       end
 
+      def self.call(*arguments)
+        instance = build *arguments
+        instance.()
+      end
+
       def call
         log_attributes = "EntityID: #{entity_id}, Category: #{category}, RelatedEntityID: #{related_entity_id}, ReferenceAddedPosition: #{reference_added.position}"
         logger.trace "Starting update for reference (#{log_attributes})"

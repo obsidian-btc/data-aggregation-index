@@ -6,7 +6,14 @@ module DataAggregation::Index
       entity Entity
       projection Projection
 
-      # XXX - this will need to be set
+      def self.build(category_name=nil)
+        instance = super()
+        instance.category_name = category_name if category_name
+        instance
+      end
+
+      attr_writer :category_name
+
       def category_name
         category_name = @category_name
 
@@ -18,7 +25,6 @@ module DataAggregation::Index
 
         category_name
       end
-      # /XXX
     end
   end
 end

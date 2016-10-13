@@ -28,7 +28,7 @@ module DataAggregation::Index
       end
 
       def self.call(*arguments)
-        instance = bulid *arguments
+        instance = build *arguments
         instance.()
       end
 
@@ -47,7 +47,13 @@ module DataAggregation::Index
           publish_event_initiated,
           include: %i(entity_id event_id event_data_text)
         )
-        event_added.position = version
+
+        if version == :no_stream
+          event_added.position = 0
+        else
+          event_added.position = version + 1
+        end
+
         event_added.time = clock.iso8601
 
         writer.write event_added, stream_name, expected_version: version

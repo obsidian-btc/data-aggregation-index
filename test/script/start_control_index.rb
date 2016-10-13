@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-ENV['LOG_LEVEL'] ||= 'info'
-
 require_relative './script_init'
 
 require 'process_host'

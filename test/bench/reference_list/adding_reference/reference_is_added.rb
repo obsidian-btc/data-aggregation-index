@@ -4,7 +4,7 @@ context "Adding reference to a reference list" do
   category = Controls::StreamName::Category.example
   add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example
   reference_list_stream_name = Controls::StreamName::ReferenceList.example
-  reference_list_version = Controls::Position::ReferenceList.example
+  reference_list_version = Controls::Position::ReferenceList::Previous.example
 
   add = ReferenceList::Add.new add_reference_initiated, category
   add.clock.now = Controls::Time::Raw.example

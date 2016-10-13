@@ -1,17 +1,17 @@
-require_relative '../bench_init'
+require_relative '../../bench_init'
 
 context "Handler handles update started event, update is already started" do
   update_started = Controls::Messages::UpdateStarted.example
-  event_data = Controls::EventData::Index.example
+  category = Controls::StreamName::Category.example
   update = Controls::Update::Entity::Finished.example
 
-  handler = Handler.new
-  handler.update_store.add update.update_id, update
+  start_update = Update::Start.new(update_started, category)
+  start_update.update_store.add update.update_id, update
 
-  handler.handle update_started, event_data
+  start_update.()
 
   test "Nothing is written" do
-    refute handler.writer do
+    refute start_update.writer do
       written?
     end
   end

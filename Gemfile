@@ -17,6 +17,7 @@ end
 
 source 'https://gem.fury.io/obsidian' do
   gem 'event_store-copy_message'
+  gem 'fixtures-expect_message'
 end
 
 group :development do

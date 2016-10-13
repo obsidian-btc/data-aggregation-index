@@ -3,6 +3,14 @@ module DataAggregation::Index
     class Handler
       include EventStore::Messaging::Handler
 
+      handle Messages::AddReferenceInitiated do |initiated, event_data|
+        ReferenceList::Add.(initiated, event_data)
+      end
+
+      handle Messages::PublishEventInitiated do |initiated, event_data|
+        EventList::Add.(initiated, event_data)
+      end
+
       handle Messages::Started do |started, event_data|
         GetNextBatch.(started, event_data)
       end

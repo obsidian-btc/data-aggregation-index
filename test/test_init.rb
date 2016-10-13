@@ -14,6 +14,7 @@ require 'pp'
 
 require_relative '../init.rb'
 require 'data_aggregation/index/controls'
+require 'fixtures/expect_message'
 
 require 'test_bench/activate'
 
