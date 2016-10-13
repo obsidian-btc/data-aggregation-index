@@ -11,6 +11,44 @@ module DataAggregation::Index
         extend StreamName
         extend CategoryMacro
       end
+
+      add_reference_mod = ::Module.new do
+        define_singleton_method :configure do |receiver, attr_name: nil|
+          attr_name ||= :add_reference
+
+          instance = build
+          receiver.public_send "#{attr_name}=", instance
+          instance
+        end
+
+        define_singleton_method :build do
+          category = mod.category
+
+          AddReference.build category
+        end
+
+        const_set :Substitute, AddReference::Substitute
+      end
+      mod.const_set :AddReference, add_reference_mod
+
+      publish_event_mod = ::Module.new do
+        define_singleton_method :configure do |receiver, attr_name: nil|
+          attr_name ||= :publish_event
+
+          instance = build
+          receiver.public_send "#{attr_name}=", instance
+          instance
+        end
+
+        define_singleton_method :build do
+          category = mod.category
+
+          PublishEvent.build category
+        end
+
+        const_set :Substitute, PublishEvent::Substitute
+      end
+      mod.const_set :PublishEvent, publish_event_mod
     end
 
     module CategoryMacro

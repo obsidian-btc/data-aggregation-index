@@ -19,8 +19,8 @@ module DataAggregation::Index
     def self.build(category)
       instance = new category
       Clock::UTC.configure instance
-      GetPositions.configure instance
-      Update::Store.configure instance
+      Queries::GetPositions.configure instance
+      Update::Store.configure instance, attr_name: :update_store
       EventStore::Messaging::Writer.configure instance
       instance
     end

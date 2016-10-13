@@ -1,17 +1,9 @@
 require_relative '../bench_init'
 
 context "Category is specified on index" do
-  index_mod = Module.new do
-    include DataAggregation::Index
+  category = Controls::Index.category
 
-    category :some_index
-  end
-
-  context "Category is queried" do
-    category = index_mod.category
-
-    test do
-      assert category == 'someIndex'
-    end
+  test "Category query returns specified category" do
+    assert category == Controls::StreamName::Category.example
   end
 end

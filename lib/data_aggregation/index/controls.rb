@@ -48,3 +48,5 @@ require 'data_aggregation/index/controls/index/write'
 require 'data_aggregation/index/controls/event_list/write'
 require 'data_aggregation/index/controls/fact_list/write'
 require 'data_aggregation/index/controls/reference_list/write'
+
+require 'data_aggregation/index/controls/index'
