@@ -35,6 +35,7 @@ module DataAggregation::Index
 
       abstract :record_started
       abstract :update_id
+      abstract :type
     end
   end
 end

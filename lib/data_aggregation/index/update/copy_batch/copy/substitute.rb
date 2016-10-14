@@ -8,10 +8,20 @@ module DataAggregation::Index
           end
 
           class Copy
+            attr_accessor :raise_message_order_error_data
+
             def call(data)
+              if data == raise_message_order_error_data
+                raise EventStore::CopyMessage::MessageOrderError
+              end
+
               record = Record.new data
               records << record
               record
+            end
+
+            def raise_message_order_error(data)
+              self.raise_message_order_error_data = data
             end
 
             def records

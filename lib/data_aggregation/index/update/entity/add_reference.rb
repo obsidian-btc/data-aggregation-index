@@ -20,6 +20,10 @@ module DataAggregation::Index
         def related_entity_stream_name
           StreamName.stream_name related_entity_id, related_entity_category
         end
+
+        def type
+          "AddReference"
+        end
       end
     end
   end

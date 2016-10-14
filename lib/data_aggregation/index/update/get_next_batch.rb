@@ -42,7 +42,7 @@ module DataAggregation::Index
       end
 
       def call
-        log_attributes = "EntityID: #{entity.entity_id}, UpdateID: #{update_id}, UpdateProgress: #{entity.copy_position.inspect}/#{entity.batch_position.inspect}/#{entity.list_position} Batch: #{starting_position}-#{ending_position.inspect}"
+        log_attributes = "UpdateID: #{update_id}, Type: #{entity.type}, EntityID: #{entity.entity_id}, UpdateProgress: #{entity.copy_position.inspect}/#{entity.batch_position.inspect}/#{entity.list_position.inspect}, Batch: #{starting_position}-#{ending_position.inspect}"
         logger.trace "Getting next batch (#{log_attributes})"
 
         stream_name = update_stream_name update_id, category
@@ -58,7 +58,7 @@ module DataAggregation::Index
 
           writer.write completed, stream_name, expected_version: version
 
-          logger.info "Batch completed (#{log_attributes})"
+          logger.info "Update completed (#{log_attributes})"
           return
         end
 
@@ -134,7 +134,13 @@ module DataAggregation::Index
 
       module Defaults
         def self.batch_size
-          25
+          env_value = ENV['DATA_AGGREGATION_UPDATE_BATCH_SIZE']
+
+          if env_value.nil?
+            25
+          else
+            env_value.to_i
+          end
         end
       end
     end

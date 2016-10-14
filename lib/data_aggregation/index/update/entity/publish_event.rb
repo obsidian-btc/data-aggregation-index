@@ -16,6 +16,10 @@ module DataAggregation::Index
           self.list_position = started.reference_list_position
           self.started = true
         end
+
+        def type
+          "PublishEvent"
+        end
       end
     end
   end

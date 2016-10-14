@@ -41,20 +41,28 @@ module DataAggregation::Index
       end
 
       def call
-        log_attributes = "UpdateID: #{update_id}, Category: #{category}, BatchPosition: #{batch_position}"
+        log_attributes = "UpdateID: #{update_id}, Category: #{category}, CopyPosition: #{copy_position.inspect}, BatchPosition: #{batch_position.inspect}"
         logger.trace "Copying batch (#{log_attributes})"
 
-        if entity.copy_position && entity.copy_position >= batch_assembled.batch_position
+        if copy_position && copy_position >= batch_position
           logger.debug "Batch already copied; skipped (#{log_attributes})"
           return
         end
 
+        copy_position = entity.copy_position
+
         batch_assembled.batch_data.each do |data|
-          copy.(data)
+          begin
+            copy.(data)
+            copy_position ||= -1
+            copy_position += 1
+          rescue EventStore::CopyMessage::MessageOrderError
+            break
+          end
         end
 
         batch_copied = Messages::BatchCopied.proceed batch_assembled, include: :update_id
-        batch_copied.copy_position = batch_position
+        batch_copied.copy_position = copy_position
         batch_copied.time = clock.iso8601
 
         stream_name = update_stream_name update_id, category
@@ -81,6 +89,10 @@ module DataAggregation::Index
 
       def batch_position
         batch_assembled.batch_position
+      end
+
+      def copy_position
+        entity.copy_position
       end
 
       def batch_data

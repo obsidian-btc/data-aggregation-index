@@ -6,12 +6,21 @@ module DataAggregation::Index::Controls
           batch_index ||= 0
 
           batch_size = Size.example
-          base = batch_index * batch_size + 1
 
           batch_size.times.map do |offset|
-            number = base + offset
+            Entry.example batch_index, offset: offset
+          end
+        end
 
-            "result-#{number}"
+        module Entry
+          def self.example(batch_index=nil, offset: nil)
+            batch_index ||= 0
+            offset ||= 0
+
+            batch_size = Size.example
+            number = batch_index * batch_size + offset + 1
+
+            "update-data-entry-#{number}"
           end
         end
       end

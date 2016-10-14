@@ -68,6 +68,10 @@ module DataAggregation::Index::Controls
         def record_started
           self.started = true
         end
+
+        def type
+          "ExampleEntity"
+        end
       end
     end
   end
