@@ -52,7 +52,17 @@ module DataAggregation::Index
 
         attribute :update_id, String
 
+        attribute :copy_position, Integer
+        attribute :time, String
+      end
+
+      class CopyFailed
+        include EventStore::Messaging::Message
+
+        attribute :update_id, String
+
         attribute :batch_position, Integer
+        attribute :batch_data, Array, default: ->{ Array.new }
         attribute :copy_position, Integer
         attribute :time, String
       end

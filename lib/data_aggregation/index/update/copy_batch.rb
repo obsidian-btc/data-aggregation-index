@@ -50,28 +50,35 @@ module DataAggregation::Index
         end
 
         copy_position = entity.copy_position
+        message = nil
+        log_message = "Batch copied"
 
-        batch_assembled.batch_data.each do |data|
+        batch_assembled.batch_data.each_with_index do |data, index|
           begin
             copy.(data)
             copy_position ||= -1
             copy_position += 1
           rescue EventStore::CopyMessage::MessageOrderError
+            remaining_batch_data = batch_assembled.batch_data[index..-1]
+
+            message = Messages::CopyFailed.proceed batch_assembled, include: %i(update_id batch_position)
+            message.batch_data = remaining_batch_data
+            log_message = "Copy failed"
+
             break
           end
         end
 
-        batch_copied = Messages::BatchCopied.proceed batch_assembled, include: :update_id
-        batch_copied.batch_position = batch_position
-        batch_copied.copy_position = copy_position
-        batch_copied.time = clock.iso8601
+        message ||= Messages::BatchCopied.proceed batch_assembled, include: :update_id
+        message.copy_position = copy_position
+        message.time = clock.iso8601
 
         stream_name = update_stream_name update_id, category
-        writer.write batch_copied, stream_name, expected_version: version
+        writer.write message, stream_name, expected_version: version
 
-        logger.debug "Batch copied (#{log_attributes})"
+        logger.debug "#{log_message} (#{log_attributes}, CopyPosition: #{copy_position})"
 
-        batch_copied
+        message
       end
 
       def entity

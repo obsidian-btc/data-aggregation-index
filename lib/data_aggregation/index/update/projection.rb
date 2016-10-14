@@ -32,6 +32,10 @@ module DataAggregation::Index
         entity.copy_position = batch_copied.copy_position
       end
 
+      apply CopyFailed do |copy_failed|
+        entity.copy_position = copy_failed.copy_position
+      end
+
       apply Completed do |_|
         entity.record_completed
       end

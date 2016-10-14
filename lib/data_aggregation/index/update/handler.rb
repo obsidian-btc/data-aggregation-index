@@ -22,6 +22,10 @@ module DataAggregation::Index
       handle Messages::BatchCopied do |batch_copied, event_data|
         GetNextBatch.(batch_copied, event_data)
       end
+
+      handle Messages::CopyFailed do |copy_failed, event_data|
+        CopyBatch.(copy_failed, event_data)
+      end
     end
   end
 end

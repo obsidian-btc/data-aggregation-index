@@ -2,12 +2,13 @@ module DataAggregation::Index::Controls
   module Update
     module Batch
       module Data
-        def self.example(batch_index=nil)
+        def self.example(batch_index=nil, offset: nil)
           batch_index ||= 0
+          offset ||= 0
 
           batch_size = Size.example
 
-          batch_size.times.map do |offset|
+          (offset...batch_size).map do |offset|
             Entry.example batch_index, offset: offset
           end
         end
@@ -50,6 +51,15 @@ module DataAggregation::Index::Controls
           offset ||= 0
 
           batch_index * Size.example + offset
+        end
+
+        module Failed
+          def self.example(batch_index=nil, messages_copied: nil)
+            messages_copied ||= Messages::CopyFailed::MessagesCopied.example
+            offset = messages_copied - 1
+
+            Position.example batch_index, offset: offset
+          end
         end
 
         module Start

@@ -66,17 +66,34 @@ module DataAggregation::Index::Controls
       end
 
       module BatchCopied
+        def self.example(batch_index=nil)
+          message = DataAggregation::Index::Update::Messages::BatchCopied.new
+          message.update_id = ID::Update.example
+          message.copy_position = Batch::Position::Stop.example batch_index
+          message.time = Time.example
+          message
+        end
+      end
+
+      module CopyFailed
         def self.example(batch_index=nil, messages_copied: nil)
-          messages_copied ||= Batch::Size.example
+          messages_copied ||= MessagesCopied.example
 
           copy_position = Batch::Position.example batch_index, offset: messages_copied.pred
 
-          message = DataAggregation::Index::Update::Messages::BatchCopied.new
+          message = DataAggregation::Index::Update::Messages::CopyFailed.new
           message.update_id = ID::Update.example
           message.batch_position = Batch::Position::Stop.example batch_index
+          message.batch_data = Batch::Data.example offset: messages_copied
           message.copy_position = copy_position
           message.time = Time.example
           message
+        end
+
+        module MessagesCopied
+          def self.example
+            2
+          end
         end
       end
 
