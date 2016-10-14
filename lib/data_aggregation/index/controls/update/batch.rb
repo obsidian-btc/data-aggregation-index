@@ -45,11 +45,16 @@ module DataAggregation::Index::Controls
       end
 
       module Position
+        def self.example(batch_index=nil, offset: nil)
+          batch_index ||= 0
+          offset ||= 0
+
+          batch_index * Size.example + offset
+        end
+
         module Start
           def self.example(batch_index=nil)
-            batch_index ||= 0
-
-            batch_index * Size.example
+            Position.example batch_index
           end
         end
 

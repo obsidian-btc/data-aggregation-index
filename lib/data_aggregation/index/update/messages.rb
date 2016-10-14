@@ -52,6 +52,7 @@ module DataAggregation::Index
 
         attribute :update_id, String
 
+        attribute :batch_position, Integer
         attribute :copy_position, Integer
         attribute :time, String
       end

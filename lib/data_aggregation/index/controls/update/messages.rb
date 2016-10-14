@@ -66,10 +66,15 @@ module DataAggregation::Index::Controls
       end
 
       module BatchCopied
-        def self.example(batch_index=nil)
+        def self.example(batch_index=nil, messages_copied: nil)
+          messages_copied ||= Batch::Size.example
+
+          copy_position = Batch::Position.example batch_index, offset: messages_copied.pred
+
           message = DataAggregation::Index::Update::Messages::BatchCopied.new
           message.update_id = ID::Update.example
-          message.copy_position = Batch::Position::Stop.example batch_index
+          message.batch_position = Batch::Position::Stop.example batch_index
+          message.copy_position = copy_position
           message.time = Time.example
           message
         end

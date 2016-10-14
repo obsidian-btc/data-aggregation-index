@@ -62,6 +62,7 @@ module DataAggregation::Index
         end
 
         batch_copied = Messages::BatchCopied.proceed batch_assembled, include: :update_id
+        batch_copied.batch_position = batch_position
         batch_copied.copy_position = copy_position
         batch_copied.time = clock.iso8601
 
