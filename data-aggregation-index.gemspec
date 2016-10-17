@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'data_aggregation-index'
-  s.version = '0.0.0.0'
+  s.version = '0.0.0.1'
   s.summary = 'Event store data aggregation index library'
   s.description = ' '
 
