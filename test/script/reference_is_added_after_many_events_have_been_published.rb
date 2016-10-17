@@ -24,8 +24,13 @@ end
 add_reference.(entity_id, related_entity_stream_name)
 
 expect_message = Fixtures::ExpectMessage.build related_entity_stream_name
-count.times.each do |index|
+
+index_values = []
+
+Defaults.iteration_count.times.each do |index|
   expect_message.('Counter') do |data|
-    data[:index] == index
+    index_values << data[:index]
   end
 end
+
+assert index_values.sort == (0...Defaults.iteration_count).to_a
