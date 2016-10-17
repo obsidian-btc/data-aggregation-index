@@ -1,5 +1,6 @@
+require 'data_aggregation/copy_message'
+
 require 'event_store/consumer'
-require 'event_store/copy_message'
 require 'event_store/entity_store'
 
 module DataAggregation

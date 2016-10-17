@@ -12,7 +12,7 @@ module DataAggregation::Index
 
             def call(data)
               if data == raise_message_order_error_data
-                raise EventStore::CopyMessage::MessageOrderError
+                raise DataAggregation::CopyMessage::MessageOrderError
               end
 
               record = Record.new data

@@ -9,7 +9,7 @@ module DataAggregation::Index
 
         attr_reader :update
 
-        dependency :copy_message, EventStore::CopyMessage
+        dependency :copy_message, DataAggregation::CopyMessage
 
         def initialize(update)
           @update = update
@@ -28,7 +28,7 @@ module DataAggregation::Index
           end
 
           instance = subclass.new update
-          EventStore::CopyMessage.configure instance
+          DataAggregation::CopyMessage.configure instance
           instance
         end
 

@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.bindir = 'bin'
 
   s.add_runtime_dependency 'event_store-consumer'
-  s.add_runtime_dependency 'event_store-copy_message'
   s.add_runtime_dependency 'event_store-entity_store'
+
+  s.add_runtime_dependency 'data_aggregation-copy_message'
 end

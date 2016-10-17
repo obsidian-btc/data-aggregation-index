@@ -58,7 +58,7 @@ module DataAggregation::Index
             copy.(data)
             copy_position ||= -1
             copy_position += 1
-          rescue EventStore::CopyMessage::MessageOrderError
+          rescue DataAggregation::CopyMessage::MessageOrderError
             remaining_batch_data = batch_assembled.batch_data[index..-1]
 
             message = Messages::CopyFailed.proceed batch_assembled, include: %i(update_id batch_position)
