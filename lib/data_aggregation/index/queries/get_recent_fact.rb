@@ -21,7 +21,11 @@ module DataAggregation::Index
 
         entity = Set.new
 
-        projection = projection_class.build entity, stream_name, starting_position: starting_position
+        projection = projection_class.build(
+          entity,
+          stream_name,
+          starting_position: starting_position
+        )
 
         ending_position = projection.()
         ending_position ||= :no_stream

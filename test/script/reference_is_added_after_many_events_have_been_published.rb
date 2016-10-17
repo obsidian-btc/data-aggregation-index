@@ -7,9 +7,6 @@ related_entity_id = Identifier::UUID::Random.get
 related_entity_stream_name = "someRelatedEntity-#{related_entity_id}"
 source_stream_name = "someEntity-#{entity_id}"
 
-count = ENV['COUNT'].to_i
-count = 100 if count.zero?
-
 publish_event = Controls::Index::PublishEvent.build
 add_reference = Controls::Index::AddReference.build
 
@@ -18,7 +15,7 @@ class Counter
   attribute :index, Integer
 end
 
-count.times.map do |index|
+Defaults.iteration_count.times.map do |index|
   counter = Counter.build :index => index
   counter.metadata.source_event_uri = "/streams/#{source_stream_name}/#{index}"
   publish_event.(entity_id, counter)

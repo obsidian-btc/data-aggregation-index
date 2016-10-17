@@ -1,9 +1,9 @@
 module DataAggregation::Index::Controls
   module StreamName
     module Update
-      def self.example(i=nil)
+      def self.example(i=nil, random: nil)
         event_id = ID::Update.example i
-        category = Category.example
+        category = Category.example random: random
 
         StreamName.get event_id, category
       end
@@ -27,8 +27,8 @@ module DataAggregation::Index::Controls
       end
 
       module Category
-        def self.example
-          "#{StreamName::Category.example}:update"
+        def self.example(random: nil)
+          "#{StreamName::Category.example random: random}:update"
         end
 
         module EventStore
