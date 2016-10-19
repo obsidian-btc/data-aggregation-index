@@ -54,19 +54,8 @@ module DataAggregation::Index
         log_message = "Batch copied"
 
         batch_assembled.batch_data.each_with_index do |data, index|
-          begin
-            copy.(data)
-            copy_position ||= -1
-            copy_position += 1
-          rescue DataAggregation::CopyMessage::MessageOrderError
-            remaining_batch_data = batch_assembled.batch_data[index..-1]
-
-            message = Messages::CopyFailed.proceed batch_assembled, include: %i(update_id batch_position)
-            message.batch_data = remaining_batch_data
-            log_message = "Copy failed"
-
-            break
-          end
+          copy.(data)
+          copy_position = (copy_position || -1) + 1
         end
 
         message ||= Messages::BatchCopied.proceed batch_assembled, include: :update_id
