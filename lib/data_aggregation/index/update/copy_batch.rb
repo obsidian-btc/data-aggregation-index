@@ -51,7 +51,6 @@ module DataAggregation::Index
 
         copy_position = entity.copy_position
         message = nil
-        log_message = "Batch copied"
 
         batch_assembled.batch_data.each_with_index do |data, index|
           copy.(data)
@@ -65,7 +64,7 @@ module DataAggregation::Index
         stream_name = update_stream_name update_id, category
         writer.write message, stream_name, expected_version: version
 
-        logger.debug "#{log_message} (#{log_attributes}, CopyPosition: #{copy_position})"
+        logger.info "Batch copied (#{log_attributes}, CopyPosition: #{copy_position})"
 
         message
       end

@@ -16,7 +16,7 @@ module DataAggregation::Index
       end
 
       def call(stream_name, update_id, starting_position=nil, &block)
-        log_attributes = "StreamName: #{stream_name}, UpdateID: #{update_id}, StartingPosition: #{starting_position}"
+        log_attributes = "StreamName: #{stream_name}, UpdateID: #{update_id}, StartingPosition: #{starting_position.inspect}"
         logger.trace "Get recent fact (#{log_attributes})"
 
         entity = Set.new
