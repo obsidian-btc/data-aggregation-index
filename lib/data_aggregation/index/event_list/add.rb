@@ -38,8 +38,8 @@ module DataAggregation::Index
 
         stream_name = event_list_stream_name entity_id, category
 
-        version = get_recent_event.(stream_name, event_id, starting_position) do
-          logger.debug "Event already added to event list; skipped (#{log_attributes})"
+        version = get_recent_event.(stream_name, event_id, starting_position) do |version|
+          logger.debug "Event already added to event list; skipped (#{log_attributes}, Version: #{version.inspect})"
           return
         end
 
@@ -58,7 +58,7 @@ module DataAggregation::Index
 
         writer.write event_added, stream_name, expected_version: version
 
-        logger.debug "Event added to event list (#{log_attributes})"
+        logger.debug "Event added to event list (#{log_attributes}, Version: #{version.inspect})"
 
         event_added
       end

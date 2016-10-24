@@ -32,7 +32,7 @@ module DataAggregation::Index
 
         if entity.include? update_id
           log_message = "Recent fact found"
-          block.()
+          block.(ending_position)
         else
           log_message = "Recent fact not found"
         end
