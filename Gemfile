@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'ntl-actor'
+
 source 'https://gem.fury.io/eventide' do
   gem 'event_store-consumer'
   gem 'event_store-messaging'
@@ -8,6 +10,7 @@ source 'https://gem.fury.io/eventide' do
   gem 'attribute'
   gem 'clock'
   gem 'configure'
+  gem 'log'
   gem 'process_host', group: :development
   gem 'schema'
   gem 'serialize'

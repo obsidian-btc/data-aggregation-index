@@ -58,3 +58,4 @@ require 'data_aggregation/index/handler'
 
 require 'data_aggregation/index/dispatchers'
 require 'data_aggregation/index/index'
+require 'data_aggregation/index/actor_integration'
