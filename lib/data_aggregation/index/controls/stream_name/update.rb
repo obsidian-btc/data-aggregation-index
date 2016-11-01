@@ -28,7 +28,7 @@ module DataAggregation::Index::Controls
 
       module Category
         def self.example(random: nil)
-          "#{StreamName::Category.example random: random}Update"
+          "#{StreamName::Category.example random: random}:update"
         end
 
         module EventStore
