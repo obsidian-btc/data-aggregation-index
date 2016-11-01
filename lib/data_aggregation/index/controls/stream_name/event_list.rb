@@ -10,7 +10,7 @@ module DataAggregation::Index::Controls
 
       module Category
         def self.example
-          "#{StreamName::Category.example}:events"
+          "#{StreamName::Category.example}Events"
         end
 
         module EventStore

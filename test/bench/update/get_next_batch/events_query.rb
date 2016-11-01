@@ -3,7 +3,8 @@ require_relative '../../bench_init'
 context "Get next batch of published events query" do
   entity_id = Controls::ID::Entity.example
   stream_name = Controls::EventList::Write.(2)
-  category = StreamName.get_category stream_name
+  event_list_category = StreamName.get_category stream_name
+  category = event_list_category.chomp 'Events'
 
   context "List is empty" do
     query = Update::GetNextBatch::Query::PublishedEvents.new

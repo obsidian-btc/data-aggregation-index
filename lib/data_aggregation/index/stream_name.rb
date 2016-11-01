@@ -15,7 +15,7 @@ module DataAggregation::Index
     end
 
     def event_list_category(category)
-      "#{category}:events"
+      "#{category}Events"
     end
 
     def index_stream_name(stream_id, category)
@@ -41,7 +41,7 @@ module DataAggregation::Index
     end
 
     def reference_list_category(category)
-      "#{category}:references"
+      "#{category}References"
     end
 
     def reference_list_category_stream_name(category)
@@ -57,7 +57,7 @@ module DataAggregation::Index
     end
 
     def update_category(category)
-      "#{category}:update"
+      "#{category}Update"
     end
 
     def update_category_stream_name(category)

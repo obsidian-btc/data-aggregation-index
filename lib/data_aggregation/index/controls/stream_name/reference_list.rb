@@ -10,7 +10,7 @@ module DataAggregation::Index::Controls
 
       module Category
         def self.example
-          "#{StreamName::Category.example}:references"
+          "#{StreamName::Category.example}References"
         end
 
         module EventStore
