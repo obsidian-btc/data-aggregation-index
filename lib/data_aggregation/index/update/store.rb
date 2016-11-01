@@ -8,7 +8,12 @@ module DataAggregation::Index
 
       def self.build(category_name=nil)
         instance = super()
-        instance.category_name = category_name if category_name
+
+        if category_name
+          category_name = StreamName.update_category category_name
+          instance.category_name = category_name
+        end
+
         instance
       end
 

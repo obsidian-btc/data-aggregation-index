@@ -19,8 +19,7 @@ module DataAggregation::Index
       end
 
       def configure
-        update_category = self.update_category category
-        Store.configure self, update_category
+        Store.configure self, category
 
         Clock::UTC.configure self
         Query.configure self, entity, category

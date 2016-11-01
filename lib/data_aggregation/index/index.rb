@@ -92,6 +92,7 @@ module DataAggregation::Index
             include EventStore::Consumer::ErrorHandler
             category StreamName.update_category(category)
             dispatcher Dispatchers::Update
+            position_update_interval 1
           end
           const_set :Update, update_consumer
         end
