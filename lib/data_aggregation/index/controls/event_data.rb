@@ -1,6 +1,7 @@
 module DataAggregation::Index::Controls
   module EventData
-    def self.example(stream_name: nil)
+    def self.example(stream_name: nil, number: nil)
+      number ||= 0
       stream_name ||= StreamName.example
 
       message = Messages::UpdateStarted.example
@@ -11,6 +12,7 @@ module DataAggregation::Index::Controls
       event_data.data = write_event_data.data
       event_data.metadata = write_event_data.metadata
       event_data.stream_name = StreamName::Index.example
+      event_data.number = number
       event_data
     end
 
@@ -24,14 +26,18 @@ module DataAggregation::Index::Controls
     module EventList
       def self.example
         stream_name = StreamName::EventList.example
-        EventData.example stream_name: stream_name
+        position = Position::EventList.example
+
+        EventData.example stream_name: stream_name, number: position
       end
     end
 
     module ReferenceList
       def self.example
         stream_name = StreamName::ReferenceList.example
-        EventData.example stream_name: stream_name
+        position = Position::ReferenceList.example
+
+        EventData.example stream_name: stream_name, number: position
       end
     end
 

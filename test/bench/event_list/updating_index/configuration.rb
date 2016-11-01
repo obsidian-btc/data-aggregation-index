@@ -9,4 +9,8 @@ context "Updating index after event is added command is configured" do
   test "Category is set" do
     assert update_index.category == Controls::StreamName::Category.example
   end
+
+  test "Event list positiont is set" do
+    assert update_index.event_list_position == Controls::Position::EventList.example
+  end
 end

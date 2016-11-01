@@ -2,13 +2,12 @@
 
 require_relative './script_init'
 
-require 'process_host'
-
-cooperation = ProcessHost::Cooperation.build
-
-Controls::Index.configure_process_host cooperation
+require 'event_store/consumer'
+require 'actor'
 
 logger = Telemetry::Logger.get __FILE__
 logger.info "Starting control index"
 
-cooperation.start!
+Actor::Supervisor.run do
+  Controls::Index.start_actors
+end

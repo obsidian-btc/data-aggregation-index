@@ -15,7 +15,6 @@ module DataAggregation::Index::Controls
           message.related_entity_id = ID::RelatedEntity.example position
           message.related_entity_category = StreamName::RelatedEntity::Category.example
 
-          message.position = position
           message.time = Time.example
           message
         end

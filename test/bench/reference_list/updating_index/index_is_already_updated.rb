@@ -6,7 +6,7 @@ context "Updating index upon a reference being added, index is already updated" 
   category = Controls::StreamName::Category.example
   index_stream_name = Controls::StreamName::Index.example
 
-  update_index = ReferenceList::UpdateIndex.new reference_added, category
+  update_index = ReferenceList::UpdateIndex.new reference_added, category, reference_list_version
   update_index.get_positions.set(
     index_stream_name, 
     Controls::Position::Index.example,

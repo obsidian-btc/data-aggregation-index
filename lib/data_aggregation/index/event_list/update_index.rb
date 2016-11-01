@@ -6,21 +6,24 @@ module DataAggregation::Index
 
       attr_reader :event_added
       attr_reader :category
+      attr_reader :event_list_position
 
       dependency :clock, Clock::UTC
       dependency :get_positions, Queries::GetPositions
       dependency :writer, EventStore::Messaging::Writer
 
-      def initialize(event_added, category)
+      def initialize(event_added, category, event_list_position)
         @event_added = event_added
+        @event_list_position = event_list_position
         @category = category
       end
 
       def self.build(event_added, event_data)
+        event_list_position = event_data.number
         update_stream_name = event_data.stream_name
         category = StreamName.get_category update_stream_name
 
-        instance = new event_added, category
+        instance = new event_added, category, event_list_position
         Clock::UTC.configure instance
         Queries::GetPositions.configure instance
         EventStore::Messaging::Writer.configure instance
@@ -33,7 +36,7 @@ module DataAggregation::Index
       end
 
       def call
-        log_attributes = "EntityID: #{entity_id}, Category: #{category}, EventID: #{event_id}, EventAddedPosition: #{event_added.position}"
+        log_attributes = "EntityID: #{entity_id}, Category: #{category}, EventID: #{event_id}, EventListPosition: #{event_list_position}"
         logger.trace "Starting update for event (#{log_attributes})"
 
         stream_name = index_stream_name entity_id, category
@@ -46,7 +49,7 @@ module DataAggregation::Index
           next_event_list_pos = event_list_pos + 1
         end
 
-        if next_event_list_pos > event_added.position
+        if next_event_list_pos > event_list_position
           logger.debug "Update already started for event; skipped (#{log_attributes}, NextEventListPosition: #{next_event_list_pos})"
           return
         end

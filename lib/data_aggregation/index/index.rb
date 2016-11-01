@@ -10,7 +10,7 @@ module DataAggregation::Index
       mod.class_exec do
         extend StreamName
         extend CategoryMacro
-        extend ConfigureProcessHost
+        extend ActorIntegration
       end
 
       add_reference_mod = ::Module.new do
@@ -61,29 +61,39 @@ module DataAggregation::Index
         define_singleton_method :category do
           category
         end
+
+        consumers_mod = ::Module.new do
+          index_consumer = Class.new do
+            include EventStore::Consumer
+            category StreamName.index_category(category)
+            dispatcher Dispatchers::Index
+          end
+          const_set :Index, index_consumer
+
+          event_list_consumer = Class.new do
+            include EventStore::Consumer
+            category StreamName.event_list_category(category)
+            dispatcher Dispatchers::EventList
+          end
+          const_set :EventList, event_list_consumer
+
+          reference_list_consumer = Class.new do
+            include EventStore::Consumer
+            category StreamName.reference_list_category(category)
+            dispatcher Dispatchers::ReferenceList
+          end
+          const_set :ReferenceList, reference_list_consumer
+
+          update_consumer = Class.new do
+            include EventStore::Consumer
+            category StreamName.update_category(category)
+            dispatcher Dispatchers::Update
+          end
+          const_set :Update, update_consumer
+        end
+        const_set :Consumers, consumers_mod
       end
       alias_method :category, :category_macro
-    end
-
-    module ConfigureProcessHost
-      def configure_process_host(process_host)
-        index_category_stream = StreamName.index_category_stream_name category 
-        index_consumer = EventStore::Consumer.build index_category_stream, self::Dispatchers::Index
-
-        event_list_category_stream = StreamName.event_list_category_stream_name category
-        event_list_consumer = EventStore::Consumer.build event_list_category_stream, self::Dispatchers::EventList
-
-        reference_list_category_stream = StreamName.reference_list_category_stream_name category
-        reference_list_consumer = EventStore::Consumer.build reference_list_category_stream, self::Dispatchers::ReferenceList
-
-        update_category_stream = StreamName.update_category_stream_name category
-        update_consumer = EventStore::Consumer.build update_category_stream, self::Dispatchers::Update
-
-        process_host.register index_consumer, "#{category}-index-consumer"
-        process_host.register event_list_consumer, "#{category}-event-list-consumer"
-        process_host.register reference_list_consumer, "#{category}-reference-list-consumer"
-        process_host.register update_consumer, "#{category}-update-consumer"
-      end
     end
   end
 end
