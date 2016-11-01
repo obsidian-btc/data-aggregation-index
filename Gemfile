@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'ntl-actor'
 
 source 'https://gem.fury.io/eventide' do
-  gem 'event_store-consumer'
+  gem 'event_store-consumer', '>= 0.3.0.0.pre1'
   gem 'event_store-messaging'
   gem 'event_store-entity_store'
 

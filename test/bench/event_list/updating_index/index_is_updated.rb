@@ -6,7 +6,7 @@ context "Updating index upon an event being added" do
   category = Controls::StreamName::Category.example
   index_stream_name = Controls::StreamName::Index.example
 
-  update_index = EventList::UpdateIndex.new event_added, category
+  update_index = EventList::UpdateIndex.new event_added, category, event_list_version
   update_index.clock.now = Controls::Time::Raw.example
   update_index.get_positions.set(
     index_stream_name, 

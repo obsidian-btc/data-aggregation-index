@@ -6,21 +6,24 @@ module DataAggregation::Index
 
       attr_reader :reference_added
       attr_reader :category
+      attr_reader :reference_list_position
 
       dependency :clock, Clock::UTC
       dependency :get_positions, Queries::GetPositions
       dependency :writer, EventStore::Messaging::Writer
 
-      def initialize(reference_added, category)
+      def initialize(reference_added, category, reference_list_position)
         @reference_added = reference_added
         @category = category
+        @reference_list_position = reference_list_position
       end
 
       def self.build(reference_added, event_data)
+        reference_list_position = event_data.number
         update_stream_name = event_data.stream_name
         category = StreamName.get_category update_stream_name
 
-        instance = new reference_added, category
+        instance = new reference_added, category, reference_list_position
         Clock::UTC.configure instance
         Queries::GetPositions.configure instance
         EventStore::Messaging::Writer.configure instance
@@ -44,7 +47,7 @@ module DataAggregation::Index
           next_reference_list_pos = reference_list_pos + 1
         end
 
-        if next_reference_list_pos > reference_added.position
+        if next_reference_list_pos > reference_list_position
           logger.debug "Update already started for reference; skipped (#{log_attributes}, NextReferenceListPosition: #{next_reference_list_pos})"
           return
         end

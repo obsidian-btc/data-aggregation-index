@@ -4,7 +4,7 @@ context "Updating index upon an event being added, first event is written" do
   event_added = Controls::EventList::Messages::Added.example
   category = Controls::StreamName::Category.example
 
-  update_index = EventList::UpdateIndex.new event_added, category
+  update_index = EventList::UpdateIndex.new event_added, category, 0
 
   update_started = update_index.()
 

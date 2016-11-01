@@ -4,7 +4,7 @@ context "Updating index upon a reference being added, first reference is added" 
   reference_added = Controls::ReferenceList::Messages::Added.example
   category = Controls::StreamName::Category.example
 
-  update_index = ReferenceList::UpdateIndex.new reference_added, category
+  update_index = ReferenceList::UpdateIndex.new reference_added, category, 0
 
   update_started = update_index.()
 

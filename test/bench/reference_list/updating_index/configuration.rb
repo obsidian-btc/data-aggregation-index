@@ -9,4 +9,8 @@ context "Updating index after reference is added command is configured" do
   test "Category is set" do
     assert update_index.category == Controls::StreamName::Category.example
   end
+
+  test "Reference list position is set" do
+    assert update_index.reference_list_position == Controls::Position::ReferenceList.example
+  end
 end
