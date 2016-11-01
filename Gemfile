@@ -18,6 +18,10 @@ source 'https://gem.fury.io/eventide' do
   gem 'telemetry'
 end
 
+source "https://#{ENV.fetch 'OBSIDIAN_GEMFURY_SECRET'}@gem.fury.io/obsidian" do
+  gem 'event_store-consumer-error_handler'
+end
+
 source 'https://gem.fury.io/obsidian' do
   gem 'data_aggregation-copy_message'
   gem 'fixtures-expect_message'

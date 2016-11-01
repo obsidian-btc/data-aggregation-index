@@ -65,6 +65,7 @@ module DataAggregation::Index
         consumers_mod = ::Module.new do
           index_consumer = Class.new do
             include EventStore::Consumer
+            include EventStore::Consumer::ErrorHandler
             category StreamName.index_category(category)
             dispatcher Dispatchers::Index
           end
@@ -72,6 +73,7 @@ module DataAggregation::Index
 
           event_list_consumer = Class.new do
             include EventStore::Consumer
+            include EventStore::Consumer::ErrorHandler
             category StreamName.event_list_category(category)
             dispatcher Dispatchers::EventList
           end
@@ -79,6 +81,7 @@ module DataAggregation::Index
 
           reference_list_consumer = Class.new do
             include EventStore::Consumer
+            include EventStore::Consumer::ErrorHandler
             category StreamName.reference_list_category(category)
             dispatcher Dispatchers::ReferenceList
           end
@@ -86,6 +89,7 @@ module DataAggregation::Index
 
           update_consumer = Class.new do
             include EventStore::Consumer
+            include EventStore::Consumer::ErrorHandler
             category StreamName.update_category(category)
             dispatcher Dispatchers::Update
           end
