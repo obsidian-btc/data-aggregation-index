@@ -1,9 +1,9 @@
 module DataAggregation::Index::Controls
   module SourceEvent
     module Metadata
-      def self.example
+      def self.example(entity_id: nil)
         metadata = EventStore::Messaging::Message::Metadata.build
-        metadata.source_event_uri = SourceEventURI.example
+        metadata.source_event_uri = SourceEventURI.example entity_id: entity_id
         metadata.causation_event_uri = CausationEventURI.example
         metadata.correlation_stream_name = StreamName::Correlation.example
         metadata.reply_stream_name = StreamName::Reply.example
@@ -20,10 +20,12 @@ module DataAggregation::Index::Controls
       end
 
       module SourceEventURI
-        def self.example
-          stream_name = StreamName::Entity.example
+        def self.example(i=nil, entity_id: nil)
+          i ||= Position::EventList.example
 
-          "streams/#{stream_name}/0"
+          stream_name = StreamName::Entity.example stream_id: entity_id
+
+          "streams/#{stream_name}/#{i}"
         end
       end
 

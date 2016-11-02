@@ -12,7 +12,7 @@ context "Event is already being published to index" do
   publish_event.clock.now = Controls::Time::Raw.example
   publish_event.update_store.add entity.update_id, entity
 
-  publish_event.(entity_id, source_event, entity.event_id)
+  publish_event.(entity_id, source_event)
 
   test "Nothing is written" do
     refute publish_event.writer do

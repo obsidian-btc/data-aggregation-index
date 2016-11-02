@@ -17,7 +17,7 @@ related_entity_streams.each do |related_entity_stream_name|
   add_reference.(entity_id, related_entity_stream_name)
 end
 
-event = Controls::SourceEvent.example
+event = Controls::SourceEvent.example entity_id: entity_id
 
 publish_event.(entity_id, event)
 

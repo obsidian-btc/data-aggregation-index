@@ -20,11 +20,11 @@ module DataAggregation::Index::Controls
     end
 
     module SourceEvent
-      def self.example(i=nil)
+      def self.example(i=nil, stream_id: nil)
         i ||= Position::EventList.example
-        i += 200
+        stream_id = Entity.example
 
-        ID.example i
+        "#{stream_id}-#{i}"
       end
     end
 

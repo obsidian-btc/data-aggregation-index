@@ -25,19 +25,19 @@ module DataAggregation::Index
       instance
     end
 
-    def call(entity_id, event, event_id=nil)
-      log_attributes = "EntityID: #{entity_id}, MessageType: #{event.message_type}"
+    def call(entity_id, event)
+      log_attributes = "EntityID: #{entity_id}, MessageType: #{event.message_type}, SourceEventURI: #{event.metadata.source_event_uri.inspect}"
       logger.trace "Publishing event (#{log_attributes})"
 
-      event_data = EventStore::Messaging::Message::Export::EventData.(event)
-      event_data.id = event_id if event_id
+      event_id = get_event_id event
 
-      event_id = event_data.id
+      event_data = EventStore::Messaging::Message::Export::EventData.(event)
+      event_data.id = event_id
 
       update = update_store.get event_id
 
       if update
-        logger.debug "Event already published (#{log_attributes})"
+        logger.debug "Event already published (#{log_attributes}, EventID: #{event_id})"
         return
       end
 
@@ -59,6 +59,18 @@ module DataAggregation::Index
       logger.debug "Event published (#{log_attributes}, EventID: #{event_id})"
 
       publish_event_initiated
+    end
+
+    def get_event_id(event)
+      source_event_uri = URI.parse event.metadata.source_event_uri
+
+      path = source_event_uri.path
+
+      _, stream_id = path.split '-', 2
+
+      stream_id.sub! '/', '-'
+
+      stream_id
     end
   end
 end

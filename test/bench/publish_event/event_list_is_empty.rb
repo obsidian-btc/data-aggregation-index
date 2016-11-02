@@ -5,12 +5,11 @@ context "Event is published to index, event list is empty" do
 
   source_event = Controls::SourceEvent.example
   category = Controls::StreamName::Category.example
-  event_id = Controls::ID::SourceEvent.example
 
   publish_event = PublishEvent.new category
   publish_event.clock.now = Controls::Time::Raw.example
 
-  publish_event.(entity_id, source_event, event_id)
+  publish_event.(entity_id, source_event)
 
   test "PublishEvent initiated message is written to update stream" do
     publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example list_position: false
