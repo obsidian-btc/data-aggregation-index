@@ -2,7 +2,7 @@ module DataAggregation::Index
   module EventList
     class Add
       include StreamName
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
 
       attr_reader :category
       attr_reader :publish_event_initiated

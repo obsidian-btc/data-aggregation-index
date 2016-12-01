@@ -2,7 +2,7 @@ module DataAggregation::Index
   module ReferenceList
     class UpdateIndex
       include StreamName
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
 
       attr_reader :reference_added
       attr_reader :category

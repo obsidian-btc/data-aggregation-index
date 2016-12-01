@@ -2,7 +2,7 @@ module DataAggregation::Index
   module Update
     class GetNextBatch
       include StreamName
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
 
       dependency :clock, Clock::UTC
       dependency :query, Query

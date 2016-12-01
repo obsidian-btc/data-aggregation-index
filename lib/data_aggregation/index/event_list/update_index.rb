@@ -2,7 +2,7 @@ module DataAggregation::Index
   module EventList
     class UpdateIndex
       include StreamName
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
 
       attr_reader :event_added
       attr_reader :category

@@ -1,7 +1,7 @@
 module DataAggregation::Index
   module Update
     class Start
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
       include StreamName
 
       attr_reader :category

@@ -2,7 +2,7 @@ module DataAggregation::Index
   module Update
     class CopyBatch
       include StreamName
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
 
       attr_reader :batch_assembled
       attr_reader :category

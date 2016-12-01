@@ -2,7 +2,7 @@ module DataAggregation::Index
   module Update
     class CopyBatch
       class Copy
-        include Telemetry::Logger::Dependency
+        include Log::Dependency
         include StreamName
 
         configure :copy
@@ -22,7 +22,7 @@ module DataAggregation::Index
             subclass = PublishedEvent
           else
             error_message = "Unknown entity type #{update.class.name}; must be either PublishEvent or AddReference"
-            logger = Telemetry::Logger.get self
+            logger = Log.get self
             logger.error error_message
             raise TypeError, error_message
           end

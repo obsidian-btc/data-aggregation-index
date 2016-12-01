@@ -1,7 +1,7 @@
 module DataAggregation::Index
   module Queries
     class GetPositions
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
       include StreamName
 
       configure :get_positions

@@ -2,7 +2,7 @@ module DataAggregation::Index
   module Update
     class GetNextBatch
       class Query
-        include Telemetry::Logger::Dependency
+        include Log::Dependency
         include StreamName
 
         configure :query
@@ -18,7 +18,7 @@ module DataAggregation::Index
             subclass = PublishedEvents
           else
             error_message = "Unknown update type #{update.class.name}; must be either PublishEvent or AddReference"
-            logger = Telemetry::Logger.get self
+            logger = Log.get self
             logger.error error_message
             raise TypeError, error_message
           end

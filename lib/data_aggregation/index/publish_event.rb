@@ -1,6 +1,6 @@
 module DataAggregation::Index
   class PublishEvent
-    include Telemetry::Logger::Dependency
+    include Log::Dependency
     include StreamName
 
     configure :publish_event

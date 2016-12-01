@@ -2,7 +2,7 @@ module DataAggregation::Index
   module ReferenceList
     class Add
       include StreamName
-      include Telemetry::Logger::Dependency
+      include Log::Dependency
 
       attr_reader :add_reference_initiated_event
       attr_reader :category
