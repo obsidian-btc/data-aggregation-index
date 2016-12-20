@@ -2,8 +2,8 @@ module DataAggregation::Index::Controls
   module SourceEvent
     def self.example(entity_id: nil, metadata: nil)
       event = SomeEvent.build
-      event.some_attribute = Attribute.some_attribute
-      event.some_time = Attribute.some_time
+      event.some_attribute = Attribute.data
+      event.some_time = Time.example
 
       unless metadata == false
         event.metadata = Metadata.example entity_id: entity_id

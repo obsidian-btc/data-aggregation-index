@@ -43,7 +43,7 @@ module DataAggregation::Index
 
       _, event_list_pos, _ = get_positions.(entity_id, category)
 
-      event_data_text = Serialize::Write.(event_data, :json)
+      event_data_text = Transform::Write.(event_data, :json)
 
       publish_event_initiated = Update::Messages::PublishEventInitiated.proceed event, copy: false
       publish_event_initiated.entity_id = entity_id

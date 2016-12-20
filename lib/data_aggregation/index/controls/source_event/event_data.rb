@@ -1,6 +1,13 @@
 module DataAggregation::Index::Controls
   module SourceEvent
     module EventData
+      def self.data
+        {
+          :some_attribute => Attribute.data,
+          :some_time => Time.example
+        }
+      end
+
       module Read
         def self.example(i=nil)
           event_id = ID::Event.example i
@@ -9,6 +16,7 @@ module DataAggregation::Index::Controls
 
           EventStore::Client::HTTP::Controls::EventData::Read.example(
             event_id,
+            data: EventData.data,
             metadata: metadata,
             type: SomeEvent.message_type
           )
@@ -23,6 +31,7 @@ module DataAggregation::Index::Controls
 
           EventStore::Client::HTTP::Controls::EventData::Write.example(
             event_id,
+            data: EventData.data,
             metadata: metadata,
             type: SomeEvent.message_type
           )
@@ -33,7 +42,7 @@ module DataAggregation::Index::Controls
         def self.example(i=nil)
           event_data = Write.example i
 
-          Serialize::Write.(event_data, :json)
+          Transform::Write.(event_data, :json)
         end
       end
 
