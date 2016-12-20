@@ -15,7 +15,7 @@ module DataAggregation::Index
           @update = update
         end
 
-        def self.build(update)
+        def self.build(update, session: nil)
           if update.is_a? Entity::PublishEvent
             subclass = Reference
           elsif update.is_a? Entity::AddReference
@@ -28,7 +28,7 @@ module DataAggregation::Index
           end
 
           instance = subclass.new update
-          DataAggregation::CopyMessage.configure instance
+          DataAggregation::CopyMessage.configure instance, session: session
           instance
         end
 

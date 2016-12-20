@@ -9,9 +9,11 @@ module DataAggregation::Index
 
         attr_accessor :category
 
+        dependency :session, EventStore::Client::HTTP::Session
+
         abstract :call
 
-        def self.build(update, category)
+        def self.build(update, category, session: nil)
           if update.is_a? Entity::PublishEvent
             subclass = References
           elsif update.is_a? Entity::AddReference
@@ -25,6 +27,7 @@ module DataAggregation::Index
 
           instance = subclass.new
           instance.category = category
+          EventStore::Client::HTTP::Session.configure instance, session: session
           instance
         end
       end

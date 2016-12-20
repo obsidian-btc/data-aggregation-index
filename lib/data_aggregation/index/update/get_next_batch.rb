@@ -6,6 +6,7 @@ module DataAggregation::Index
 
       dependency :clock, Clock::UTC
       dependency :query, Query
+      dependency :session, EventStore::Client::HTTP::Session
       dependency :store, Store
       dependency :writer, EventStore::Messaging::Writer
 
@@ -18,20 +19,19 @@ module DataAggregation::Index
         @event = event
       end
 
-      def configure
-        Store.configure self, category
-
-        Clock::UTC.configure self
-        Query.configure self, entity, category
-        EventStore::Messaging::Writer.configure self
-      end
-
-      def self.build(event, event_data)
+      def self.build(event, event_data, session: nil)
         stream_name = event_data.stream_name
         category = StreamName.get_category stream_name
 
         instance = new event, category
-        instance.configure
+
+        session = EventStore::Client::HTTP::Session.configure instance, session: session
+
+        Clock::UTC.configure instance
+        Store.configure instance, category, session: session
+        Query.configure instance, instance.entity, category, session: session
+        EventStore::Messaging::Writer.configure instance, session: session
+
         instance
       end
 

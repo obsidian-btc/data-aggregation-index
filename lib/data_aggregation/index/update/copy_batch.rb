@@ -17,12 +17,15 @@ module DataAggregation::Index
         @category = category
       end
 
-      def self.build(event, event_data)
+      def self.build(event, event_data, session: nil)
         stream_name = event_data.stream_name
         category = StreamName.get_category stream_name
 
         instance = new event, category
-        instance.configure
+        Clock::UTC.configure instance
+        Copy.configure instance, entity
+        Store.configure instance, category, session: session
+        EventStore::Messaging::Writer.configure instance, session: session
         instance
       end
 
@@ -32,11 +35,6 @@ module DataAggregation::Index
       end
 
       def configure
-        Store.configure self, category
-
-        Clock::UTC.configure self
-        Copy.configure self, entity
-        EventStore::Messaging::Writer.configure self
       end
 
       def call

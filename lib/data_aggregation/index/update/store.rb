@@ -6,8 +6,8 @@ module DataAggregation::Index
       entity Entity
       projection Projection
 
-      def self.build(category_name=nil)
-        instance = super()
+      def self.build(category_name=nil, session: nil)
+        instance = super session: session
 
         if category_name
           category_name = StreamName.update_category category_name

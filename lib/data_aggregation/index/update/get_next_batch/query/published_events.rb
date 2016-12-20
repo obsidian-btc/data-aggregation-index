@@ -15,7 +15,8 @@ module DataAggregation::Index
               published_events,
               stream_name,
               starting_position: starting_position,
-              ending_position: ending_position
+              ending_position: ending_position,
+              session: session
             )
 
             logger.debug "Published events batch has been queried (#{log_attributes})"

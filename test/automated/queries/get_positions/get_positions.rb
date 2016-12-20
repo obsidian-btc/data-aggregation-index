@@ -6,7 +6,7 @@ context "Get positions from last index stream message" do
 
   Controls::Index::Write.(0, category: category)
 
-  get_positions = Queries::GetPositions.new
+  get_positions = Queries::GetPositions.build
 
   index_pos, event_pos, reference_pos = get_positions.(entity_id, category)
 

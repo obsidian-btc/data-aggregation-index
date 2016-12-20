@@ -18,15 +18,15 @@ module DataAggregation::Index
         @reference_list_position = reference_list_position
       end
 
-      def self.build(reference_added, event_data)
+      def self.build(reference_added, event_data, session: nil)
         reference_list_position = event_data.number
         update_stream_name = event_data.stream_name
         category = StreamName.get_category update_stream_name
 
         instance = new reference_added, category, reference_list_position
         Clock::UTC.configure instance
-        Queries::GetPositions.configure instance
-        EventStore::Messaging::Writer.configure instance
+        Queries::GetPositions.configure instance, session: session
+        EventStore::Messaging::Writer.configure instance, session: session
         instance
       end
 

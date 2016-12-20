@@ -6,8 +6,12 @@ module DataAggregation::Index
 
       configure :get_positions
 
-      def self.build
-        new
+      dependency :session, EventStore::Client::HTTP::Session
+
+      def self.build(session: nil)
+        instance = new
+        EventStore::Client::HTTP::Session.configure instance, session: session
+        instance
       end
 
       def call(entity_id, category)
@@ -30,7 +34,12 @@ module DataAggregation::Index
       end
 
       def read(stream_name, &block)
-        reader = EventStore::Client::HTTP::Reader.build stream_name, direction: :backward, slice_size: 1
+        reader = EventStore::Client::HTTP::Reader.build(
+          stream_name,
+          direction: :backward,
+          slice_size: 1,
+          session: session
+        )
 
         reader.each do |event_data|
           message = build_message event_data

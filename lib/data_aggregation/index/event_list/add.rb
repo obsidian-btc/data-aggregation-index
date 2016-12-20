@@ -15,13 +15,13 @@ module DataAggregation::Index
         @category = category
       end
 
-      def self.build(publish_event_initiated, event_data)
+      def self.build(publish_event_initiated, event_data, session: nil)
         update_stream_name = event_data.stream_name
         category = StreamName.get_category update_stream_name
 
         instance = new publish_event_initiated, category
         Clock::UTC.configure instance
-        EventStore::Messaging::Writer.configure instance
+        EventStore::Messaging::Writer.configure instance, session: session
         instance
       end
 

@@ -15,7 +15,8 @@ module DataAggregation::Index
               related_entity_stream_names,
               stream_name,
               starting_position: starting_position,
-              ending_position: ending_position
+              ending_position: ending_position,
+              session: session
             )
 
             logger.debug "References batch has been queried (#{log_attributes})"

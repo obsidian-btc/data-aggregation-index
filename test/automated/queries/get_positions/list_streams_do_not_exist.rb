@@ -11,7 +11,7 @@ context "Get positions from last index stream message, list streams do not exist
     category: category
   )
 
-  get_positions = Queries::GetPositions.new
+  get_positions = Queries::GetPositions.build
 
   index_pos, event_pos, reference_pos = get_positions.(entity_id, category)
 
