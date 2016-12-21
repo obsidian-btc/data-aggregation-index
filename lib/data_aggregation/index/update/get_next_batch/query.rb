@@ -30,6 +30,12 @@ module DataAggregation::Index
           EventStore::Client::HTTP::Session.configure instance, session: session
           instance
         end
+
+        module Assertions
+          def session?(session)
+            self.session.equal? session
+          end
+        end
       end
     end
   end

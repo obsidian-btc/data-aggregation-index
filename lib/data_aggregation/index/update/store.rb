@@ -30,6 +30,12 @@ module DataAggregation::Index
 
         category_name
       end
+
+      module Assertions
+        def session?(session)
+          self.session.equal? session
+        end
+      end
     end
   end
 end

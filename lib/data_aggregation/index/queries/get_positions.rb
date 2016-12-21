@@ -34,12 +34,7 @@ module DataAggregation::Index
       end
 
       def read(stream_name, &block)
-        reader = EventStore::Client::HTTP::Reader.build(
-          stream_name,
-          direction: :backward,
-          slice_size: 1,
-          session: session
-        )
+        reader = build_reader stream_name
 
         reader.each do |event_data|
           message = build_message event_data
@@ -52,6 +47,15 @@ module DataAggregation::Index
 
           break
         end
+      end
+
+      def build_reader(stream_name)
+        EventStore::Client::HTTP::Reader.build(
+          stream_name,
+          direction: :backward,
+          slice_size: 1,
+          session: session
+        )
       end
 
       def build_message(event_data)

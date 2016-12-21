@@ -22,10 +22,13 @@ module DataAggregation::Index
         category = StreamName.get_category stream_name
 
         instance = new event, category
-        Clock::UTC.configure instance
-        Copy.configure instance, entity
+
         Store.configure instance, category, session: session
+
+        Clock::UTC.configure instance
+        Copy.configure instance, instance.entity, session: session
         EventStore::Messaging::Writer.configure instance, session: session
+
         instance
       end
 

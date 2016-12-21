@@ -34,6 +34,18 @@ module DataAggregation::Index
 
         abstract :call
 
+        module Assertions
+          def self.extended(copy)
+            copy_message = copy.copy_message
+
+            copy_message.extend copy_message.class::Assertions
+          end
+
+          def session?(session)
+            copy_message.session? session
+          end
+        end
+
         module EventData
           module Serializer
             def self.json
