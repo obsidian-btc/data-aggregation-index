@@ -6,16 +6,6 @@ source 'https://gem.fury.io/eventide' do
   gem 'event_store-consumer'
   gem 'event_store-messaging'
   gem 'event_store-entity_store'
-
-  gem 'attribute'
-  gem 'clock'
-  gem 'configure'
-  gem 'log'
-  gem 'process_host', group: :development
-  gem 'schema'
-  gem 'serialize'
-  gem 'settings'
-  gem 'telemetry'
 end
 
 source "https://#{ENV.fetch 'OBSIDIAN_GEMFURY_SECRET'}@gem.fury.io/obsidian" do
@@ -28,6 +18,7 @@ source 'https://gem.fury.io/obsidian' do
 end
 
 group :development do
+  gem 'evt-process_host'
   gem 'pry'
   gem 'pry-doc'
   gem 'test_bench'
