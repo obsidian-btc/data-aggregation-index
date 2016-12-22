@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gemspec
+
 gem 'ntl-actor'
 
 source 'https://gem.fury.io/eventide' do
