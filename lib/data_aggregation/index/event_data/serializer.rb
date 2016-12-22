@@ -1,6 +1,6 @@
 module DataAggregation::Index
   module EventData
-    module Serializer
+    module Transformer
       def self.json
         JSON
       end
@@ -15,7 +15,7 @@ module DataAggregation::Index
       end
 
       module JSON
-        def self.deserialize(text)
+        def self.read(text)
           formatted_data = ::JSON.parse text, symbolize_names: true
           Casing::Underscore.(formatted_data)
         end

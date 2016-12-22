@@ -39,7 +39,7 @@ module DataAggregation::Index::Controls
           def self.example
             event_data_list = EventData.example
             event_data_list.map do |event_data|
-              Serialize::Write.(event_data, :json)
+              Transform::Write.(event_data, :json)
             end
           end
         end

@@ -1,7 +1,5 @@
 require 'data_aggregation/copy_message'
 
-require 'serialize'
-
 require 'event_store/consumer'
 require 'event_store/consumer/error_handler'
 require 'event_store/entity_store'

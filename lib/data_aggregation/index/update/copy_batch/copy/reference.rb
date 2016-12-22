@@ -12,7 +12,7 @@ module DataAggregation::Index
           end
 
           def event_data
-            @event_data ||= Serialize::Read.(update.event_data_text, :json, EventData)
+            @event_data ||= Transform::Read.(update.event_data_text, :json, EventData)
           end
         end
       end
