@@ -8,7 +8,7 @@ module DataAggregation
   Index = Module.new
 end
 
-require 'data_aggregation/index/event_data/serializer'
+require 'data_aggregation/index/event_data/transformer'
 require 'data_aggregation/index/stream_name'
 
 require 'data_aggregation/index/messages'
