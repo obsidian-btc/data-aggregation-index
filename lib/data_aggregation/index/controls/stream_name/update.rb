@@ -33,7 +33,7 @@ module DataAggregation::Index::Controls
 
         module EventStore
           def self.example
-            ::EventStore::Messaging::StreamName.category_stream_name Category.example
+            ::Messaging::StreamName.category_stream_name Category.example
           end
         end
       end
