@@ -19,7 +19,7 @@ module DataAggregation::Index
       end
 
       def self.build(event_added, event_data, session: nil)
-        event_list_position = event_data.number
+        event_list_position = event_data.position
         update_stream_name = event_data.stream_name
         category = StreamName.get_category update_stream_name
 

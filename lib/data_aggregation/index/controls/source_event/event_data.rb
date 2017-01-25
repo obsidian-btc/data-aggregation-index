@@ -14,8 +14,8 @@ module DataAggregation::Index::Controls
 
           metadata = Metadata.example
 
-          EventStore::Client::HTTP::Controls::EventData::Read.example(
-            event_id,
+          EventSource::Controls::EventData::Read.example(
+            id: event_id,
             data: EventData.data,
             metadata: metadata,
             type: SomeEvent.message_type
@@ -29,8 +29,8 @@ module DataAggregation::Index::Controls
 
           metadata = Metadata.example
 
-          EventStore::Client::HTTP::Controls::EventData::Write.example(
-            event_id,
+          EventSource::Controls::EventData::Write.example(
+            id: event_id,
             data: EventData.data,
             metadata: metadata,
             type: SomeEvent.message_type
@@ -42,7 +42,15 @@ module DataAggregation::Index::Controls
         def self.example(i=nil)
           event_data = Write.example i
 
-          Transform::Write.(event_data, :json)
+          data = Casing::Camel.(event_data.data)
+          metadata = Casing::Camel.(event_data.metadata)
+
+          JSON.pretty_generate({
+            'eventId' => event_data.id,
+            'eventType' => event_data.type,
+            'data' => data,
+            'metadata' => metadata
+          })
         end
       end
 

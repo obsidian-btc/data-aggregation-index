@@ -6,7 +6,7 @@ module DataAggregation::Index
       end
 
       def self.instance(raw_data)
-        instance = EventStore::Client::HTTP::EventData::Write.build
+        instance = EventSource::EventData::Write.build
         instance.id = raw_data[:event_id]
         instance.type = raw_data[:event_type]
         instance.data = raw_data[:data]
