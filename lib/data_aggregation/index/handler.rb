@@ -2,10 +2,10 @@ module DataAggregation::Index
   class Handler
     include EventStore::Messaging::Handler
 
-    dependency :session, EventStore::Client::HTTP::Session
+    dependency :session, EventSource::EventStore::HTTP::Session
 
     def configure
-      EventStore::Client::HTTP::Session.configure self
+      EventSource::EventStore::HTTP::Session.configure self
     end
 
     handle Messages::UpdateStarted do |update_started, event_data|

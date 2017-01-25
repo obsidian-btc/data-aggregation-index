@@ -6,7 +6,7 @@ module DataAggregation::Index
 
       dependency :clock, Clock::UTC
       dependency :query, Query
-      dependency :session, EventStore::Client::HTTP::Session
+      dependency :session, EventSource::EventStore::HTTP::Session
       dependency :store, Store
       dependency :writer, EventStore::Messaging::Writer
 
@@ -25,7 +25,7 @@ module DataAggregation::Index
 
         instance = new event, category
 
-        session = EventStore::Client::HTTP::Session.configure instance, session: session
+        session = EventSource::EventStore::HTTP::Session.configure instance, session: session
 
         Clock::UTC.configure instance
         Store.configure instance, category, session: session

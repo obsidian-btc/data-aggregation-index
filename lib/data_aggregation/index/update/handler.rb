@@ -3,10 +3,10 @@ module DataAggregation::Index
     class Handler
       include EventStore::Messaging::Handler
 
-      dependency :session, EventStore::Client::HTTP::Session
+      dependency :session, EventSource::EventStore::HTTP::Session
 
       def configure
-        EventStore::Client::HTTP::Session.configure self
+        EventSource::EventStore::HTTP::Session.configure self
       end
 
       handle Messages::AddReferenceInitiated do |initiated, event_data|

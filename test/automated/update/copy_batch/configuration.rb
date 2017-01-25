@@ -13,7 +13,7 @@ context "Copy batch operation is configured" do
   )
 
   context "Session is specified" do
-    session = EventStore::Client::HTTP::Session.build
+    session = EventSource::EventStore::HTTP::Session.build
 
     copy_batch = Update::CopyBatch.build(
       batch_assembled,

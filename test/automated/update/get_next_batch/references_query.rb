@@ -7,7 +7,7 @@ context "Get next batch of references query" do
 
   context "List is empty" do
     query = Update::GetNextBatch::Query::References.new
-    EventStore::Client::HTTP::Session.configure query
+    EventSource::EventStore::HTTP::Session.configure query
     query.category = Controls::StreamName::Category.example
 
     results = query.(entity_id, 0, 1)
@@ -19,7 +19,7 @@ context "Get next batch of references query" do
 
   context "List contains references" do
     query = Update::GetNextBatch::Query::References.new
-    EventStore::Client::HTTP::Session.configure query
+    EventSource::EventStore::HTTP::Session.configure query
     query.category = category
 
     results = query.(entity_id, 0, 2)
@@ -35,7 +35,7 @@ context "Get next batch of references query" do
 
   context "Ending position exceeds the final reference" do
     query = Update::GetNextBatch::Query::References.new
-    EventStore::Client::HTTP::Session.configure query
+    EventSource::EventStore::HTTP::Session.configure query
     query.category = category
 
     results = query.(entity_id, 0, 1)

@@ -6,11 +6,11 @@ module DataAggregation::Index
 
       configure :get_positions
 
-      dependency :session, EventStore::Client::HTTP::Session
+      dependency :session, EventSource::EventStore::HTTP::Session
 
       def self.build(session: nil)
         instance = new
-        EventStore::Client::HTTP::Session.configure instance, session: session
+        EventSource::EventStore::HTTP::Session.configure instance, session: session
         instance
       end
 

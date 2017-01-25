@@ -9,7 +9,7 @@ module DataAggregation::Index
 
         attr_accessor :category
 
-        dependency :session, EventStore::Client::HTTP::Session
+        dependency :session, EventSource::EventStore::HTTP::Session
 
         abstract :call
 
@@ -27,7 +27,7 @@ module DataAggregation::Index
 
           instance = subclass.new
           instance.category = category
-          EventStore::Client::HTTP::Session.configure instance, session: session
+          EventSource::EventStore::HTTP::Session.configure instance, session: session
           instance
         end
 
