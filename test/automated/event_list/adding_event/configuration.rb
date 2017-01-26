@@ -13,7 +13,7 @@ context "Add event to event list command is configured" do
   end
 
   context "Session is specified" do
-    session = Object.new
+    session = EventSource::EventStore::HTTP::Session.build
 
     add = EventList::Add.build publish_event_initiated, event_data, session: session
 

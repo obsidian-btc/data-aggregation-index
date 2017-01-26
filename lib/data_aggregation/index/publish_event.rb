@@ -31,7 +31,7 @@ module DataAggregation::Index
 
       event_id = get_event_id event
 
-      event_data = EventStore::Messaging::Message::Export::EventData.(event)
+      event_data = Messaging::Message::Export.(event)
       event_data.id = event_id
 
       update = update_store.get event_id
@@ -43,9 +43,10 @@ module DataAggregation::Index
 
       _, event_list_pos, _ = get_positions.(entity_id, category)
 
-      event_data_text = Transform::Write.(event_data, :json)
+      raw_data = EventData::Transformer.raw_data event_data
+      event_data_text = EventData::Transformer::JSON.write raw_data
 
-      publish_event_initiated = Update::Messages::PublishEventInitiated.proceed event, copy: false
+      publish_event_initiated = Update::Messages::PublishEventInitiated.proceed event, strict: false
       publish_event_initiated.entity_id = entity_id
       publish_event_initiated.event_id = event_id
       publish_event_initiated.event_data_text = event_data_text

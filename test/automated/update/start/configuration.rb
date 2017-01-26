@@ -5,7 +5,7 @@ context "Start update operation is configured" do
   event_data = Controls::EventData.example
 
   context "Session is specified" do
-    session = Object.new
+    session = EventSource::EventStore::HTTP::Session.build
 
     start = Update::Start.build update_started, event_data, session: session
 

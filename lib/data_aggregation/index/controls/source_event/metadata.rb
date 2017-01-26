@@ -2,9 +2,15 @@ module DataAggregation::Index::Controls
   module SourceEvent
     module Metadata
       def self.example(entity_id: nil)
-        metadata = EventStore::Messaging::Message::Metadata.build
-        metadata.source_event_uri = SourceEventURI.example entity_id: entity_id
-        metadata.causation_event_uri = CausationEventURI.example
+        metadata = Messaging::Message::Metadata.build
+        metadata.extend EventStore::Messaging::Message::Metadata
+
+        metadata.source_event_stream_name = StreamName::Entity.example stream_id: entity_id
+        metadata.source_event_position = Position::EventList.example
+
+        metadata.causation_event_stream_name = StreamName::Causation.example
+        metadata.causation_event_position = 0
+
         metadata.correlation_stream_name = StreamName::Correlation.example
         metadata.reply_stream_name = StreamName::Reply.example
         metadata.schema_version = SchemaVersion.example
@@ -31,7 +37,7 @@ module DataAggregation::Index::Controls
 
       module SchemaVersion
         def self.example
-          11
+          '11'
         end
       end
     end

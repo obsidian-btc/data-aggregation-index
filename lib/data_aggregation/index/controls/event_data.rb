@@ -5,7 +5,7 @@ module DataAggregation::Index::Controls
       stream_name ||= StreamName::Index.example
 
       message = Messages::UpdateStarted.example
-      write_event_data = EventStore::Messaging::Message::Export::EventData.(message)
+      write_event_data = Messaging::Message::Export.(message)
 
       event_data = EventSource::EventData::Read.build
       event_data.type = write_event_data.type

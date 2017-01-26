@@ -17,7 +17,7 @@ context "Updating index after event is added command is configured" do
   end
 
   context "Session is specified" do
-    session = Object.new
+    session = EventSource::EventStore::HTTP::Session.build
 
     update_index = EventList::UpdateIndex.build added, event_data, session: session
 

@@ -17,6 +17,9 @@ Gem::Specification.new do |s|
   s.bindir = 'bin'
 
   s.add_runtime_dependency 'event_store-consumer'
+
+  s.add_runtime_dependency 'evt-consumer-event_store'
+
   s.add_runtime_dependency 'event_store-consumer-error_handler'
   s.add_runtime_dependency 'event_store-entity_store'
 

@@ -14,10 +14,24 @@ module DataAggregation::Index
         instance
       end
 
+      def self.raw_data(instance)
+        {
+          :event_id => instance.id,
+          :event_type => instance.type,
+          :data => instance.data,
+          :metadata => instance.metadata
+        }
+      end
+
       module JSON
         def self.read(text)
           formatted_data = ::JSON.parse text, symbolize_names: true
           Casing::Underscore.(formatted_data)
+        end
+
+        def self.write(raw_data)
+          formatted_data = Casing::Camel.(raw_data, symbol_to_string: true)
+          ::JSON.pretty_generate formatted_data
         end
       end
     end

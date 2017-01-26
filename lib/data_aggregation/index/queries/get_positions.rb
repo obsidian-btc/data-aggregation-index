@@ -34,35 +34,32 @@ module DataAggregation::Index
       end
 
       def read(stream_name, &block)
-        reader = build_reader stream_name
+        get_last = build_get_last
 
-        reader.each do |event_data|
-          message = build_message event_data
+        event_data = get_last.(stream_name)
 
-          index_pos = event_data.number
-          event_list_pos = message.event_list_position if message.event_list_position
-          reference_list_pos = message.reference_list_position if message.reference_list_position
+        return if event_data.nil?
 
-          block.(index_pos, event_list_pos, reference_list_pos)
+        message = build_message event_data
 
-          break
-        end
+        index_pos = event_data.position
+        event_list_pos = message.event_list_position if message.event_list_position
+        reference_list_pos = message.reference_list_position if message.reference_list_position
+
+        block.(index_pos, event_list_pos, reference_list_pos)
       end
 
-      def build_reader(stream_name)
-        EventStore::Client::HTTP::Reader.build(
-          stream_name,
-          direction: :backward,
-          slice_size: 1,
-          session: session
-        )
+      def build_get_last
+        EventSource::EventStore::HTTP::Get::Last.build session: session
       end
 
       def build_message(event_data)
-        EventStore::Messaging::Message::Import::EventData.(
+        message = Messaging::Message::Import.(
           event_data,
           Messages::UpdateStarted
         )
+        message.extend ::EventStore::Messaging::Message::Metadata
+        message
       end
 
       module Substitute
