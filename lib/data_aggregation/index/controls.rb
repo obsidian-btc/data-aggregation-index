@@ -1,6 +1,6 @@
 require 'clock/controls'
 require 'identifier/uuid/controls'
-require 'event_store/messaging/controls'
+require 'event_source/controls'
 
 module DataAggregation::Index
   Controls = ::Module.new

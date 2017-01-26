@@ -4,8 +4,6 @@ require 'event_store/consumer/error_handler'
 
 require 'data_aggregation/copy_message'
 
-require 'event_store/messaging'
-
 module DataAggregation
   Index = Module.new
 end
