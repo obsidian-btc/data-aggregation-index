@@ -2,10 +2,9 @@ require_relative '../../automated_init'
 
 context "Updating index after reference is added command is configured" do
   added = Controls::ReferenceList::Messages::Added.example
-  event_data = Controls::EventData::ReferenceList.example
 
   context do
-    update_index = ReferenceList::UpdateIndex.build added, event_data
+    update_index = ReferenceList::UpdateIndex.build added
 
     test "Category is set" do
       assert update_index.category == Controls::StreamName::Category.example
@@ -19,7 +18,7 @@ context "Updating index after reference is added command is configured" do
   context "Session is specified" do
     session = EventSource::EventStore::HTTP::Session.build
 
-    update_index = ReferenceList::UpdateIndex.build added, event_data, session: session
+    update_index = ReferenceList::UpdateIndex.build added, session: session
 
     test "Session is passed to.write" do
       assert update_index.write do

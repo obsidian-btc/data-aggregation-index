@@ -9,8 +9,8 @@ module DataAggregation::Index
         EventSource::EventStore::HTTP::Session.configure self
       end
 
-      handle Messages::Added do |added, event_data|
-        UpdateIndex.(added, event_data, session: session)
+      handle Messages::Added do |added|
+        UpdateIndex.(added, session: session)
       end
     end
   end

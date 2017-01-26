@@ -18,9 +18,10 @@ module DataAggregation::Index
         @reference_list_position = reference_list_position
       end
 
-      def self.build(reference_added, event_data, session: nil)
-        reference_list_position = event_data.position
-        update_stream_name = event_data.stream_name
+      def self.build(reference_added, event_data=nil, session: nil)
+        reference_list_position = reference_added.metadata.source_event_position
+        update_stream_name = reference_added.metadata.stream_name
+
         category = StreamName.get_category update_stream_name
 
         instance = new reference_added, category, reference_list_position

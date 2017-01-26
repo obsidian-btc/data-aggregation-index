@@ -16,6 +16,9 @@ module DataAggregation::Index::Controls
           message.related_entity_category = StreamName::RelatedEntity::Category.example
 
           message.time = Time.example
+
+          message.metadata.source_event_stream_name = StreamName::ReferenceList.example
+          message.metadata.source_event_position = position
           message
         end
       end
