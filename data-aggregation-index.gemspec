@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.2.3'
   s.bindir = 'bin'
 
-  s.add_runtime_dependency 'event_store-consumer'
-
   s.add_runtime_dependency 'evt-consumer-event_store'
   s.add_runtime_dependency 'evt-entity_store'
 
+  s.add_runtime_dependency 'event_store-messaging', '>= 0.7.0.0.pre2'
+
   s.add_runtime_dependency 'data_aggregation-copy_message'
-  s.add_runtime_dependency 'event_store-consumer-error_handler'
+  s.add_runtime_dependency 'event_store-consumer-error_handler', '>= 0.3.0.0.pre1'
 end

@@ -64,35 +64,34 @@ module DataAggregation::Index
 
         consumers_mod = ::Module.new do
           index_consumer = Class.new do
-            include EventStore::Consumer
+            include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
-            category StreamName.index_category(category)
-            dispatcher Dispatchers::Index
+            #category StreamName.index_category(category)
+            #dispatcher Dispatchers::Index
           end
           const_set :Index, index_consumer
 
           event_list_consumer = Class.new do
-            include EventStore::Consumer
+            include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
-            category StreamName.event_list_category(category)
-            dispatcher Dispatchers::EventList
+            #category StreamName.event_list_category(category)
+            #dispatcher Dispatchers::EventList
           end
           const_set :EventList, event_list_consumer
 
           reference_list_consumer = Class.new do
-            include EventStore::Consumer
+            include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
-            category StreamName.reference_list_category(category)
-            dispatcher Dispatchers::ReferenceList
+            #category StreamName.reference_list_category(category)
+            #dispatcher Dispatchers::ReferenceList
           end
           const_set :ReferenceList, reference_list_consumer
 
           update_consumer = Class.new do
-            include EventStore::Consumer
+            include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
-            category StreamName.update_category(category)
-            dispatcher Dispatchers::Update
-            position_update_interval 1
+            #category StreamName.update_category(category)
+            #dispatcher Dispatchers::Update
           end
           const_set :Update, update_consumer
         end

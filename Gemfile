@@ -5,8 +5,7 @@ gemspec
 gem 'ntl-actor'
 
 source 'https://gem.fury.io/eventide' do
-  gem 'event_store-consumer'
-  gem 'event_store-messaging', '>= 0.7.0.0.pre1'
+  gem 'event_store-messaging', '>= 0.7.0.0.pre2'
 end
 
 source "https://#{ENV.fetch 'OBSIDIAN_GEMFURY_SECRET'}@gem.fury.io/obsidian" do
