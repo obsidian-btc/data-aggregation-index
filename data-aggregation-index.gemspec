@@ -19,9 +19,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'event_store-consumer'
 
   s.add_runtime_dependency 'evt-consumer-event_store'
-
-  s.add_runtime_dependency 'event_store-consumer-error_handler'
-  s.add_runtime_dependency 'event_store-entity_store'
+  s.add_runtime_dependency 'evt-entity_store'
 
   s.add_runtime_dependency 'data_aggregation-copy_message'
+  s.add_runtime_dependency 'event_store-consumer-error_handler'
 end

@@ -11,13 +11,12 @@ module DataAggregation::Index
 
             related_entity_stream_names = []
 
-            Projection.(
-              related_entity_stream_names,
-              stream_name,
-              starting_position: starting_position,
-              ending_position: ending_position,
-              session: session
-            )
+            projection = Projection.build related_entity_stream_names
+
+            EventSource::EventStore::HTTP::Read.(stream_name, position: starting_position, session: session) do |event_data|
+              projection.(event_data)
+              break if event_data.position == ending_position
+            end
 
             logger.debug "References batch has been queried (#{log_attributes})"
 

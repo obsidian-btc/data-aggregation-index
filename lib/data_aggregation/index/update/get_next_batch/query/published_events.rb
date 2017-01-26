@@ -11,13 +11,12 @@ module DataAggregation::Index
 
             published_events = []
 
-            Projection.(
-              published_events,
-              stream_name,
-              starting_position: starting_position,
-              ending_position: ending_position,
-              session: session
-            )
+            projection = Projection.build published_events
+
+            EventSource::EventStore::HTTP::Read.(stream_name, position: starting_position, session: session) do |event_data|
+              projection.(event_data)
+              break if event_data.position == ending_position
+            end
 
             logger.debug "Published events batch has been queried (#{log_attributes})"
 

@@ -6,29 +6,29 @@ module DataAggregation::Index
       entity Entity
       projection Projection
 
-      def self.build(category_name=nil, session: nil)
+      def self.build(category=nil, session: nil)
         instance = super session: session
 
-        if category_name
-          category_name = StreamName.update_category category_name
-          instance.category_name = category_name
+        if category
+          category = StreamName.update_category category
+          instance.category = category
         end
 
         instance
       end
 
-      attr_writer :category_name
+      attr_writer :category
 
-      def category_name
-        category_name = @category_name
+      def category
+        category = @category
 
-        if category_name.nil?
+        if category.nil?
           error_message = "Category name not specified"
           logger.error error_message
           raise error_message
         end
 
-        category_name
+        category
       end
 
       module Assertions
