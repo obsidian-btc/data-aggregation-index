@@ -58,6 +58,5 @@ require 'data_aggregation/index/reference_list/handler'
 require 'data_aggregation/index/update/handler'
 require 'data_aggregation/index/handler'
 
-require 'data_aggregation/index/dispatchers'
 require 'data_aggregation/index/index'
 require 'data_aggregation/index/actor_integration'

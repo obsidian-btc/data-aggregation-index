@@ -50,8 +50,6 @@ module DataAggregation::Index
         const_set :Substitute, PublishEvent::Substitute
       end
       mod.const_set :PublishEvent, publish_event_mod
-
-      mod.const_set :Dispatchers, Dispatchers
     end
 
     module CategoryMacro
