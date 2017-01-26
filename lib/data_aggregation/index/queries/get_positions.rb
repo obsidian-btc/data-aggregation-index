@@ -54,12 +54,7 @@ module DataAggregation::Index
       end
 
       def build_message(event_data)
-        message = Messaging::Message::Import.(
-          event_data,
-          Messages::UpdateStarted
-        )
-        message.extend ::EventStore::Messaging::Message::Metadata
-        message
+        Messaging::Message::Import.(event_data, Messages::UpdateStarted)
       end
 
       module Substitute
