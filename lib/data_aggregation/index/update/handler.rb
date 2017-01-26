@@ -9,28 +9,28 @@ module DataAggregation::Index
         EventSource::EventStore::HTTP::Session.configure self
       end
 
-      handle Messages::AddReferenceInitiated do |initiated, event_data|
-        ReferenceList::Add.(initiated, event_data, session: session)
+      handle Messages::AddReferenceInitiated do |initiated|
+        ReferenceList::Add.(initiated, session: session)
       end
 
-      handle Messages::PublishEventInitiated do |initiated, event_data|
-        EventList::Add.(initiated, event_data, session: session)
+      handle Messages::PublishEventInitiated do |initiated|
+        EventList::Add.(initiated, session: session)
       end
 
-      handle Messages::Started do |started, event_data|
-        GetNextBatch.(started, event_data, session: session)
+      handle Messages::Started do |started|
+        GetNextBatch.(started, session: session)
       end
 
-      handle Messages::BatchAssembled do |batch_assembled, event_data|
-        CopyBatch.(batch_assembled, event_data, session: session)
+      handle Messages::BatchAssembled do |batch_assembled|
+        CopyBatch.(batch_assembled, session: session)
       end
 
-      handle Messages::BatchCopied do |batch_copied, event_data|
-        GetNextBatch.(batch_copied, event_data, session: session)
+      handle Messages::BatchCopied do |batch_copied|
+        GetNextBatch.(batch_copied, session: session)
       end
 
-      handle Messages::CopyFailed do |copy_failed, event_data|
-        CopyBatch.(copy_failed, event_data, session: session)
+      handle Messages::CopyFailed do |copy_failed|
+        CopyBatch.(copy_failed, session: session)
       end
     end
   end

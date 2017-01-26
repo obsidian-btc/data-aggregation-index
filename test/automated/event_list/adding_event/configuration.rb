@@ -2,10 +2,9 @@ require_relative '../../automated_init'
 
 context "Add event to event list command is configured" do
   publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example
-  event_data = Controls::EventData::Update.example
 
   context do
-    add = EventList::Add.build publish_event_initiated, event_data
+    add = EventList::Add.build publish_event_initiated
 
     test "Category is set" do
       assert add.category == Controls::StreamName::Category.example
@@ -15,7 +14,7 @@ context "Add event to event list command is configured" do
   context "Session is specified" do
     session = EventSource::EventStore::HTTP::Session.build
 
-    add = EventList::Add.build publish_event_initiated, event_data, session: session
+    add = EventList::Add.build publish_event_initiated, session: session
 
     test "Session is passed to.write" do
       assert add.write do

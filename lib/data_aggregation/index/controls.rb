@@ -7,7 +7,6 @@ module DataAggregation::Index
 end
 
 require 'data_aggregation/index/controls/id'
-require 'data_aggregation/index/controls/event_data'
 require 'data_aggregation/index/controls/position'
 require 'data_aggregation/index/controls/update/batch'
 require 'data_aggregation/index/controls/update/list'

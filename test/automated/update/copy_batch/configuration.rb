@@ -3,8 +3,7 @@ require_relative '../../automated_init'
 context "Copy batch operation is configured" do
   update_stream = Controls::StreamName::Update.example random: true
 
-  batch_assembled = Controls::Update::Messages::BatchAssembled.example
-  event_data = Controls::EventData.example stream_name: update_stream
+  batch_assembled = Controls::Update::Messages::BatchAssembled.example stream_name: update_stream
 
   write = Messaging::EventStore::Write.build
   write.(Controls::Update::Messages::PublishEventInitiated.example, update_stream)
@@ -12,11 +11,7 @@ context "Copy batch operation is configured" do
   context "Session is specified" do
     session = EventSource::EventStore::HTTP::Session.build
 
-    copy_batch = Update::CopyBatch.build(
-      batch_assembled,
-      event_data,
-      session: session
-    )
+    copy_batch = Update::CopyBatch.build batch_assembled, session: session
 
     test "Session is passed to.write" do
       assert copy_batch.write do

@@ -21,6 +21,7 @@ module DataAggregation::Index::Controls
           message.event_data_text = event_data_text
           message.event_list_position = list_position if list_position
           message.time = Time.example
+          message.metadata.source_event_stream_name = StreamName::Update.example
           message
         end
       end
@@ -36,6 +37,7 @@ module DataAggregation::Index::Controls
           message.related_entity_id = ID::RelatedEntity.example i
           message.related_entity_category = StreamName::RelatedEntity::Category.example
           message.reference_list_position = list_position if list_position
+          message.metadata.source_event_stream_name = StreamName::Update.example
           message
         end
       end
@@ -55,22 +57,28 @@ module DataAggregation::Index::Controls
       end
 
       module BatchAssembled
-        def self.example(batch_index=nil)
+        def self.example(batch_index=nil, stream_name: nil)
+          stream_name ||= StreamName::Update.example
+
           message = DataAggregation::Index::Update::Messages::BatchAssembled.new
           message.update_id = ID::Update.example
           message.batch_position = Batch::Position::Stop.example batch_index
           message.batch_data = Batch::Data.example batch_index
           message.time = Time.example
+          message.metadata.source_event_stream_name = stream_name
           message
         end
       end
 
       module BatchCopied
-        def self.example(batch_index=nil)
+        def self.example(batch_index=nil, stream_name: nil)
+          stream_name ||= StreamName::Update.example
+
           message = DataAggregation::Index::Update::Messages::BatchCopied.new
           message.update_id = ID::Update.example
           message.copy_position = Batch::Position::Stop.example batch_index
           message.time = Time.example
+          message.metadata.source_event_stream_name = stream_name
           message
         end
       end
