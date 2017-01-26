@@ -26,7 +26,7 @@ module DataAggregation::Index
     end
 
     def call(entity_id, event)
-      log_attributes = "EntityID: #{entity_id}, MessageType: #{event.message_type}, SourceEventURI: #{event.metadata.source_event_uri.inspect}"
+      log_attributes = "EntityID: #{entity_id}, MessageType: #{event.message_type}, SourceEventStream: #{event.metadata.source_event_stream_name.inspect}, SourceEventPosition: #{event.metadata.source_event_position.inspect}"
       logger.trace "Publishing event (#{log_attributes})"
 
       event_id = get_event_id event
@@ -63,15 +63,10 @@ module DataAggregation::Index
     end
 
     def get_event_id(event)
-      source_event_uri = URI.parse event.metadata.source_event_uri
+      stream_id = Messaging::StreamName.get_id event.metadata.source_event_stream_name
+      stream_position = event.metadata.source_event_position
 
-      path = source_event_uri.path
-
-      _, stream_id = path.split '-', 2
-
-      stream_id.sub! '/', '-'
-
-      stream_id
+      "#{stream_id}-#{stream_position}"
     end
   end
 end

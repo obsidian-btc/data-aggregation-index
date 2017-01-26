@@ -3,7 +3,6 @@ module DataAggregation::Index::Controls
     module Metadata
       def self.example(entity_id: nil)
         metadata = Messaging::Message::Metadata.build
-        metadata.extend EventStore::Messaging::Message::Metadata
 
         metadata.source_event_stream_name = StreamName::Entity.example stream_id: entity_id
         metadata.source_event_position = Position::EventList.example
