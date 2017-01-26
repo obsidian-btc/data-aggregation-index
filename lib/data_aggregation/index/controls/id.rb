@@ -22,7 +22,7 @@ module DataAggregation::Index::Controls
     module SourceEvent
       def self.example(i=nil, stream_id: nil)
         i ||= Position::EventList.example
-        stream_id = Entity.example
+        stream_id ||= Entity.example
 
         "#{stream_id}-#{i}"
       end

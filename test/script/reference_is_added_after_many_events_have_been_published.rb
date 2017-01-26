@@ -17,7 +17,8 @@ end
 
 Defaults.iteration_count.times.map do |index|
   counter = Counter.build :index => index
-  counter.metadata.source_event_uri = "/streams/#{source_stream_name}/#{index}"
+  counter.metadata.source_event_stream_name = source_stream_name
+  counter.metadata.source_event_position = index
   publish_event.(entity_id, counter)
 end
 
