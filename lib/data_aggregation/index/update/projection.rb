@@ -1,7 +1,7 @@
 module DataAggregation::Index
   module Update
     class Projection
-      include EventStore::EntityProjection
+      include EntityProjection
       include Messages
 
       apply PublishEventInitiated do |initiated|

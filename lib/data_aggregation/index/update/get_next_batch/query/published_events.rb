@@ -24,7 +24,7 @@ module DataAggregation::Index
           end
 
           class Projection
-            include EventStore::EntityProjection
+            include EntityProjection
             include DataAggregation::Index::EventList::Messages
 
             apply Added do |added|

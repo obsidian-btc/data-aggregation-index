@@ -6,7 +6,7 @@ context "Publish event update, started event is projected onto entity" do
   projection = Update::Projection.new entity
 
   started = Controls::Update::Messages::Started.example reference_list_position: true
-  projection.apply started
+  projection.(started)
 
   test "List position is set" do
     assert entity.list_position == Controls::Position::ReferenceList.example

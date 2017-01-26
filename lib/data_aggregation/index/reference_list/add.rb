@@ -59,7 +59,7 @@ module DataAggregation::Index
       end
 
       class QueryProjection
-        include EventStore::EntityProjection
+        include EntityProjection
 
         apply Messages::Added do |added|
           entity << added.related_entity_id

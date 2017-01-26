@@ -5,7 +5,7 @@ context "Completed event is projected onto update entity" do
   entity = Controls::Update::Entity::Started.example
 
   projection = Update::Projection.new entity
-  projection.apply completed
+  projection.(completed)
 
   test "Completed predicate returns true" do
     assert entity.completed?

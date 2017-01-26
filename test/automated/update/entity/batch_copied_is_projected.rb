@@ -5,7 +5,7 @@ context "Batch copied event is projected onto update entity" do
   entity = Controls::Update::Entity::Copying.example
 
   projection = Update::Projection.new entity
-  projection.apply batch_copied
+  projection.(batch_copied)
 
   test "Copy position is increased" do
     assert entity.copy_position == Controls::Update::Batch::Position::Stop.example

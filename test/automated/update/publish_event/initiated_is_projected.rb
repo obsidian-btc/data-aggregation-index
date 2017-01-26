@@ -6,7 +6,7 @@ context "Publish event update, initiated event is projected onto entity" do
   projection = Update::Projection.new entity
 
   initiated = Controls::Update::Messages::PublishEventInitiated.example
-  projection.apply initiated
+  projection.(initiated)
 
   test "Entity is specialized for publishing the event" do
     assert entity.is_a?(Update::Entity::PublishEvent)

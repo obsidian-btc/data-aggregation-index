@@ -6,7 +6,7 @@ context "Add reference update, initiated event is projected onto entity" do
   projection = Update::Projection.new entity
 
   initiated = Controls::Update::Messages::AddReferenceInitiated.example
-  projection.apply initiated
+  projection.(initiated)
 
   test "Entity is specialized for starting the reference" do
     assert entity.is_a?(Update::Entity::AddReference)

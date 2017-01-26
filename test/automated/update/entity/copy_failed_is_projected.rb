@@ -5,7 +5,7 @@ context "Copy failed event is projected onto update entity" do
   entity = Controls::Update::Entity::Copying.example
 
   projection = Update::Projection.new entity
-  projection.apply copy_failed
+  projection.(copy_failed)
 
   test "Copy position is increased" do
     control_position = Controls::Update::Batch::Position::Failed.example
