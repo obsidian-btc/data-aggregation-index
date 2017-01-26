@@ -14,6 +14,8 @@ module DataAggregation::Index::Controls
           message.event_id = ID::SourceEvent.example position
           message.event_data_text = SourceEvent::EventData::Text.example position
           message.time = Time.example
+          message.metadata.source_event_stream_name = StreamName::EventList.example
+          message.metadata.source_event_position = Position::EventList.example
           message
         end
       end

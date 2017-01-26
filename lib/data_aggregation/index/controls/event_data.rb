@@ -23,15 +23,6 @@ module DataAggregation::Index::Controls
       end
     end
 
-    module EventList
-      def self.example
-        stream_name = StreamName::EventList.example
-        position = Position::EventList.example
-
-        EventData.example stream_name: stream_name, number: position
-      end
-    end
-
     module ReferenceList
       def self.example
         stream_name = StreamName::ReferenceList.example
