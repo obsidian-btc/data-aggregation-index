@@ -16,8 +16,8 @@ module DataAggregation::Index::Controls
 
         stream_name = DataAggregation::Index::StreamName.index_stream_name entity_id, category
 
-        writer = EventStore::Messaging::Writer.build
-        writer.write_initial batch, stream_name
+        write = Messaging::EventStore::Write.build
+        write.initial batch, stream_name
 
         stream_name
       end

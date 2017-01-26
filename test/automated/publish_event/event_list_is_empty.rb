@@ -15,7 +15,7 @@ context "Event is published to index, event list is empty" do
     publish_event_initiated = Controls::Update::Messages::PublishEventInitiated.example list_position: false
     update_stream_name = Controls::StreamName::Update::PublishEvent.example
 
-    assert publish_event.writer do
+    assert publish_event.write do
       written? do |msg, stream_name|
         msg == publish_event_initiated && stream_name == update_stream_name
       end

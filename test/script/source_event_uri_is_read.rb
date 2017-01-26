@@ -5,8 +5,8 @@ entity_id = Identifier::UUID::Random.get
 event = Controls::SourceEvent.example metadata: false
 
 entity_stream_name = Controls::StreamName::Entity.example stream_id: entity_id
-writer = EventStore::Messaging::Writer.build
-writer.write event, entity_stream_name
+write = Messaging::EventStore::Write.build
+write.(event, entity_stream_name)
 
 read_event = nil
 

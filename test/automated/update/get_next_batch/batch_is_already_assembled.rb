@@ -15,7 +15,7 @@ context "Get next batch, batch is already assembled" do
     get_next_batch.()
 
     test "Nothing is written" do
-      refute get_next_batch.writer do
+      refute get_next_batch.write do
         written?
       end
     end
@@ -32,7 +32,7 @@ context "Get next batch, batch is already assembled" do
     get_next_batch.()
 
     test "Nothing is written" do
-      refute get_next_batch.writer do
+      refute get_next_batch.write do
         written?
       end
     end

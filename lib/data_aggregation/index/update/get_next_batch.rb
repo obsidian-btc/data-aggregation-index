@@ -8,7 +8,7 @@ module DataAggregation::Index
       dependency :query, Query
       dependency :session, EventSource::EventStore::HTTP::Session
       dependency :store, Store
-      dependency :writer, EventStore::Messaging::Writer
+      dependency :write, Messaging::EventStore::Write
 
       attr_writer :batch_size
       attr_reader :category
@@ -30,7 +30,7 @@ module DataAggregation::Index
         Clock::UTC.configure instance
         Store.configure instance, category, session: session
         Query.configure instance, instance.entity, category, session: session
-        EventStore::Messaging::Writer.configure instance, session: session
+        Messaging::EventStore::Write.configure instance, session: session
 
         instance
       end
@@ -55,7 +55,7 @@ module DataAggregation::Index
           completed = Messages::Completed.proceed event, include: :update_id
           completed.time = clock.iso8601
 
-          writer.write completed, stream_name, expected_version: version
+          write.(completed, stream_name, expected_version: version)
 
           logger.info "Update completed (#{log_attributes})"
           return
@@ -79,7 +79,7 @@ module DataAggregation::Index
         batch_assembled.batch_data = batch_data
         batch_assembled.time = clock.iso8601
 
-        writer.write batch_assembled, stream_name, expected_version: version
+        write.(batch_assembled, stream_name, expected_version: version)
 
         logger.debug "Get next batch done (#{log_attributes})"
 

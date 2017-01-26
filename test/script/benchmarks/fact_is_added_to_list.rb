@@ -10,7 +10,7 @@ else
   fact_message_class = 'PublishEventInitiated'
 end
 
-writer = EventStore::Messaging::Writer.build
+write = Messaging::EventStore::Write.build
 
 Defaults.iteration_count.times do |index|
   list_position = index - 5
@@ -21,7 +21,7 @@ Defaults.iteration_count.times do |index|
     list_position: list_position
   )
 
-  writer.write event, update_stream_name
+  write.(event, update_stream_name)
 end
 
 measure update_stream_name, Controls::Index::Dispatchers::Update

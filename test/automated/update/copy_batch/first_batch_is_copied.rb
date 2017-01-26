@@ -28,7 +28,7 @@ context "Copy batch operation, first batch is copied" do
     batch_copied = Controls::Update::Messages::BatchCopied.example
     update_stream_name = Controls::StreamName::Update.example
 
-    assert copy_batch.writer do
+    assert copy_batch.write do
       written? do |msg, stream_name|
         msg == batch_copied && stream_name == update_stream_name
       end
@@ -36,7 +36,7 @@ context "Copy batch operation, first batch is copied" do
   end
 
   test "Expected version is set" do
-    assert copy_batch.writer do
+    assert copy_batch.write do
       written? do |_, _, expected_version|
         expected_version == 11
       end

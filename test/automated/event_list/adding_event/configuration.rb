@@ -17,8 +17,8 @@ context "Add event to event list command is configured" do
 
     add = EventList::Add.build publish_event_initiated, event_data, session: session
 
-    test "Session is passed to writer" do
-      assert add.writer do
+    test "Session is passed to.write" do
+      assert add.write do
         session? session
       end
     end

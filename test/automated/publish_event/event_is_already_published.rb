@@ -15,7 +15,7 @@ context "Event is already being published to index" do
   publish_event.(entity_id, source_event)
 
   test "Nothing is written" do
-    refute publish_event.writer do
+    refute publish_event.write do
       written?
     end
   end

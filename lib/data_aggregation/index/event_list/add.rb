@@ -8,7 +8,7 @@ module DataAggregation::Index
       attr_reader :publish_event_initiated
 
       dependency :clock, Clock::UTC
-      dependency :writer, EventStore::Messaging::Writer
+      dependency :write, Messaging::EventStore::Write
 
       def initialize(publish_event_initiated, category)
         @publish_event_initiated = publish_event_initiated
@@ -21,7 +21,7 @@ module DataAggregation::Index
 
         instance = new publish_event_initiated, category
         Clock::UTC.configure instance
-        EventStore::Messaging::Writer.configure instance, session: session
+        Messaging::EventStore::Write.configure instance, session: session
         instance
       end
 
@@ -43,7 +43,7 @@ module DataAggregation::Index
 
         event_added.time = clock.iso8601
 
-        writer.write event_added, stream_name
+        write.(event_added, stream_name)
 
         logger.debug "Event added to event list (#{log_attributes})"
 

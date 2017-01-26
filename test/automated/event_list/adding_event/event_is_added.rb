@@ -13,7 +13,7 @@ context "Adding event to an event list" do
     event_added = Controls::EventList::Messages::Added.example
     event_list_stream_name = Controls::StreamName::EventList.example
 
-    assert add.writer do
+    assert add.write do
       written? do |msg, stream_name|
         msg == event_added && stream_name == event_list_stream_name
       end

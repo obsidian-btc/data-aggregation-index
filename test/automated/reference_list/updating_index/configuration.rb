@@ -21,8 +21,8 @@ context "Updating index after reference is added command is configured" do
 
     update_index = ReferenceList::UpdateIndex.build added, event_data, session: session
 
-    test "Session is passed to writer" do
-      assert update_index.writer do
+    test "Session is passed to.write" do
+      assert update_index.write do
         session? session
       end
     end

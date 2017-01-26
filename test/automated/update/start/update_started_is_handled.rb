@@ -21,7 +21,7 @@ context "Handler handles update started event, records started in update stream"
     )
     update_stream_name = Controls::StreamName::Update.example
 
-    assert start_update.writer do
+    assert start_update.write do
       written? do |msg, stream_name|
         msg == started && stream_name == update_stream_name
       end
@@ -29,7 +29,7 @@ context "Handler handles update started event, records started in update stream"
   end
 
   test "Expected version is set" do
-    assert start_update.writer do
+    assert start_update.write do
       written? do |_, _, expected_version|
         expected_version == 1
       end

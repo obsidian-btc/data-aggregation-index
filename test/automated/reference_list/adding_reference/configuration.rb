@@ -17,8 +17,8 @@ context "Add reference to reference list command is configured" do
 
     add = ReferenceList::Add.build add_reference_initiated, event_data, session: session
 
-    test "Session is passed to writer" do
-      assert add.writer do
+    test "Session is passed to.write" do
+      assert add.write do
         session? session
       end
     end

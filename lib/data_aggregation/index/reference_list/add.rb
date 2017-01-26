@@ -8,7 +8,7 @@ module DataAggregation::Index
       attr_reader :category
 
       dependency :clock, Clock::UTC
-      dependency :writer, EventStore::Messaging::Writer
+      dependency :write, Messaging::EventStore::Write
 
       def initialize(add_reference_initiated_event, category)
         @add_reference_initiated_event = add_reference_initiated_event
@@ -21,7 +21,7 @@ module DataAggregation::Index
 
         instance = new add_reference_initiated_event, category
         Clock::UTC.configure instance
-        EventStore::Messaging::Writer.configure instance, session: session
+        Messaging::EventStore::Write.configure instance, session: session
         instance
       end
 
@@ -43,7 +43,7 @@ module DataAggregation::Index
 
         reference_added.time = clock.iso8601
 
-        writer.write reference_added, stream_name
+        write.(reference_added, stream_name)
 
         logger.debug "Reference added to reference list (#{log_attributes})"
 

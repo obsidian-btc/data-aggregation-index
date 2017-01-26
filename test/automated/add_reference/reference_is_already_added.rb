@@ -14,7 +14,7 @@ context "Reference is already added to index" do
   add_reference.(entity_id, related_entity_stream_name)
 
   test "Nothing is written" do
-    refute add_reference.writer do
+    refute add_reference.write do
       written?
     end
   end

@@ -16,7 +16,7 @@ context "Get next batch assembles a batch, but update is finished" do
     completed = Controls::Update::Messages::Completed.example
     update_stream_name = Controls::StreamName::Update.example
 
-    assert get_next_batch.writer do
+    assert get_next_batch.write do
       written? do |msg, stream_name|
         msg == completed && stream_name == update_stream_name
       end
@@ -24,7 +24,7 @@ context "Get next batch assembles a batch, but update is finished" do
   end
 
   test "Expected version is set" do
-    assert get_next_batch.writer do
+    assert get_next_batch.write do
       written? do |_, _, expected_version|
         expected_version == 11
       end

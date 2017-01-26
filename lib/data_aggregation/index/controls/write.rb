@@ -8,8 +8,8 @@ module DataAggregation::Index::Controls
         message_control.example i
       end
 
-      writer = EventStore::Messaging::Writer.build
-      writer.write_initial messages, stream_name
+      write = Messaging::EventStore::Write.build
+      write.initial messages, stream_name
 
       stream_name
     end

@@ -12,7 +12,7 @@ context "Get next batch assembles a batch, but update is completed" do
   get_next_batch.()
 
   test "Nothing is writetn" do
-    refute get_next_batch.writer do
+    refute get_next_batch.write do
       written?
     end
   end

@@ -21,7 +21,7 @@ context "Get next batch assembles a batch" do
       batch_assembled = Controls::Update::Messages::BatchAssembled.example
       update_stream_name = Controls::StreamName::Update.example
 
-      assert get_next_batch.writer do
+      assert get_next_batch.write do
         written? do |msg, stream_name|
           msg == batch_assembled && stream_name == update_stream_name
         end
@@ -29,7 +29,7 @@ context "Get next batch assembles a batch" do
     end
 
     test "Expected version is set" do
-      assert get_next_batch.writer do
+      assert get_next_batch.write do
         written? do |_, _, expected_version|
           expected_version == 11
         end
@@ -48,7 +48,7 @@ context "Get next batch assembles a batch" do
     batch_assembled = get_next_batch.()
 
     test "Batch assembled event is written" do
-      assert get_next_batch.writer do
+      assert get_next_batch.write do
         written? do |msg|
           msg == batch_assembled
         end

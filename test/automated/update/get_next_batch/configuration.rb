@@ -6,11 +6,8 @@ context "Get next batch operation is configured" do
   batch_copied = Controls::Update::Messages::BatchCopied.example
   event_data = Controls::EventData.example stream_name: update_stream
 
-  writer = EventStore::Messaging::Writer.build
-  writer.write(
-    Controls::Update::Messages::PublishEventInitiated.example,
-    update_stream
-  )
+  write = Messaging::EventStore::Write.build
+  write.(Controls::Update::Messages::PublishEventInitiated.example, update_stream)
 
   context "Session is specified" do
     session = EventSource::EventStore::HTTP::Session.build
@@ -21,8 +18,8 @@ context "Get next batch operation is configured" do
       session: session
     )
 
-    test "Session is passed to writer" do
-      assert get_next_batch.writer do
+    test "Session is passed to.write" do
+      assert get_next_batch.write do
         session? session
       end
     end

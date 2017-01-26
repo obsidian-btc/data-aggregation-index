@@ -18,7 +18,7 @@ context "Copy batch operation, batch is already copied" do
   end
 
   test "Nothing is written" do
-    refute copy_batch.writer do
+    refute copy_batch.write do
       written?
     end
   end

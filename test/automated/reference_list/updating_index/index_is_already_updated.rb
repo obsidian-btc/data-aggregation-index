@@ -16,7 +16,7 @@ context "Updating index upon a reference being added, index is already updated" 
   update_index.()
 
   test "Nothing is written" do
-    refute update_index.writer do
+    refute update_index.write do
       written?
     end
   end

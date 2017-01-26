@@ -9,8 +9,8 @@ context "Start update operation is configured" do
 
     start = Update::Start.build update_started, event_data, session: session
 
-    test "Session is passed to writer" do
-      assert start.writer do
+    test "Session is passed to.write" do
+      assert start.write do
         session? session
       end
     end

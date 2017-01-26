@@ -13,7 +13,7 @@ context "Reference is added to index, reference list is empty" do
     add_reference_initiated = Controls::Update::Messages::AddReferenceInitiated.example list_position: false
     update_stream_name = Controls::StreamName::Update::AddReference.example
 
-    assert add_reference.writer do
+    assert add_reference.write do
       written? do |msg, stream_name|
         msg == add_reference_initiated && stream_name == update_stream_name
       end

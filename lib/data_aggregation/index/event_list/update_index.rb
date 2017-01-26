@@ -10,7 +10,7 @@ module DataAggregation::Index
 
       dependency :clock, Clock::UTC
       dependency :get_positions, Queries::GetPositions
-      dependency :writer, EventStore::Messaging::Writer
+      dependency :write, Messaging::EventStore::Write
 
       def initialize(event_added, category, event_list_position)
         @event_added = event_added
@@ -26,7 +26,7 @@ module DataAggregation::Index
         instance = new event_added, category, event_list_position
         Clock::UTC.configure instance
         Queries::GetPositions.configure instance, session: session
-        EventStore::Messaging::Writer.configure instance, session: session
+        Messaging::EventStore::Write.configure instance, session: session
         instance
       end
 
@@ -60,7 +60,7 @@ module DataAggregation::Index
         update_started.reference_list_position = reference_list_pos unless reference_list_pos == :no_stream
         update_started.time = clock.iso8601
 
-        writer.write update_started, stream_name, expected_version: index_pos
+        write.(update_started, stream_name, expected_version: index_pos)
 
         logger.debug "Update started for event (#{log_attributes}, NextEventListPosition: #{next_event_list_pos})"
 

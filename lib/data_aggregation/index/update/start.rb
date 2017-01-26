@@ -9,7 +9,7 @@ module DataAggregation::Index
 
       dependency :clock, Clock::UTC
       dependency :update_store, Update::Store
-      dependency :writer, EventStore::Messaging::Writer
+      dependency :write, Messaging::EventStore::Write
 
       def initialize(update_started, category)
         @update_started = update_started
@@ -23,7 +23,7 @@ module DataAggregation::Index
         instance = new update_started, category
         Clock::UTC.configure instance
         Update::Store.configure instance, category, session: session, attr_name: :update_store
-        EventStore::Messaging::Writer.configure instance, session: session
+        Messaging::EventStore::Write.configure instance, session: session
         instance
       end
 
@@ -53,7 +53,7 @@ module DataAggregation::Index
 
         stream_name = update_stream_name update_id, category
 
-        writer.write started, stream_name, expected_version: version
+        write.(started, stream_name, expected_version: version)
 
         logger.debug "Update started recorded (#{log_attributes})"
 

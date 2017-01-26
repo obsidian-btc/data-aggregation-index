@@ -10,7 +10,7 @@ module DataAggregation::Index
     dependency :clock, Clock::UTC
     dependency :get_positions, Queries::GetPositions
     dependency :update_store, Update::Store
-    dependency :writer, EventStore::Messaging::Writer
+    dependency :write, Messaging::EventStore::Write
 
     def initialize(category)
       @category = category
@@ -21,7 +21,7 @@ module DataAggregation::Index
       Clock::UTC.configure instance
       Queries::GetPositions.configure instance
       Update::Store.configure instance, category, attr_name: :update_store
-      EventStore::Messaging::Writer.configure instance
+      Messaging::EventStore::Write.configure instance
       instance
     end
 
@@ -50,7 +50,7 @@ module DataAggregation::Index
 
       stream_name = update_stream_name related_entity_id, category
 
-      writer.write_initial add_reference_initiated, stream_name
+      write.initial add_reference_initiated, stream_name
 
       logger.debug "Reference added (#{log_attributes})"
 

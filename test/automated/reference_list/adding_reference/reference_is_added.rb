@@ -13,7 +13,7 @@ context "Adding reference to a reference list" do
     reference_added = Controls::ReferenceList::Messages::Added.example
     reference_list_stream_name = Controls::StreamName::ReferenceList.example
 
-    assert add.writer do
+    assert add.write do
       written? do |msg, stream_name|
         msg == reference_added && stream_name == reference_list_stream_name
       end

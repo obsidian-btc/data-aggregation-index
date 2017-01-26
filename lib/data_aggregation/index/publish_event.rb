@@ -10,7 +10,7 @@ module DataAggregation::Index
     dependency :clock, Clock::UTC
     dependency :get_positions, Queries::GetPositions
     dependency :update_store, Update::Store
-    dependency :writer, EventStore::Messaging::Writer
+    dependency :write, Messaging::EventStore::Write
 
     def initialize(category)
       @category = category
@@ -20,7 +20,7 @@ module DataAggregation::Index
       instance = new category
       Clock::UTC.configure instance
       Queries::GetPositions.configure instance
-      EventStore::Messaging::Writer.configure instance
+      Messaging::EventStore::Write.configure instance
       Update::Store.configure instance, category, attr_name: :update_store
       instance
     end
@@ -55,7 +55,7 @@ module DataAggregation::Index
 
       stream_name = update_stream_name event_id, category
 
-      writer.write_initial publish_event_initiated, stream_name
+      write.initial publish_event_initiated, stream_name
 
       logger.debug "Event published (#{log_attributes}, EventID: #{event_id})"
 

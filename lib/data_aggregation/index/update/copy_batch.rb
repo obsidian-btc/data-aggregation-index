@@ -10,7 +10,7 @@ module DataAggregation::Index
       dependency :clock, Clock::UTC
       dependency :copy, Copy
       dependency :store, Store
-      dependency :writer, EventStore::Messaging::Writer
+      dependency :write, Messaging::EventStore::Write
 
       def initialize(batch_assembled, category)
         @batch_assembled = batch_assembled
@@ -27,7 +27,7 @@ module DataAggregation::Index
 
         Clock::UTC.configure instance
         Copy.configure instance, instance.entity, session: session
-        EventStore::Messaging::Writer.configure instance, session: session
+        Messaging::EventStore::Write.configure instance, session: session
 
         instance
       end
@@ -62,7 +62,7 @@ module DataAggregation::Index
         message.time = clock.iso8601
 
         stream_name = update_stream_name update_id, category
-        writer.write message, stream_name, expected_version: version
+        write.(message, stream_name, expected_version: version)
 
         logger.info "Batch copied (#{log_attributes}, CopyPosition: #{copy_position})"
 

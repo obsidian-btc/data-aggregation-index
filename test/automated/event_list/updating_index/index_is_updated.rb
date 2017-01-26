@@ -20,7 +20,7 @@ context "Updating index upon an event being added" do
     update_started = Controls::Messages::UpdateStarted::PublishEvent.example event_list_version
     index_stream_name = Controls::StreamName::Index.example
 
-    assert update_index.writer do
+    assert update_index.write do
       written? do |msg, stream_name|
         msg == update_started && stream_name == index_stream_name
       end
@@ -28,7 +28,7 @@ context "Updating index upon an event being added" do
   end
 
   test "Expected version is set" do
-    assert update_index.writer do
+    assert update_index.write do
       written? do |_, _, expected_version|
         expected_version == Controls::Position::Index.example
       end

@@ -11,7 +11,7 @@ context "Handler handles update started event, update is already started" do
   start_update.()
 
   test "Nothing is written" do
-    refute start_update.writer do
+    refute start_update.write do
       written?
     end
   end
