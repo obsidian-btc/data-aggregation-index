@@ -1,7 +1,7 @@
 module DataAggregation::Index
   module EventList
     class Handler
-      include EventStore::Messaging::Handler
+      include Messaging::Handle
 
       dependency :session, EventSource::EventStore::HTTP::Session
 
