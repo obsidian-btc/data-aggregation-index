@@ -1,13 +1,22 @@
 module DataAggregation::Index
   module Update
     class Store
-      include EventStore::EntityStore
+      include EntityStore
 
       entity Entity
       projection Projection
+      reader EventSource::EventStore::HTTP::Read
 
       def self.build(category=nil, session: nil)
-        instance = super session: session
+        instance = new
+
+        EntityCache.configure(
+          instance,
+          entity_class,
+          attr_name: :cache
+        )
+
+        EventSource::EventStore::HTTP::Session.configure instance, session: session
 
         if category
           category = StreamName.update_category category
