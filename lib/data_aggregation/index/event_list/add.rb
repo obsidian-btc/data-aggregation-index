@@ -36,7 +36,7 @@ module DataAggregation::Index
 
         stream_name = event_list_stream_name entity_id, category
 
-        event_added = Messages::Added.proceed(
+        event_added = Messages::Added.follow(
           publish_event_initiated,
           include: %i(entity_id event_id event_data_text)
         )

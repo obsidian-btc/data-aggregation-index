@@ -36,7 +36,7 @@ module DataAggregation::Index
 
         stream_name = reference_list_stream_name entity_id, category
 
-        reference_added = Messages::Added.proceed(
+        reference_added = Messages::Added.follow(
           add_reference_initiated_event,
           include: %i(entity_id related_entity_id related_entity_category)
         )

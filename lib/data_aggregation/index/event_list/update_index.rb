@@ -54,7 +54,7 @@ module DataAggregation::Index
           return
         end
 
-        update_started = DataAggregation::Index::Messages::UpdateStarted.proceed event_added, include: :entity_id
+        update_started = DataAggregation::Index::Messages::UpdateStarted.follow event_added, include: :entity_id
         update_started.update_id = event_id
         update_started.event_list_position = next_event_list_pos
         update_started.reference_list_position = reference_list_pos unless reference_list_pos == :no_stream

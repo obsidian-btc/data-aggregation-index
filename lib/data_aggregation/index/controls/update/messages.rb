@@ -15,7 +15,7 @@ module DataAggregation::Index::Controls
 
           event = SourceEvent.example
 
-          message = DataAggregation::Index::Update::Messages::PublishEventInitiated.proceed event, strict: false
+          message = DataAggregation::Index::Update::Messages::PublishEventInitiated.follow event, strict: false
           message.entity_id = ID::Entity.example
           message.event_id = ID::SourceEvent.example i
           message.event_data_text = event_data_text

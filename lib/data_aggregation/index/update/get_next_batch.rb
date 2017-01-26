@@ -52,7 +52,7 @@ module DataAggregation::Index
         end
 
         if entity.finished?
-          completed = Messages::Completed.proceed event, include: :update_id
+          completed = Messages::Completed.follow event, include: :update_id
           completed.time = clock.iso8601
 
           write.(completed, stream_name, expected_version: version)
@@ -74,7 +74,7 @@ module DataAggregation::Index
           raise EmptyRead, error_message
         end
 
-        batch_assembled = Messages::BatchAssembled.proceed event, include: :update_id
+        batch_assembled = Messages::BatchAssembled.follow event, include: :update_id
         batch_assembled.batch_position = ending_position
         batch_assembled.batch_data = batch_data
         batch_assembled.time = clock.iso8601

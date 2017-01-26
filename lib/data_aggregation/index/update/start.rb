@@ -45,7 +45,7 @@ module DataAggregation::Index
           return
         end
 
-        started = Update::Messages::Started.proceed(
+        started = Update::Messages::Started.follow(
           update_started,
           include: %i(update_id event_list_position reference_list_position)
         )
