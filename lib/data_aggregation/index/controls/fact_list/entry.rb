@@ -8,7 +8,7 @@ module DataAggregation::Index::Controls
       end
 
       class ExampleMessage
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :update_id, String
       end

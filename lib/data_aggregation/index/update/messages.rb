@@ -2,7 +2,7 @@ module DataAggregation::Index
   module Update
     module Messages
       class PublishEventInitiated
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :entity_id, String
         attribute :event_id, String
@@ -13,7 +13,7 @@ module DataAggregation::Index
       end
 
       class AddReferenceInitiated
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :entity_id, String
         attribute :related_entity_id, String
@@ -24,7 +24,7 @@ module DataAggregation::Index
       end
 
       class Started
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :update_id, String
 
@@ -38,7 +38,7 @@ module DataAggregation::Index
       end
 
       class BatchAssembled
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :update_id, String
 
@@ -48,7 +48,7 @@ module DataAggregation::Index
       end
 
       class BatchCopied
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :update_id, String
 
@@ -57,7 +57,7 @@ module DataAggregation::Index
       end
 
       class CopyFailed
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :update_id, String
 
@@ -68,7 +68,7 @@ module DataAggregation::Index
       end
 
       class Completed
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :update_id, String
 

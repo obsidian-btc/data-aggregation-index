@@ -11,7 +11,7 @@ publish_event = Controls::Index::PublishEvent.build
 add_reference = Controls::Index::AddReference.build
 
 class Counter
-  include EventStore::Messaging::Message
+  include Messaging::Message
   attribute :index, Integer
 end
 

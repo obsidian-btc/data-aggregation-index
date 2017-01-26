@@ -13,7 +13,7 @@ module DataAggregation::Index::Controls
     end
 
     class SomeEvent
-      include EventStore::Messaging::Message
+      include Messaging::Message
 
       attribute :some_attribute, String
       attribute :some_time, String

@@ -2,7 +2,7 @@ module DataAggregation::Index
   module ReferenceList
     module Messages
       class Added
-        include EventStore::Messaging::Message
+        include Messaging::Message
 
         attribute :entity_id, String
 
