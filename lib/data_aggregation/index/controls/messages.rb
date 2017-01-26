@@ -19,6 +19,8 @@ module DataAggregation::Index::Controls
         message.event_list_position = event_list_position if event_list_position
         message.reference_list_position = reference_list_position if reference_list_position
         message.time = Time.example
+        message.metadata.source_event_stream_name = StreamName::Index.example
+        message.metadata.source_event_position = 0
         message
       end
 

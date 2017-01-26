@@ -8,8 +8,8 @@ module DataAggregation::Index
       EventSource::EventStore::HTTP::Session.configure self
     end
 
-    handle Messages::UpdateStarted do |update_started, event_data|
-      Update::Start.(update_started, event_data, session: session)
+    handle Messages::UpdateStarted do |update_started|
+      Update::Start.(update_started, session: session)
     end
   end
 end

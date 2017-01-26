@@ -16,8 +16,8 @@ module DataAggregation::Index
         @category = category
       end
 
-      def self.build(update_started, event_data, session: nil)
-        stream_name = event_data.stream_name
+      def self.build(update_started, session: nil)
+        stream_name = update_started.metadata.stream_name
         category = StreamName.get_category stream_name
 
         instance = new update_started, category
