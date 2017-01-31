@@ -66,7 +66,6 @@ module DataAggregation::Index
             include EventStore::Consumer::ErrorHandler
 
             handle Handler
-            #category StreamName.index_category(category)
           end
           const_set :Index, index_consumer
 
@@ -75,7 +74,6 @@ module DataAggregation::Index
             include EventStore::Consumer::ErrorHandler
 
             handle EventList::Handler
-            #category StreamName.event_list_category(category)
           end
           const_set :EventList, event_list_consumer
 
@@ -84,7 +82,6 @@ module DataAggregation::Index
             include EventStore::Consumer::ErrorHandler
 
             handle ReferenceList::Handler
-            #category StreamName.reference_list_category(category)
           end
           const_set :ReferenceList, reference_list_consumer
 
@@ -93,7 +90,6 @@ module DataAggregation::Index
             include EventStore::Consumer::ErrorHandler
 
             handle Update::Handler
-            #category StreamName.update_category(category)
           end
           const_set :Update, update_consumer
         end
