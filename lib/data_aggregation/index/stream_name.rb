@@ -11,7 +11,7 @@ module DataAggregation::Index
     def event_list_category_stream_name(category)
       category = event_list_category category
 
-      Messaging::StreamName.category_stream_name category
+      "$ce-#{category}"
     end
 
     def event_list_category(category)
@@ -31,7 +31,7 @@ module DataAggregation::Index
     def index_category_stream_name(category)
       category = index_category category
 
-      Messaging::StreamName.category_stream_name category
+      "$ce-#{category}"
     end
 
     def reference_list_stream_name(entity_id, category)
@@ -47,7 +47,7 @@ module DataAggregation::Index
     def reference_list_category_stream_name(category)
       category = reference_list_category category
 
-      Messaging::StreamName.category_stream_name category
+      "$ce-#{category}"
     end
 
     def update_stream_name(update_id, category)
@@ -63,7 +63,7 @@ module DataAggregation::Index
     def update_category_stream_name(category)
       category = update_category category
 
-      Messaging::StreamName.category_stream_name category
+      "$ce-#{category}"
     end
 
     def stream_name(stream_id, category)
