@@ -4,7 +4,7 @@ entity_id = Identifier::UUID::Random.get
 related_entity_id = Identifier::UUID::Random.get
 related_entity_stream_name = "someRelatedEntity-#{related_entity_id}"
 
-event = Controls::SourceEvent.example
+event = Controls::SourceEvent.example entity_id: entity_id
 
 publish_event = Controls::Index::PublishEvent.build
 publish_event.(entity_id, event)
