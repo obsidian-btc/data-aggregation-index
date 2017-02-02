@@ -65,7 +65,7 @@ module DataAggregation::Index
             include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
 
-            handle Handler
+            handler Handler
           end
           const_set :Index, index_consumer
 
@@ -73,7 +73,7 @@ module DataAggregation::Index
             include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
 
-            handle EventList::Handler
+            handler EventList::Handler
           end
           const_set :EventList, event_list_consumer
 
@@ -81,7 +81,7 @@ module DataAggregation::Index
             include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
 
-            handle ReferenceList::Handler
+            handler ReferenceList::Handler
           end
           const_set :ReferenceList, reference_list_consumer
 
@@ -89,7 +89,7 @@ module DataAggregation::Index
             include Consumer::EventStore
             include EventStore::Consumer::ErrorHandler
 
-            handle Update::Handler
+            handler Update::Handler
           end
           const_set :Update, update_consumer
         end
